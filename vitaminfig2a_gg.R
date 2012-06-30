@@ -11,5 +11,6 @@ ylab=expression(paste(alpha,'-tocoferol, µg/g DW'))
 xlab='Species'
 df=data.frame(species=factor(c(rn,rn),levels=rn),dim=factor(dim),dataset=c(li,sh),error=c(seli,sesh),type=factor(type))
 
+if(!exists('plottype'))plottype='win'
 
-ggvitaplot(df,xlab,ylab)
+ggvitaplot(df,xlab,ylab,plottype,'vita2a')

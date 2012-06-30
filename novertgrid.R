@@ -1,3 +1,4 @@
+library(ggplot2)
 guide_grid_orig <- guide_grid
 # Create the replacement function
 guide_grid_no_vline <- function(theme, x.minor, x.major, y.minor, y.major) {
