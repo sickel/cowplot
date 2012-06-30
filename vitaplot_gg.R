@@ -8,6 +8,7 @@ ggvitaplot<-function(data,xlab,ylab,type="win",filename='output'){
   }else{
     png(paste(filename,'.png',sep=''),width=916,height=629,res=res)
   }
+  max=max(df$dataset+df$error)*1.05
   dataplot=ggplot(data=df, aes(x=species,y=dataset,fill=dim))
   dataplot=dataplot+geom_bar(position=position_dodge())
   dataplot=dataplot+scale_fill_manual(values=c("#BBBBBB", "#444444"))
@@ -18,7 +19,7 @@ ggvitaplot<-function(data,xlab,ylab,type="win",filename='output'){
   dataplot=dataplot+ opts(panel.background = theme_rect(fill='white', colour='white'))
   dataplot=dataplot+ opts(panel.grid.major = theme_line(colour = "gray"))
   # dataplot=dataplot+ coord_cartesian(ylim=c(3, 400))
-  dataplot=dataplot+ coord_cartesian(ylim=c(0, 400))
+  dataplot=dataplot+ coord_cartesian(ylim=c(0, max))
   dataplot=dataplot + opts(axis.text.x = theme_text(colour = "black",angle=90),axis.text.y = theme_text(colour = "black"))
   dataplot=dataplot + opts(legend.key.size = unit(0.3, "cm"))
   print(dataplot)
