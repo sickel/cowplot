@@ -7,11 +7,12 @@ sert=c(13.9,16,7,1.4)
 dim=c(lapply(c('Vegetative tissue'),rep,length(rn))[[1]],lapply(c('Reproductive tissue'),rep,length(rn))[[1]])
 filename='vita2d'
 
-ylab=expression(paste(alpha,'-tocoferol, µg/g DW'))
+ylab=expression(paste(alpha,'-tocopherol, µg/g DW'))
 xlab='Species'
-df=data.frame(species=factor(c(rn,rn),levels=rn),dim=factor(dim),dataset=c(vt,rt),error=c(sevt,sert))
+df=data.frame(species=factor(c(rn,rn),levels=rn),dim=factor(dim,c('Vegetative tissue','Reproductive tissue')),dataset=c(vt,rt),error=c(sevt,sert))
 
 if(!exists('plottype'))plottype='win'
-
-ggvitaplot(df,xlab,ylab,plottype,filename,0.5)
+submark="d)"
+max=174
+ggvitaplot(df,xlab,ylab,plottype,filename,0.5,submark)
 

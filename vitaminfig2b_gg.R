@@ -6,13 +6,14 @@ seju=c(14.7,65.2,75.9,3.9,5,2.7)
 seau=c(14.8,16.9,13.2,7.1,8.5,0.7)
 filename='vita2b'
 
-ylab=expression(paste(alpha,'-tocoferol, µg/g DW'))
+ylab=expression(paste(alpha,'-tocopherol, µg/g DW'))
 xlab='Species'
-df=data.frame(species=factor(c(rn,rn),levels=rn),dim=factor(dim),dataset=c(ju,au),error=c(seju,seau))
+df=data.frame(species=factor(c(rn,rn),levels=rn),dim=factor(dim,levels=c("July","August")),dataset=c(ju,au),error=c(seju,seau))
 
 if(!exists('plottype'))plottype='win'
-
-ggvitaplot(df,xlab,ylab,plottype,filename,0.6)
+submark="b)"
+max=500
+ggvitaplot(df,xlab,ylab,plottype,filename,0.6,submark)
 
 
 

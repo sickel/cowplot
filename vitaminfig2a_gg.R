@@ -7,10 +7,10 @@ seli=c(9.1,13.3,73.4,10.5,5.9,40.2,1.8,5,1.7,8.7)
 sesh=c(7.7,84.6,54.2,4.4,11.3,17.4,0,13.7,0.2,3.8)
 
 
-ylab=expression(paste(alpha,'-tocoferol, µg/g DW'))
+ylab=expression(paste(alpha,'-tocopherol, µg/g DW'))
 xlab='Species'
-df=data.frame(species=factor(c(rn,rn),levels=rn),dim=factor(dim),dataset=c(li,sh),error=c(seli,sesh),type=factor(type))
-
+df=data.frame(species=factor(c(rn,rn),levels=rn),dim=factor(dim,levels=c("Light","Shade")),dataset=c(li,sh),error=c(seli,sesh),type=factor(type))
+submark="a)"
+max=500
 if(!exists('plottype'))plottype='win'
-
-ggvitaplot(df,xlab,ylab,plottype,'vita2a')
+ggvitaplot(df,xlab,ylab,plottype,'vita2a',0.8,'a)')
