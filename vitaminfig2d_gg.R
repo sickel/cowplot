@@ -13,5 +13,5 @@ df=data.frame(species=factor(c(rn,rn),levels=rn),dim=factor(dim),dataset=c(vt,rt
 
 if(!exists('plottype'))plottype='win'
 
-ggvitaplot(df,xlab,ylab,plottype,filename)
+ggvitaplot(df,xlab,ylab,plottype,filename,0.5)
 
