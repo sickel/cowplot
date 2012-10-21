@@ -29,10 +29,31 @@ travel=function(dists,delta){
 }
 
 
-distplot=function(data,delta){
+fetchprecip=function(cowid,date){
+#  sql=paste("select distinct lokalitet from gpspoint where cowid=",cowid," and datetime::date='",date,"'")
+
+ sql=paste("select distinct metobs.datetime::date as date, metobs.datetime::time as time,metstationid,\"RR_24\",\"RR_12\"
+  from metobs,metstation,gpspoint
+  where cowid=",cowid,"and gpspoint.datetime::date='",date,"' and
+  gpspoint.lokalitet=metstation.lokalitet and metstation.id=metstationid
+  and (metobs.datetime::date='",date,"' or metobs.datetime::date-1='",date,"') and  not (\"RR_24\" is null and \"RR_12\" is null) order by metstationid,date,time")
+
+ rs=dbSendQuery(con,statement=sql)
+  data=fetch(rs,n=-1)
+  return(data)	
+ }
+
+  
+  #select "RR_24","RR_12"
+  #from metobs,metstation,gpspoint
+  #where cowid=286 and gpspoint.datetime::date='2008-08-11' and gpspoint.lokalitet=metstation.lokalitet and metstation.id=metstationid and metobs.datetime::date='2008-08-11' 
+#}
+
+distplot=function(data,delta,date,cowid){
   dists5s=distance(data,1)
   dists=distance(data,delta)
-  plot(data$datetime,dists,col="1",type='l')
+  main=paste(date,"- cow",cowid)
+  plot(data$datetime,dists,col="1",type='l',xlab='',ylab="meters",main=main)
   trav=travel(dists5s,delta)
   lines(data$datetime,trav,col="2")
   data[,paste("dists",delta/12,"min",sep='')]=dists
