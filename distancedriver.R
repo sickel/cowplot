@@ -13,5 +13,5 @@ data=fetchdata(cowid,date)
 plot(data$x,data$y)
 
 delta=12*5
-distplot(data,delta)
+data=distplot(data,delta)
 
