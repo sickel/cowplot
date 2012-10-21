@@ -43,12 +43,15 @@ fetchprecip=function(cowid,date){
   return(data)	
  }
 
-  
-  #select "RR_24","RR_12"
-  #from metobs,metstation,gpspoint
-  #where cowid=286 and gpspoint.datetime::date='2008-08-11' and gpspoint.lokalitet=metstation.lokalitet and metstation.id=metstationid and metobs.datetime::date='2008-08-11' 
-#}
 
+precip=function(precip,date){
+  pre=precip[precip$date==date & precip$time=='22:00:00',5 ]
+  if(length(pre)>0)
+  return(mean(pre))
+  # Trigger an error here. Use some of the info from 24h precipitation to estimate
+}
+  
+ 
 distplot=function(data,delta,date,cowid){
   dists5s=distance(data,1)
   dists=distance(data,delta)
