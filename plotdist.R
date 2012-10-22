@@ -50,15 +50,30 @@ precip=function(precip,date){
   return(mean(pre))
   # Trigger an error here. Use some of the info from 24h precipitation to estimate
 }
-  
+
+
+fetchobs=function(cowid,date){
+  sql=paste("select timestamp, obstype,0 as n from observation
+where timestamp::date='",date,"'and cowid=",cowid)
+  rs=dbSendQuery(con,statement=sql)
+  data=fetch(rs,n=-1)
+  data$obstype=as.factor(data$obstype)
+  # TODO: Time zone adjustment - these are local time, gps are UTC
+  return(data)	
+}
+
  
 distplot=function(data,delta,date,cowid){
   dists5s=distance(data,1)
   dists=distance(data,delta)
   main=paste(date,"- cow",cowid)
-  plot(data$datetime,dists,col="1",type='l',xlab='',ylab="meters",main=main)
+  prec=precip(fetchprecip(cowid,date),date)
+  main=paste(date,"- cow",cowid,'-',prec,"mm -",delta/12,'min') 
   trav=travel(dists5s,delta)
+  ymax=max(trav,na.rm=TRUE)
+  plot(data$datetime,dists,col="1",type='l',xlab='',ylab="meters",main=main,ylim=c(0,ymax))
   lines(data$datetime,trav,col="2")
+  
   data[,paste("dists",delta/12,"min",sep='')]=dists
   data[,paste("trav",delta/12,"min",sep='')]=trav
   invisible(data)
