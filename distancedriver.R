@@ -1,6 +1,7 @@
 
 library(DBI)
 library(RPostgreSQL)
+source('gpslib.R')
 drv=dbDriver("PostgreSQL")
 con=dbConnect(drv,"postgres","postgres","localhost","beitedata")
 
