@@ -15,4 +15,5 @@ plot(data$x,data$y)
 
 delta=12*5
 data=distplot(data,delta,date,cowid)
-
+obs=fetchobs(cowid,date)
+points(obs$timestamp,obs$n,col=obs$obstype)
