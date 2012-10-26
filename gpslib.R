@@ -68,36 +68,40 @@ where timestamp::date='",date,"'and cowid=",cowid)
 
 #
 # Calculates travelled distance and movement over the last <delta> timesteps.
+# Plots the data - TODO Move the plot out into a separate function
 #
-distplot=function(data,delta,date,cowid){
+
+calcdist=function(data,delta,date,cowid){
 # Reuses dists5s if already defined, calculates if needed
   if(!(exists("dists5s",data))){
     data$dists5s=distance(data,1)
   }
   dists=distance(data,delta)
-  prec=precip(fetchprecip(cowid,date),date)
-  main=paste(date,"- cow",cowid,'-',prec,"mm -",delta/12,'min') 
+  #prec=precip(fetchprecip(cowid,date),date)
+  #main=paste(date,"- cow",cowid,'-',prec,"mm -",delta/12,'min') 
   trav=travel(data$dists5s,delta)
   data[,paste("dists",delta/12,"min",sep='')]=dists
   data[,paste("trav",delta/12,"min",sep='')]=trav
-  ymax=max(trav,na.rm=TRUE)
-  plot(data$datetime,dists,col="1",type='l',xlab='',ylab="meters",main=main,ylim=c(0,ymax))
-  lines(data$datetime,trav,col="2")
-  invisible(data)
+  #max=max(trav,na.rm=TRUE)
+  #lot(data$datetime,dists,col="1",type='l',xlab='',ylab="meters",main=main,ylim=c(0,ymax))
+  #ines(data$datetime,trav,col="2")
+  return(data)
 }
 
-distplot2=function(data,delta){
+distplot=function(set,delta){
   # TODO: Funker ikke ennå - se på definisjon av kolonner
   coltime=paste(delta/12,'min',sep='')
-  dists=paste('dists',coltime,sep='')
+ #cat(coltime,"\n")
+  dcol=paste('dists',coltime,sep='')
+  tcol=paste('trav',coltime,sep='')
   # TODO: Kjør distplot(med nytt navn) om kolonnene ikke finnes.
-  cat(dists)
-  cat(trav)
-  trav=paste('trav',coltime,sep='')
-  ymax=max(trav,na.rm=TRUE)
-  plot(data$datetime,data[dists],col="1",type='l',xlab='',ylab="meters",main=main,ylim=c(0,ymax))
-  lines(data$datetime,data[trav],col="2")
-  
+ #cat(dcol,"->",length(set[,dcol]),"\n")
+ #cat(tcol,"->",length(set[,tcol]),"\n")
+  ymax=max(set[tcol],na.rm=TRUE)
+  prec=precip(fetchprecip(cowid,date),date)
+  main=paste(max(set$date),"- cow",max(set$cowid),'-',prec,"mm -",delta/12,'min') 
+  plot(set$datetime,set[,dcol],col="1",type='l',xlab='',ylab="meters",main=main,ylim=c(0,ymax))
+  lines(set$datetime,set[,tcol],col="2")
 }
 
 
