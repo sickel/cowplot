@@ -88,7 +88,7 @@ calcdist=function(data,delta,date,cowid){
   return(data)
 }
 
-distplot=function(set,delta){
+distplot=function(set,delta,obs=c()){
   # TODO: Funker ikke ennå - se på definisjon av kolonner
   coltime=paste(delta/12,'min',sep='')
  #cat(coltime,"\n")
@@ -102,6 +102,13 @@ distplot=function(set,delta){
   main=paste(max(set$date),"- cow",max(set$cowid),'-',prec,"mm -",delta/12,'min') 
   plot(set$datetime,set[,dcol],col="1",type='l',xlab='',ylab="meters",main=main,ylim=c(0,ymax))
   lines(set$datetime,set[,tcol],col="2")
+  if(length(obs)>0){
+    ot=levels(obs$obstype)
+    points(obs$timestamp,obs$n,col=obs$obstype)
+    legend(min(data$datetime),y=ymax,c('movement','displacement',ot),lty=c('solid','solid',NA,NA,NA),col=c(2,1,1:length(ot)),pch=c(NA,NA,rep(1,length(ot))))
+  }else{
+    legend(min(data$datetime),y=ymax,c('movement','displacement'),lty=c('solid','solid'),col=c(2,1))
+  }
 }
 
 

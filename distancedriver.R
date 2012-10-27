@@ -1,6 +1,3 @@
-
-
-
 library(DBI)
 library(RPostgreSQL)
 source('gpslib.R')
@@ -17,6 +14,6 @@ plot(data$x,data$y)
 
 delta=12*5
 data=calcdist(data,delta,date,cowid)
-distplot(data,delta,date,cowid)
+distplot(data,delta)
 obs=fetchobs(cowid,date)
 points(obs$timestamp,obs$n,col=obs$obstype)
