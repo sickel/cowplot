@@ -118,3 +118,15 @@ fetchdata=function(cowid,date){
   data=fetch(rs,n=-1)
   return(data)	
 }
+
+
+db2plot=function(cowid,date,deltamin,data=c()){
+  delta=deltamin*12
+  if(length(data)==0)
+    data=fetchdata(cowid,date)
+  plot(data$x,data$y)
+  data=calcdist(data,delta,date,cowid)
+  obs=fetchobs(cowid,date)
+  distplot(data,delta,obs)
+  invisible(data)
+}
