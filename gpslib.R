@@ -80,16 +80,25 @@ calcdist=function(data,delta,date,cowid){
   #prec=precip(fetchprecip(cowid,date),date)
   #main=paste(date,"- cow",cowid,'-',prec,"mm -",delta/12,'min') 
   trav=travel(data$dists5s,delta)
-  data[,paste("dists",delta/12,"min",sep='')]=dists
-  data[,paste("trav",delta/12,"min",sep='')]=trav
+  dcol=paste("dists",delta/12,"min",sep='')
+  tcol=paste("trav",delta/12,"min",sep='')
+  data[,dcol]=dists
+  data[,tcol]=trav
+  rcol=paste("rel",delta/12,"min",sep='')
+  data[,rcol]=data[,tcol]/data[,dcol]
   #max=max(trav,na.rm=TRUE)
   #lot(data$datetime,dists,col="1",type='l',xlab='',ylab="meters",main=main,ylim=c(0,ymax))
   #ines(data$datetime,trav,col="2")
   return(data)
 }
 
+plotr=function(data,min){
+  rcol=paste("rel",min,"min",sep='')
+  lines(data$datetime,data[,rcol]*5,col=5,lty=2)
+}
+
+
 distplot=function(set,delta,obs=c()){
-  # TODO: Funker ikke ennå - se på definisjon av kolonner
   coltime=paste(delta/12,'min',sep='')
  #cat(coltime,"\n")
   dcol=paste('dists',coltime,sep='')
@@ -105,7 +114,9 @@ distplot=function(set,delta,obs=c()){
   if(length(obs)>0){
     ot=levels(obs$obstype)
     points(obs$timestamp,obs$n,col=obs$obstype)
-    legend(min(data$datetime),y=ymax,c('movement','displacement',ot),lty=c('solid','solid',NA,NA,NA),col=c(2,1,1:length(ot)),pch=c(NA,NA,rep(1,length(ot))))
+    legend(min(set$datetime),y=ymax,c('movement','displacement',ot),
+           lty=c('solid','solid',NA,NA,NA),col=c(2,1,1:length(ot)),
+           pch=c(NA,NA,rep(1,length(ot))))
   }else{
     legend(min(data$datetime),y=ymax,c('movement','displacement'),lty=c('solid','solid'),col=c(2,1))
   }
@@ -130,3 +141,10 @@ db2plot=function(cowid,date,deltamin,data=c()){
   distplot(data,delta,obs)
   invisible(data)
 }
+
+logdays=function(){
+  sql="select * from cowid_date_location where not cowid is null order by date,lokalitet";
+  rs=dbSendQuery(con,statement=sql)
+  data=fetch(rs,n=-1)
+  return(data)	
+}  
