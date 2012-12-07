@@ -103,6 +103,8 @@ plotr=function(data,min,f=5){
 # Plots movement and displacement for a given data set.
 #
 distplot=function(set,delta,obs=c()){
+  pal=palette()
+  palette("default")
   coltime=paste(delta/12,'min',sep='')
   dcol=paste('dists',coltime,sep='')
   tcol=paste('trav',coltime,sep='')
@@ -121,6 +123,7 @@ distplot=function(set,delta,obs=c()){
   }else{
     legend(min(data$datetime),y=ymax,c('movement','displacement'),lty=c('solid','solid'),col=c(2,1))
   }
+  palette(pal)
 }
 
 
@@ -134,6 +137,9 @@ fetchdata=function(cowid,date){
   return(data)	
 }
 
+
+
+
 #
 # Utility-function - fetches data and plots it
 #
@@ -141,10 +147,12 @@ db2plot=function(cowid,date,deltamin,data=c()){
   delta=deltamin*12
   if(length(data)==0)
     data=fetchdata(cowid,date)
-  olddev=dev.set()
-  dev.set(3)
   plot(data$x,data$y)
-  dev.set(olddev)
+  if(length(dev.list())>1){
+    dev.next()
+  }else{
+    dev.new()
+  }
   data=calcdist(data,delta,date,cowid)
   obs=fetchobs(cowid,date)
   distplot(data,delta,obs)
@@ -182,3 +190,42 @@ plotxyfilter=function(data,min,lim,set='ratio',col=2,gt=TRUE){
     points(data$x[data[,rcol]<lim],data$y[data[,rcol]<lim],col=col)
   }
 }
+
+
+herddist=function(date,dm){
+  logs=logdays(date=date)
+  herd=logs$cowid
+  dev.new()
+  def.par <- par(no.readonly = TRUE)
+  nf=layout(matrix(c(1,2,3,4), 2, 2, byrow=TRUE), respect=TRUE)
+  layout.show(nf)
+  
+  for(cow in herd){
+    data=fetchdata(cow,date)
+    data=calcdist(data,15*12,date,cow)
+    obs=fetchobs(cow,date)
+    distplot(data,15*12,obs)
+    plotr(data,15)
+  }
+  par(def.par)
+}
+
+herdxy=function(date,dm,slow=10,fast=200,set='trav'){
+  logs=logdays(date=date)
+  herd=logs$cowid
+  dev.new()
+  def.par <- par(no.readonly = TRUE)
+  nf=layout(matrix(c(1,2,3,4), 2, 2, byrow=TRUE), respect=TRUE)
+  layout.show(nf)
+  for(cow in herd){
+    data=fetchdata(cow,date)
+    data=calcdist(data,15*12,date,cow)
+    obs=fetchobs(cow,date)
+    plot(data$x,data$y)
+    plotxyfilter(data,dm,lim=fast,set=set,col='wheat')
+    plotxyfilter(data,dm,lim=slow,set=set,col='steelblue',gt=FALSE)
+  }
+  par(def.par)
+}
+
+
