@@ -7,5 +7,6 @@ con=dbConnect(drv,"postgres","postgres","localhost","beitedata")
 
 cowid=286
 date='2008-08-11'
+tstep=15
 
-data=db2plot(cowid,date,5)
+data=db2plot(cowid,date,tstep)
