@@ -84,7 +84,6 @@ calcdist=function(data,delta,date,cowid){
   tcol=paste("trav",delta/12,"min",sep='')
   data[,dcol]=dists
   data[,tcol]=trav
-  rcol=paste("rel",delta/12,"min",sep='')
   # ratio between travel distance and displacement 
   rcol=paste("ratio",delta/12,"min",sep='')
   data[,rcol]=data[,tcol]/data[,dcol]
@@ -95,6 +94,10 @@ calcdist=function(data,delta,date,cowid){
 # Plots the ratios for a given timestep
 #
 
+plotr=function(data,min,f=5){
+  rcol=paste("ratio",min,"min",sep='')
+  lines(data$datetime,data[,rcol]*f,col=8,lty=2)
+}
 
 #
 # Plots movement and displacement for a given data set.
@@ -131,21 +134,51 @@ fetchdata=function(cowid,date){
   return(data)	
 }
 
-
+#
+# Utility-function - fetches data and plots it
+#
 db2plot=function(cowid,date,deltamin,data=c()){
   delta=deltamin*12
   if(length(data)==0)
     data=fetchdata(cowid,date)
+  olddev=dev.set()
+  dev.set(3)
   plot(data$x,data$y)
+  dev.set(olddev)
   data=calcdist(data,delta,date,cowid)
   obs=fetchobs(cowid,date)
   distplot(data,delta,obs)
   invisible(data)
 }
 
-logdays=function(){
-  sql="select * from cowid_date_location where not cowid is null order by date,lokalitet";
+#
+# Utility: Lists available data
+#
+
+logdays=function(cowid='',date=''){
+  select=''
+  if(cowid>''){
+    select=paste(" and cowid=",cowid,sep='')
+  }
+  if(date>''){
+    select=paste(select," and date='",date,"'",sep='')
+  }
+  sql=paste("select * from cowid_date_location where not cowid is null",select," order by date,lokalitet",sep='');
   rs=dbSendQuery(con,statement=sql)
   data=fetch(rs,n=-1)
   return(data)	
 }  
+
+
+#
+# Plots a filtered xy-plot.
+#
+
+plotxyfilter=function(data,min,lim,set='ratio',col=2,gt=TRUE){
+  rcol=paste(set,min,"min",sep='')
+  if(gt){
+    points(data$x[data[,rcol]>lim],data$y[data[,rcol]>lim],col=col)
+  }else{
+    points(data$x[data[,rcol]<lim],data$y[data[,rcol]<lim],col=col)
+  }
+}
