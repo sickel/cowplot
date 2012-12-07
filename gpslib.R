@@ -29,9 +29,11 @@ travel=function(dists,delta){
 }
 
 
-fetchprecip=function(cowid,date){
-#  sql=paste("select distinct lokalitet from gpspoint where cowid=",cowid," and datetime::date='",date,"'")
+#
+# Fetches precipitation data for a given day and area (through the cowid)
+#
 
+fetchprecip=function(cowid,date){
  sql=paste("select distinct metobs.datetime::date as date, metobs.datetime::time as time,metstationid,\"RR_24\",\"RR_12\"
   from metobs,metstation,gpspoint
   where cowid=",cowid,"and gpspoint.datetime::date='",date,"' and
@@ -59,7 +61,7 @@ fetchobs=function(cowid,date){
   sql=paste("select timestamp+'-2:00' as timestamp, obstype,0 as n from observation
 where timestamp::date='",date,"'and cowid=",cowid)
   # Quick and dirty time zone correction - all other data points are in UTC
-  # The n column (always 0 is just added to simplify plotting)
+  # The n column (always 0) is just added to simplify plotting
   rs=dbSendQuery(con,statement=sql)
   data=fetch(rs,n=-1)
   data$obstype=as.factor(data$obstype)
@@ -68,44 +70,40 @@ where timestamp::date='",date,"'and cowid=",cowid)
 
 #
 # Calculates travelled distance and movement over the last <delta> timesteps.
-# Plots the data - TODO Move the plot out into a separate function
+# 
 #
 
 calcdist=function(data,delta,date,cowid){
-# Reuses dists5s if already defined, calculates if needed
+  # Reuses dists5s if already defined, calculates if needed
   if(!(exists("dists5s",data))){
     data$dists5s=distance(data,1)
   }
   dists=distance(data,delta)
-  #prec=precip(fetchprecip(cowid,date),date)
-  #main=paste(date,"- cow",cowid,'-',prec,"mm -",delta/12,'min') 
   trav=travel(data$dists5s,delta)
   dcol=paste("dists",delta/12,"min",sep='')
   tcol=paste("trav",delta/12,"min",sep='')
   data[,dcol]=dists
   data[,tcol]=trav
   rcol=paste("rel",delta/12,"min",sep='')
+  # ratio between travel distance and displacement 
+  rcol=paste("ratio",delta/12,"min",sep='')
   data[,rcol]=data[,tcol]/data[,dcol]
-  #max=max(trav,na.rm=TRUE)
-  #lot(data$datetime,dists,col="1",type='l',xlab='',ylab="meters",main=main,ylim=c(0,ymax))
-  #ines(data$datetime,trav,col="2")
   return(data)
 }
 
-plotr=function(data,min){
-  rcol=paste("rel",min,"min",sep='')
-  lines(data$datetime,data[,rcol]*5,col=5,lty=2)
-}
+#
+# Plots the ratios for a given timestep
+#
 
 
+#
+# Plots movement and displacement for a given data set.
+#
 distplot=function(set,delta,obs=c()){
   coltime=paste(delta/12,'min',sep='')
- #cat(coltime,"\n")
   dcol=paste('dists',coltime,sep='')
   tcol=paste('trav',coltime,sep='')
-  # TODO: Kjør distplot(med nytt navn) om kolonnene ikke finnes.
- #cat(dcol,"->",length(set[,dcol]),"\n")
- #cat(tcol,"->",length(set[,tcol]),"\n")
+# TODO: Check if columns exist. Error message or recalc if not.
   ymax=max(set[tcol],na.rm=TRUE)
   prec=precip(fetchprecip(cowid,date),date)
   main=paste(max(set$date),"- cow",max(set$cowid),'-',prec,"mm -",delta/12,'min') 
@@ -123,6 +121,9 @@ distplot=function(set,delta,obs=c()){
 }
 
 
+#
+# Fetches a dataset for a given cow and date
+#
 fetchdata=function(cowid,date){
   sql=paste('select * from gps_coord where cowid=',cowid," and date='",date,"'",sep='')
   rs=dbSendQuery(con,statement=sql)
