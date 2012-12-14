@@ -1,21 +1,21 @@
 library(DBI)
 library(RPostgreSQL)
 source('gpslib.R')
-drv=dbDriver("PostgreSQL")
-con=dbConnect(drv,"postgres","postgres","localhost","beitedata")
-
-
-rgb(81/255,107/255,152/255)->col1
-col2="#4eadce"
-col3="#a7b808"
-col4="#4f3d25"
-col5="#9a192b"
-bioforskpalette=c(col1,col2,col3,col4,col5)
-
-
-# palette(rainbow(30))
-cowid=286
-date='2008-08-11'
-tstep=15
+if(!(exists('drv'))){
+  drv=dbDriver("PostgreSQL")
+  con=dbConnect(drv,"postgres","postgres","localhost","beitedata")
+}
+bioforskpalette=c( "#516B98","#4f3d25","#9a192b","#4eadce","#a7b808");
+par(ps=15,lwd=1.5)
+if(!(exists('cowid'))){
+  cowid=286
+}
+if(!(exists('date'))){
+  date='2008-08-11'
+}
+if(!(exists('tstep'))){
+  tstep=15
+}
 
 data=db2plot(cowid,date,tstep)
+

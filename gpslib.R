@@ -106,12 +106,11 @@ plotr=function(data,min,f=5){
 # Plots movement and displacement for a given data set.
 #
 distplot=function(set,delta,obs=c()){
- # pal=palette()
- # palette("default")
+  legendoffset=2.8
   coltime=paste(delta/12,'min',sep='')
   dcol=paste('dists',coltime,sep='')
   tcol=paste('trav',coltime,sep='')
-# TODO: Check if columns exist. Error message or recalc if not.
+  # TODO: Check if columns exist. Error message or recalc if not.
   ymax=max(set[tcol],na.rm=TRUE)
   prec=precip(fetchprecip(cowid,date),date)
   main=paste(max(set$date),"- cow",max(set$cowid),'-',prec,"mm -",delta/12,'min') 
@@ -119,14 +118,13 @@ distplot=function(set,delta,obs=c()){
   lines(set$datetime,set[,tcol],col="2")
   if(length(obs)>0){
     ot=levels(obs$obstype)
-    points(obs$timestamp,obs$n,col=obs$obstype)
-    legend(min(set$datetime),y=ymax,c('movement','displacement',ot),
-           lty=c('solid','solid',NA,NA,NA),col=c(2,1,1:length(ot)),
-           pch=c(NA,NA,rep(1,length(ot))))
+    points(obs$timestamp,obs$n-10,col=as.integer(obs$obstype)+2,pch=7)
+    legend(max(set$datetime)-(3600*legendoffset),y=ymax,c('movement','displacement',ot),
+           lty=c('solid','solid',NA,NA,NA),col=c(2,1,3:(length(ot)+2)),
+           pch=c(NA,NA,rep(7,length(ot))))
   }else{
-    legend(min(data$datetime),y=ymax,c('movement','displacement'),lty=c('solid','solid'),col=c(2,1))
+    legend(max(data$datetime)-3600*legendoffset,y=ymax,c('movement','displacement'),lty=c('solid','solid'),col=c(2,1))
   }
-  #palette(pal)
 }
 
 
@@ -219,7 +217,6 @@ herdxy=function(date,dm,slow=10,fast=200,set='trav'){
   dev.new()
   def.par <- par(no.readonly = TRUE)
   nf=layout(matrix(c(1,2,3,4), 2, 2, byrow=TRUE), respect=TRUE)
-  # layout.show(nf)
   for(cow in herd){
     data=fetchdata(cow,date)
     data=calcdist(data,15*12,date,cow)
