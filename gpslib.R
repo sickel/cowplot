@@ -14,10 +14,13 @@ distance=function(data,delta){
 }
 
 
+
+
+
 #
 # Calculates the distance travelled the last <delta> logsteps 
 # Input: length travelled for each logstep.
-#
+# 
 travel=function(dists,delta){
   l=length(dists)
   trav=c()  
@@ -103,8 +106,8 @@ plotr=function(data,min,f=5){
 # Plots movement and displacement for a given data set.
 #
 distplot=function(set,delta,obs=c()){
-  pal=palette()
-  palette("default")
+ # pal=palette()
+ # palette("default")
   coltime=paste(delta/12,'min',sep='')
   dcol=paste('dists',coltime,sep='')
   tcol=paste('trav',coltime,sep='')
@@ -123,7 +126,7 @@ distplot=function(set,delta,obs=c()){
   }else{
     legend(min(data$datetime),y=ymax,c('movement','displacement'),lty=c('solid','solid'),col=c(2,1))
   }
-  palette(pal)
+  #palette(pal)
 }
 
 
