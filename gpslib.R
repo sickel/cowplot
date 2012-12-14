@@ -216,7 +216,7 @@ herdxy=function(date,dm,slow=10,fast=200,set='trav'){
   dev.new()
   def.par <- par(no.readonly = TRUE)
   nf=layout(matrix(c(1,2,3,4), 2, 2, byrow=TRUE), respect=TRUE)
-  layout.show(nf)
+  # layout.show(nf)
   for(cow in herd){
     data=fetchdata(cow,date)
     data=calcdist(data,15*12,date,cow)
