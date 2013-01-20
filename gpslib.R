@@ -114,11 +114,11 @@ distplot=function(set,delta,obs=c()){
   ymax=max(set[tcol],na.rm=TRUE)
   prec=precip(fetchprecip(cowid,date),date)
   main=paste(max(set$date),"- cow",max(set$cowid),'-',prec,"mm -",delta/12,'min') 
-  plot(set$datetime,set[,dcol],col="1",type='l',xlab='',ylab="meters",main=main,ylim=c(0,ymax))
+  plot(set$datetime,set[,dcol],col="1",type='l',xlab='UTC-time',ylab="meters",main=main,ylim=c(0,ymax))
   lines(set$datetime,set[,tcol],col="2")
   if(length(obs)>0){
     ot=levels(obs$obstype)
-    points(obs$timestamp,obs$n-10,col=as.integer(obs$obstype)+2,pch=7)
+    points(obs$timestamp,obs$n-(ymax/50),col=as.integer(obs$obstype)+2,pch=7)
     legend(max(set$datetime)-(3600*legendoffset),y=ymax,c('movement','displacement',ot),
            lty=c('solid','solid',NA,NA,NA),col=c(2,1,3:(length(ot)+2)),
            pch=c(NA,NA,rep(7,length(ot))))
