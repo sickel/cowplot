@@ -35,6 +35,15 @@ fetchmap=function(sted){
 }
 
 
+# Usage:
+# geilodates: from logdates
+# geilo: map, from fetchmap
+#  for(d in geilodates){
+#  date=format(as.Date(d,origin="1970-01-01"))
+#   mapdate(date,geilo)
+#  dev.copy2pdf(file=paste('Geilo_',date,'.pdf',sep=''))
+# }
+
 
 mapdate=function(date,map){
   herd=logdays('',date)
