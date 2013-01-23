@@ -13,9 +13,48 @@ distance=function(data,delta){
   return(dists)
 }
 
+alldists=function(){
+  sets=logdays()
+  dist=c()
+  for(i in c(1:length(sets[,1])))
+    dist=c(dist,distprday(sets[i,1],sets[i,2]))
+  sets$dist=dist
+  return(sets)
+}
+
+
+# Fetches the background map
+
+fetchmap=function(sted){
+  if (sted=="Geilo")
+    layer="Geilo_complete_31may2012_utm32_00"
+  else
+    layer="Valdres_complete_03jun2012_utm32"
+  map=readOGR("PG:dbname=beitedata user=postgres password=postgres",layer=layer)
+  return(map)
+}
 
 
 
+mapdate=function(date,map){
+  herd=logdays('',date)
+  herd=herd[,1]
+  ns= c(1:length(herd))
+  plot(map)
+  for(i in ns){
+    data=fetchdata(herd[i],date)
+    lines(data$x,data$y,col=i+1,lwd=3)
+  }
+  title(main=date)
+  legend(bbox(map)[1,1]-150,bbox(map)[2,2]+400,legend=herd,lty=1,lwd=2,col=c(1:3)+1)
+}
+
+distprday=function(cowid,date){
+    data=fetchdata(cowid,date)
+    data=data[c(TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE),] # Once pr minute;
+    dist=sum(distance(data,1),na.rm=TRUE)
+    return(dist)
+}
 
 #
 # Calculates the distance travelled the last <delta> logsteps 
