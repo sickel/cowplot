@@ -38,12 +38,16 @@ fetchmap=function(sted){
 # Usage:
 # geilodates: from logdates
 # geilo: map, from fetchmap
-#  for(d in geilodates){
-#  date=format(as.Date(d,origin="1970-01-01"))
-#   mapdate(date,geilo)
-#  dev.copy2pdf(file=paste('Geilo_',date,'.pdf',sep=''))
-# }
-
+if(FALSE){ // do not run...
+prefix="Geilo_"
+for(d in geilodates){
+   date=format(as.Date(d,origin="1970-01-01"))
+   mapdate(date,geilo)
+   dev.copy2pdf(file=paste(prefix,date,'.pdf',sep=''))
+   dev.copy(png,paste(prefix,date,'.png',sep=''))
+   dev.off()
+}
+}
 
 mapdate=function(date,map){
   herd=logdays('',date)
@@ -55,7 +59,7 @@ mapdate=function(date,map){
     lines(data$x,data$y,col=i+1,lwd=3)
   }
   title(main=date)
-  legend(bbox(map)[1,1]-150,bbox(map)[2,2]+400,legend=herd,lty=1,lwd=2,col=c(1:3)+1)
+  legend(bbox(map)[1,1]-150,bbox(map)[2,2]+400,legend=herd,lty=1,lwd=2,col=c(1:length(herd))+1)
 }
 
 distprday=function(cowid,date){
