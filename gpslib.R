@@ -29,7 +29,7 @@ fetchmap=function(sted){
   if (sted=="Geilo")
     layer="Geilo_complete_31may2012_utm32_00"
   else
-    layer="Valdres_complete_03jun2012_utm32"
+    layer="valdresclassified"
   map=readOGR("PG:dbname=beitedata user=postgres password=postgres",layer=layer)
   return(map)
 }
@@ -38,18 +38,41 @@ fetchmap=function(sted){
 # Usage:
 # geilodates: from logdates
 # geilo: map, from fetchmap
-if(FALSE){ // do not run...
+if(FALSE){ # Example, do not run now...
 prefix="Geilo_"
-for(d in geilodates){
+ for(d in dates){
    date=format(as.Date(d,origin="1970-01-01"))
-   mapdate(date,geilo)
+   mapdate(date,map)
    dev.copy2pdf(file=paste(prefix,date,'.pdf',sep=''))
    dev.copy(png,paste(prefix,date,'.png',sep=''))
    dev.off()
-}
+ }
 }
 
-mapdate=function(date,map){
+
+alldistplots=function(){
+  days=logdays()
+  for(i in c(1:length(days[,1]))){
+    cowid=days[i,1]
+    date=days[i,2]
+    prefix=days[i,3]
+    data=fetchdata(cowid,date)
+    if(length(data)>0){
+      prefix=paste("Dist",prefix,date,cowid,sep='_')
+      data=calcdist(data,delta,date,cowid)
+      obs=fetchobs(cowid,date)
+      distplot(data,delta,obs)
+      dev.copy2pdf(file=paste(prefix,'pdf',sep='.'))
+      dev.copy(png,paste(prefix,'png',sep='.'))
+      dev.off()
+    }
+  }
+}
+
+
+
+##################################
+mapdate=function(date,map,legendpos=FALSE){
   herd=logdays('',date)
   herd=herd[,1]
   ns= c(1:length(herd))
@@ -59,7 +82,14 @@ mapdate=function(date,map){
     lines(data$x,data$y,col=i+1,lwd=3)
   }
   title(main=date)
-  legend(bbox(map)[1,1]-150,bbox(map)[2,2]+400,legend=herd,lty=1,lwd=2,col=c(1:length(herd))+1)
+  if(legendpos){
+    legx=bbox(map)[1,1]-150
+    legy=bbox(map)[2,1]+length(herd)*150
+ }else{
+    legx=bbox(map)[1,1]-150
+    legy=bbox(map)[2,2]+400
+  }
+  legend(legx,legy,legend=herd,lty=1,lwd=2,col=c(1:length(herd))+1)
 }
 
 distprday=function(cowid,date){
@@ -107,6 +137,31 @@ precip=function(precip,date){
   return(mean(pre))
   # Trigger an error here. Use some of the info from 24h precipitation to estimate
 }
+
+
+
+#
+# Fetches a dataset for a given cow and date
+#
+fetchdata=function(cowid,date){
+  sql=paste('select * from gps_coord where cowid=',cowid," and date='",date,"'",sep='')
+  rs=dbSendQuery(con,statement=sql)
+  data=fetch(rs,n=-1)
+  return(data)	
+}
+
+
+#
+# Fetches gpsdata and observation - for model creation and testing
+#
+
+fetchgpsobs=function(cowid,date){
+  sql=paste('select * from gps_observation where cowid=',cowid," and date='",date,"'",sep='')
+  rs=dbSendQuery(con,statement=sql)
+  data=fetch(rs,n=-1)
+  return(data)	
+}
+
 
 #
 # Fetches observations for one animal for one day
@@ -158,7 +213,7 @@ plotr=function(data,min,f=5){
 # Plots movement and displacement for a given data set.
 #
 distplot=function(set,delta,obs=c()){
-  legendoffset=2.8
+  legendoffset=3.5
   coltime=paste(delta/12,'min',sep='')
   dcol=paste('dists',coltime,sep='')
   tcol=paste('trav',coltime,sep='')
@@ -172,23 +227,13 @@ distplot=function(set,delta,obs=c()){
     ot=levels(obs$obstype)
     points(obs$timestamp,obs$n-(ymax/50),col=as.integer(obs$obstype)+2,pch=7)
     legend(max(set$datetime)-(3600*legendoffset),y=ymax,c('movement','displacement',ot),
-           lty=c('solid','solid',NA,NA,NA),col=c(2,1,3:(length(ot)+2)),
+           lty=c('solid','solid',NA,NA,NA,NA),col=c(2,1,3:(length(ot)+2)),
            pch=c(NA,NA,rep(7,length(ot))))
   }else{
     legend(max(data$datetime)-3600*legendoffset,y=ymax,c('movement','displacement'),lty=c('solid','solid'),col=c(2,1))
   }
 }
 
-
-#
-# Fetches a dataset for a given cow and date
-#
-fetchdata=function(cowid,date){
-  sql=paste('select * from gps_coord where cowid=',cowid," and date='",date,"'",sep='')
-  rs=dbSendQuery(con,statement=sql)
-  data=fetch(rs,n=-1)
-  return(data)	
-}
 
 
 
@@ -281,3 +326,8 @@ herdxy=function(date,dm,slow=10,fast=200,set='trav'){
 }
 
 
+
+locationdates=function(loc){
+  dates=logdays()
+  return(unique(dates[dates$lokalitet==lok,2]))
+}
