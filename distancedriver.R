@@ -1,3 +1,4 @@
+library(rgdal)
 library(DBI)
 library(RPostgreSQL)
 source('gpslib.R')
@@ -17,5 +18,6 @@ if(!(exists('tstep'))){
   tstep=15
 }
 
-data=db2plot(cowid,date,tstep)
-
+if(!(exists('data'))){
+  data=db2plot(cowid,date,tstep)
+}
