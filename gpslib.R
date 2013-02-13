@@ -49,6 +49,33 @@ prefix="Geilo_"
  }
 }
 
+# To collect all observations and their observed distances
+
+observationdistances=function(deltamin){
+  delta=deltamin*12
+  sql="select distinct cowid, timestamp::date from observation where cowid > 0"
+  # finds all cow / date cmbinations in observations
+  rs=dbSendQuery(con,statement=sql)
+  sets=fetch(rs,n=-1)
+  for(i in c(1:length(sets[,1]))){
+  # for(i in c(1:2)){
+    cowid=sets[i,1]
+    date=sets[i,2]
+    data=fetchdata(cowid,date)
+    if(length(data)>0){
+      data=fetchgpsobs(cowid,date)
+      data$obstype=as.factor(data$obstype)
+      data=calcdist(data,delta,date,cowid)
+      data=data[!(is.na(data$obstype)),]
+      if(!exists('obsspeed')){
+        obsspeed=data
+      }else{
+        obsspeed=rbind(obsspeed,data)
+      }
+    }
+  }
+  return(obsspeed)
+}
 
 alldistplots=function(){
   days=logdays()
