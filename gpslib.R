@@ -64,7 +64,6 @@ observationdistances=function(deltamin){
     data=fetchdata(cowid,date)
     if(length(data)>0){
       data=fetchgpsobs(cowid,date)
-      data$obstype=as.factor(data$obstype)
       data=calcdist(data,delta,date,cowid)
       data=data[!(is.na(data$obstype)),]
       if(!exists('obsspeed')){
@@ -74,8 +73,30 @@ observationdistances=function(deltamin){
       }
     }
   }
+  obsspeed$obstype=as.factor(obsspeed$obstype)
+  obsspeed$lokalitet=as.factor(obsspeed$lokalitet)
   return(obsspeed)
 }
+
+# To be run on the output of the former
+
+analyseobsspeed=function(od,head="All"){
+  modes=levels(od$obstype)
+  for(mod in modes){
+    type="Displacement"
+    deltamin=15
+    dev.new()
+    hist(od$dists15min[od$obstype==mod],breaks=c(0:33)*25,main=paste(type,":",head,mod),xlab=paste(type,deltamin,'minutes'))
+    dev.copy2pdf(file=(paste("hist",head,sub('/','-',mod),"pdf",sep='.')))
+    dev.copy(png,paste("hist",sub('/','-',mod),"png",sep='.'))
+    dev.off()
+  }
+}
+         
+    
+
+
+# Makes and saves all distance-plots
 
 alldistplots=function(){
   days=logdays()
@@ -95,6 +116,8 @@ alldistplots=function(){
     }
   }
 }
+
+
 
 
 
