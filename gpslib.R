@@ -212,6 +212,15 @@ fetchgpsobs=function(cowid,date){
   return(data)	
 }
 
+fetchgpsobslok=function(lokalitet){
+  sql=paste("select * from observationxy where lokalitet = '",lokalitet,"'",sep='')
+  # print(sql);
+  rs=dbSendQuery(con,statement=sql)
+  data=fetch(rs,n=-1)
+  return(data)	
+}
+  
+
 
 #
 # Fetches observations for one animal for one day
