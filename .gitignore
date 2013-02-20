@@ -7,7 +7,7 @@ nohup.out
 .\#*
 .RData
 .pngw
-*.Ãprj
-*Ã.dbf
+*.prj
+*.dbf
 *.shp
 *.shx
