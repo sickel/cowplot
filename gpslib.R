@@ -27,7 +27,7 @@ alldists=function(){
 
 fetchmap=function(sted){
   if (sted=="Geilo")
-    layer="Geilo_complete_31may2012_utm32_00"
+    layer="geilo_kategorisert"
   else
     layer="valdresclassified"
   map=readOGR("PG:dbname=beitedata user=postgres password=postgres",layer=layer)
