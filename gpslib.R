@@ -226,11 +226,18 @@ fetchgpsobslok=function(lokalitet){
 # Fetches observations for one animal for one day
 #
 
-fetchobs=function(cowid,date){
-  sql=paste("select timestamp+'-2:00' as timestamp, obstype,0 as n from observation
-where timestamp::date='",date,"'and cowid=",cowid)
+fetchobs=function(cowid=NULL,date=NULL,lok=NULL){
+  sql="select timestamp+'-2:00' as timestamp,cowid,obstype,0 as n,x,y from observationxy "
   # Quick and dirty time zone correction - all other data points are in UTC
   # The n column (always 0) is just added to simplify plotting
+  fields=c()
+  if(!(is.null(cowid))) fields=c(fields,paste("cowid",cowid,sep='='))
+  if(!(is.null(date))) fields=c(fields,paste("timestamp::date='",date,"'",sep=''))
+  if(!(is.null(lok))) fields=c(fields,paste("lokalitet='",lok,"'",sep=''))
+  if(length(fields)>0){
+    where=paste(fields,collapse=" and ")
+    sql=paste(sql,where,sep=" where ")
+  }
   rs=dbSendQuery(con,statement=sql)
   data=fetch(rs,n=-1)
   data$obstype=as.factor(data$obstype)
