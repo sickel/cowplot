@@ -2,10 +2,17 @@ library(rgdal)
 library(DBI)
 library(RPostgreSQL)
 source('gpslib.R')
-if(!(exists('drv'))){
-  drv=dbDriver("PostgreSQL")
-  con=dbConnect(drv,"postgres","postgres","localhost","beitedata")
+
+
+connect2db=function()
+{
+  if(!(exists('drv'))){
+    drv=dbDriver("PostgreSQL")
+    con=dbConnect(drv,"postgres","postgres","localhost","beitedata")
+  }
 }
+connect2db()
+
 bioforskpalette=c( "#516B98","#4f3d25","#9a192b","#4eadce","#a7b808");
 par(ps=15,lwd=1.5)
 if(!(exists('cowid'))){
