@@ -13,6 +13,7 @@ distance=function(data,delta){
   return(dists)
 }
 
+# Collects distances for all days
 alldists=function(){
   sets=logdays()
   dist=c()
@@ -34,20 +35,6 @@ fetchmap=function(sted){
   return(map)
 }
 
-
-# Usage:
-# geilodates: from logdates
-# geilo: map, from fetchmap
-if(FALSE){ # Example, do not run now...
-prefix="Geilo_"
- for(d in dates){
-   date=format(as.Date(d,origin="1970-01-01"))
-   mapdate(date,map)
-   dev.copy2pdf(file=paste(prefix,date,'.pdf',sep=''))
-   dev.copy(png,paste(prefix,date,'.png',sep=''))
-   dev.off()
- }
-}
 
 # To collect all observations and their observed distances
 
@@ -110,6 +97,7 @@ alldistplots=function(){
       data=calcdist(data,delta,date,cowid)
       obs=fetchobs(cowid,date)
       distplot(data,delta,obs)
+# TODO: Make pdf-files directly
       dev.copy2pdf(file=paste(prefix,'pdf',sep='.'))
       dev.copy(png,paste(prefix,'png',sep='.'))
       dev.off()
@@ -120,27 +108,9 @@ alldistplots=function(){
 
 
 
-
-##################################
-mapdate=function(date,map,legendpos=FALSE){
-  herd=logdays('',date)
-  herd=herd[,1]
-  ns= c(1:length(herd))
-  plot(map)
-  for(i in ns){
-    data=fetchdata(herd[i],date)
-    lines(data$x,data$y,col=i+1,lwd=3)
-  }
-  title(main=date)
-  if(legendpos){
-    legx=bbox(map)[1,1]-150
-    legy=bbox(map)[2,1]+length(herd)*150
- }else{
-    legx=bbox(map)[1,1]-150
-    legy=bbox(map)[2,2]+400
-  }
-  legend(legx,legy,legend=herd,lty=1,lwd=2,col=c(1:length(herd))+1)
-}
+#
+#  calculate the distance travelled for one day at a one minute resolution
+#
 
 distprday=function(cowid,date){
     data=fetchdata(cowid,date)
@@ -184,7 +154,7 @@ fetchprecip=function(cowid,date){
 precip=function(precip,date){
   pre=precip[precip$date==date & precip$time=='22:00:00',5 ]
   if(length(pre)>0)
-  return(mean(pre))
+    return(mean(pre))
   # Trigger an error here. Use some of the info from 24h precipitation to estimate
 }
 
@@ -212,13 +182,6 @@ fetchgpsobs=function(cowid,date){
   return(data)	
 }
 
-fetchgpsobslok=function(lokalitet){
-  sql=paste("select * from observationxy where lokalitet = '",lokalitet,"'",sep='')
-  # print(sql);
-  rs=dbSendQuery(con,statement=sql)
-  data=fetch(rs,n=-1)
-  return(data)	
-}
   
 
 
@@ -356,13 +319,16 @@ plotxyfilter=function(data,min,lim,set='ratio',col=2,gt=TRUE){
 }
 
 
+#
+# Makes distance plots for all animals in the herd for one day
+#
+
 herddist=function(date,dm){
   logs=logdays(date=date)
   herd=logs$cowid
   dev.new()
   def.par <- par(no.readonly = TRUE)
-  nf=layout(matrix(c(1,2,3,4), 2, 2, byrow=TRUE), respect=TRUE)
-  layout.show(nf)
+  nf=layout(matrix(c(1,2,3,4,5,6), 2, 3, byrow=TRUE), respect=TRUE)
   
   for(cow in herd){
     data=fetchdata(cow,date)
@@ -373,6 +339,9 @@ herddist=function(date,dm){
   }
   par(def.par)
 }
+
+# makes an xymap of movement speeds
+# Todo: Make this useable with the standard plotmap()
 
 herdxy=function(date,dm,slow=10,fast=200,set='trav'){
   logs=logdays(date=date)
@@ -391,8 +360,9 @@ herdxy=function(date,dm,slow=10,fast=200,set='trav'){
   par(def.par)
 }
 
-
-
+#
+# Untility function: Lists days for a location
+#
 locationdates=function(loc){
   dates=logdays()
   return(unique(dates[dates$lokalitet==lok,2]))
