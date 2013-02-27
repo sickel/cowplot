@@ -39,7 +39,7 @@ fetchmap=function(sted){
 # To collect all observations and their observed distances
 
 observationdistances=function(deltamin){
-  delta=deltamin*12
+  delta=deltamin*12 # number of 5 sec steps
   sql="select distinct cowid, timestamp::date from observation where cowid > 0"
   # finds all cow / date cmbinations in observations
   rs=dbSendQuery(con,statement=sql)
@@ -139,13 +139,13 @@ travel=function(dists,delta){
 #
 
 fetchprecip=function(cowid,date){
- sql=paste("select distinct metobs.datetime::date as date, metobs.datetime::time as time,metstationid,\"RR_24\",\"RR_12\"
+  sql=paste("select distinct metobs.datetime::date as date, metobs.datetime::time as time,metstationid,\"RR_24\",\"RR_12\"
   from metobs,metstation,gpspoint
   where cowid=",cowid,"and gpspoint.datetime::date='",date,"' and
   gpspoint.lokalitet=metstation.lokalitet and metstation.id=metstationid
   and (metobs.datetime::date='",date,"' or metobs.datetime::date-1='",date,"') and  not (\"RR_24\" is null and \"RR_12\" is null) order by metstationid,date,time")
 
- rs=dbSendQuery(con,statement=sql)
+  rs=dbSendQuery(con,statement=sql)
   data=fetch(rs,n=-1)
   return(data)	
  }
@@ -225,8 +225,32 @@ calcdist=function(data,delta,date,cowid){
   data[,tcol]=trav
   # ratio between travel distance and displacement 
   rcol=paste("ratio",delta/12,"min",sep='')
-  data[,rcol]=data[,tcol]/data[,dcol]
+  data[,rcol]=data[,dcol]/data[,tcol]
   return(data)
+}
+
+#
+# Setting classes on all points
+#
+
+setclass=function(data){
+  restspeed=25
+  walkspeed=300
+  class=c()
+  for (i in (1:length(data$x))){
+    if(!(is.na(data$dists15min[i]))){
+      if(data$dists15min[i]<restspeed){
+        class[i]='resting'
+      }else{
+        if(data$dists15min[i]>walkspeed){
+          class[i]='walking'
+        }else{
+          class[i]='grazing'
+        }
+      }
+    }
+  }
+  return(as.factor(class))
 }
 
 #
@@ -252,6 +276,8 @@ distplot=function(set,delta,obs=c()){
   main=paste(max(set$date),"- cow",max(set$cowid),'-',prec,"mm -",delta/12,'min') 
   plot(set$datetime,set[,dcol],col="1",type='l',xlab='UTC-time',ylab="meters",main=main,ylim=c(0,ymax))
   lines(set$datetime,set[,tcol],col="2")
+  # Calculated ratio - normalized to scale on graph
+  lines(set$datetime,set[,dcol]/set[,tcol]*ymax,col="3")
   if(length(obs)>0){
     ot=levels(obs$obstype)
     points(obs$timestamp,obs$n-(ymax/50),col=as.integer(obs$obstype)+2,pch=7)

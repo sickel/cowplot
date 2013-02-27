@@ -26,7 +26,9 @@ plotmap=function(lok="Valdres"){
   plot(map,col=map$categorycode,xlim=xlim,lwd=0.2)
   types=unique(map$category)
   nums=unique(map$categorycode)
-  legend(legx,legy,types,fill=nums,border=nums,cex=lgncex,bty="n")
+  if(!(nolegend)){
+    legend(legx,legy,types,fill=nums,border=nums,cex=lgncex,bty="n")
+  }
   drawscale(sbx,sby,1000,"1 km",lgncex*2)
 }
 # Draws a line of desired lengt at a specified locations
@@ -92,6 +94,13 @@ dayplot=function(date){
   legend(legx,legy,herd,col=c(1:length(herd)),cex=lgncex,lwd=lwd,bty="n")
 }
 
+#
+# Plot classified points
+# 
+classplot=function(data){
+  palette(c("red","blue","green"))
+  points(data$x,data$y,col=data$class,cex=0.1)
+}
 
 # Plots a map with all tracks and observations for one given day and locations
 plotdatetrack=function(date,lok){
@@ -106,7 +115,7 @@ plotdatetrack=function(date,lok){
   if(pdfplot) dev.off()
 }
 
-#Run to plot maps for all days
+# Run to plot maps for all days
 
 plotalltracks=function(lok){
   # map=fetchmap(lok) # map is a global variable ... :-/
