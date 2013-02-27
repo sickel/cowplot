@@ -6,10 +6,8 @@ source('gpslib.R')
 
 connect2db=function()
 {
-  if(!(exists('drv'))){
-    drv=dbDriver("PostgreSQL")
-    con=dbConnect(drv,"postgres","postgres","localhost","beitedata")
-  }
+  drv=dbDriver("PostgreSQL")
+  con=dbConnect(drv,"postgres","postgres","localhost","beitedata")
   return(con)
 }
 con=connect2db()
