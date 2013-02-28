@@ -35,8 +35,9 @@ fetchmap=function(sted){
   return(map)
 }
 
-
+#
 # To collect all observations and their observed distances
+#
 
 observationdistances=function(deltamin){
   delta=deltamin*12 # number of 5 sec steps
@@ -46,13 +47,20 @@ observationdistances=function(deltamin){
   sets=fetch(rs,n=-1)
   for(i in c(1:length(sets[,1]))){
   # for(i in c(1:2)){
+    print(i)
     cowid=sets[i,1]
     date=sets[i,2]
     data=fetchdata(cowid,date)
     if(length(data)>0){
       data=fetchgpsobs(cowid,date)
+      adjobs=data$obstype
+      l=length(adjobs)
+      rep=round(delta/2)
+      adjobs=c(rep(NA,rep),adjobs)
+      length(adjobs)=l
+      data$adjobs=as.factor(adjobs)
       data=calcdist(data,delta,date,cowid)
-      data=data[!(is.na(data$obstype)),]
+      data=data[!(is.na(data$adjobs)),]
       if(!exists('obsspeed')){
         obsspeed=data
       }else{
@@ -60,6 +68,7 @@ observationdistances=function(deltamin){
       }
     }
   }
+  # print("OK so far")
   obsspeed$obstype=as.factor(obsspeed$obstype)
   obsspeed$lokalitet=as.factor(obsspeed$lokalitet)
   return(obsspeed)
@@ -67,14 +76,30 @@ observationdistances=function(deltamin){
 
 # To be run on the output of the former
 
-analyseobsspeed=function(od,head="All"){
-  modes=levels(od$obstype)
-  for(mod in modes){
-    type="Displacement"
-    deltamin=15
+analyseobsspeed=function(od,deltamin=5,locality="All",type="Displacement"){
+  modes=levels(od$adjobs)
+  print(modes)
+  
+  binsize=25
+  xlim=c(0,1000)
+  if(type=="Displacement")fieldname=paste("dists",deltamin,"min",sep="")
+  if(type=="Ratio"){
+    fieldname=paste("ratio",deltamin,"min",sep="")
+    max=1
+    binsize=0.05
+    xlim=c(0,1)
+  }
+  if(type=="Movement")fieldname=paste("trav",deltamin,"min",sep="")
+  max=max(od[,fieldname],na.rm=TRUE)
+  print(fieldname)
+  
+  # max=max(od[,fieldname],na.rm=TRUE)
+  
+  for(mod in modes){  
+    print(mod)
     dev.new()
-    hist(od$dists15min[od$obstype==mod],breaks=c(0:33)*25,main=paste(type,":",head,mod),xlab=paste(type,deltamin,'minutes'))
-    dev.copy2pdf(file=(paste("hist",head,sub('/','-',mod),"pdf",sep='.')))
+    hist(od[,fieldname][od$adjobs==mod],breaks=c(0:ceiling(max/binsize))*binsize,main=paste(type,":",locality,mod),xlim=xlim,xlab=paste(type,deltamin,'minutes'))
+    dev.copy2pdf(file=(paste("hist",locality,sub('/','-',mod),"pdf",sep='.')))
     dev.copy(png,paste("hist",sub('/','-',mod),"png",sep='.'))
     dev.off()
   }
@@ -115,6 +140,7 @@ alldistplots=function(){
 distprday=function(cowid,date){
     data=fetchdata(cowid,date)
     data=data[c(TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE),] # Once pr minute;
+    # use rep()!
     dist=sum(distance(data,1),na.rm=TRUE)
     return(dist)
 }
