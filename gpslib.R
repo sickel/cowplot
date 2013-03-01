@@ -76,12 +76,10 @@ observationdistances=function(deltamin){
 
 # To be run on the output of the former
 
-analyseobsspeed=function(od,deltamin=5,locality="All",type="Displacement"){
+analyseobsspeed=function(od,deltamin,locality="All",type="Displacement",maxvalue=1000){
   modes=levels(od$adjobs)
-  print(modes)
-  
   binsize=25
-  xlim=c(0,1000)
+  xlim=c(0,maxvalue)
   if(type=="Displacement")fieldname=paste("dists",deltamin,"min",sep="")
   if(type=="Ratio"){
     fieldname=paste("ratio",deltamin,"min",sep="")
@@ -89,23 +87,40 @@ analyseobsspeed=function(od,deltamin=5,locality="All",type="Displacement"){
     binsize=0.05
     xlim=c(0,1)
   }
+  if(locality!="All"){
+    od=od[od$lokalitet==locality,]
+  }
   if(type=="Movement")fieldname=paste("trav",deltamin,"min",sep="")
+  print(type)
   max=max(od[,fieldname],na.rm=TRUE)
-  print(fieldname)
-  
   # max=max(od[,fieldname],na.rm=TRUE)
-  
+  dev.new()
+  nf=layout(matrix(c(1,2,3,4), 2, 2, byrow=TRUE), respect=TRUE)
   for(mod in modes){  
     print(mod)
-    dev.new()
+    
     hist(od[,fieldname][od$adjobs==mod],breaks=c(0:ceiling(max/binsize))*binsize,main=paste(type,":",locality,mod),xlim=xlim,xlab=paste(type,deltamin,'minutes'))
-    dev.copy2pdf(file=(paste("hist",locality,sub('/','-',mod),"pdf",sep='.')))
-    dev.copy(png,paste("hist",sub('/','-',mod),"png",sep='.'))
-    dev.off()
+    filename=paste("hist",locality,sub('/','-',type),deltamin,sep='_')
   }
+  dev.copy2pdf(file=(paste(filename,"pdf",sep='.')))
+  dev.copy(png,paste(filename,"png",sep='.'))
+  dev.off()
 }
          
-    
+#
+# Makes and saves all histogram from an observation data set-
+#
+
+
+plotallhist=function(od,min,maxvalue){
+  for (lok in c("All","Valdres","Geilo")){
+    for(type in c("Displacement","Movement","Ratio")){
+      analyseobsspeed(od,maxvalue=maxvalue,type=type,locality=lok,deltamin=min)
+      dev.off()
+    }
+  }
+}
+
 
 
 # Makes and saves all distance-plots
@@ -380,7 +395,7 @@ herddist=function(date,dm){
   herd=logs$cowid
   dev.new()
   def.par <- par(no.readonly = TRUE)
-  nf=layout(matrix(c(1,2,3,4,5,6), 2, 3, byrow=TRUE), respect=TRUE)
+  nf=layout(matrix(c(1,2,3,4), 2, 2, byrow=TRUE), respect=TRUE)
   
   for(cow in herd){
     data=fetchdata(cow,date)
