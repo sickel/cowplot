@@ -10,7 +10,7 @@ plotmap=function(lok="Valdres"){
     legy=bbox(map)[2,1]+1500
     legx=bbox(map)[1,1]-10
     xlim=NULL
-    palette(c("firebrick","SpringGreen","LawnGreen","LightPink","RosyBrown","SandyBrown","LightGrey","LightPink","LightGrey","DarkKhaki","DarkSeaGreen","PaleGreen","LightSeaGreen","DarkGoldenrod","YellowGreen","MediumSeaGreen","SpringGreen","wheat","peru","PaleGreen3","Yellow3","AntiqueWhite","LemonChiffon","thistle","ForestGreen","OliveDrab","DarkOliveGreen","Green"))
+    pal=c("firebrick","SpringGreen","LawnGreen","LightPink","RosyBrown","SandyBrown","LightGrey","LightPink","LightGrey","DarkKhaki","DarkSeaGreen","PaleGreen","LightSeaGreen","DarkGoldenrod","YellowGreen","MediumSeaGreen","SpringGreen","wheat","peru","PaleGreen3","Yellow3","AntiqueWhite","LemonChiffon","thistle","ForestGreen","OliveDrab","DarkOliveGreen","Green")
     # Positions for scale bar:
     sbx=bbox(map)[1,1]+20
     sby=bbox(map)[2,2]+50
@@ -18,15 +18,25 @@ plotmap=function(lok="Valdres"){
     legy=bbox(map)[2,2]
     legx=bbox(map)[1,1]-450
     xlim=c(bbox(map)[1,1]-300,bbox(map)[1,2]+50) # Need some extra space for legend
-    palette(c("LightGrey","Black","LawnGreen","cornflower blue","RosyBrown","SandyBrown","DarkKhaki","DarkSeaGreen","PaleGreen","LightSeaGreen","DarkGoldenrod","YellowGreen","MediumSeaGreen","SpringGreen","wheat","peru","PaleGreen3","Yellow3","AntiqueWhite","LemonChiffon","thistle","ForestGreen","LightPink","LightPink","OliveDrab","DarkOliveGreen","Green","Gold","SaddleBrown","LightGray","coral","DarkOrange3","DarkOrchid4","IndianRed","firebrick","LemonChiffon","khaki","LightGray","Black","SpringGreen","Green Yellow"))
+    pal=c("DimGrey","Red","LightGrey","cornflower blue","RosyBrown",
+      "SpringGreen","DarkSeaGreen","PaleGreen","DarkKhaki","LightSeaGreen",
+      "Black","Black","DarkGoldenrod","YellowGreen","MediumSeaGreen",
+      "SpringGreen","wheat","peru","PaleGreen3","Yellow3",
+      "AntiqueWhite","LemonChiffon","LightPink","LightPink","ForestGreen",
+      "LightPink","OliveDrab","DarkOliveGreen","Green","Gold",
+      "SaddleBrown","LightGray","coral","DarkOrange3","DarkOrchid4",
+      "IndianRed","firebrick","LemonChiffon","khaki")
+    # ,"LightGray","Black","thistle","","Green Yellow")
+    # SandyBrown
     sbx=legx+10
     sby=bbox(map)[2,1]+50
   
   }
+  palette(pal)
   plot(map,col=map$categorycode,xlim=xlim,lwd=0.2)
   types=unique(map$category)
   nums=unique(map$categorycode)
-  if(!(nolegend)){
+  if(!(exists(nolegend))||!(nolegend)){
     legend(legx,legy,types,fill=nums,border=nums,cex=lgncex,bty="n")
   }
   drawscale(sbx,sby,1000,"1 km",lgncex*2)
