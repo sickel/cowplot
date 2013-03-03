@@ -10,7 +10,13 @@ plotmap=function(lok="Valdres"){
     legy=bbox(map)[2,1]+1500
     legx=bbox(map)[1,1]-10
     xlim=NULL
-    pal=c("firebrick","SpringGreen","LawnGreen","LightPink","RosyBrown","SandyBrown","LightGrey","LightPink","LightGrey","DarkKhaki","DarkSeaGreen","PaleGreen","LightSeaGreen","DarkGoldenrod","YellowGreen","MediumSeaGreen","SpringGreen","wheat","peru","PaleGreen3","Yellow3","AntiqueWhite","LemonChiffon","thistle","ForestGreen","OliveDrab","DarkOliveGreen","Green")
+    pal=c("firebrick","peru","Yellow","LightPink","RosyBrown",
+      "SandyBrown","LightGrey","LightPink","LightGrey","DarkKhaki",
+      "DeepSkyBlue2","PaleGreen","LightSeaGreen","DarkGoldenrod","YellowGreen",
+      "MediumSeaGreen","SpringGreen","wheat","Green Yellow","violet red",
+      "Yellow3","AntiqueWhite","PaleGreen3","thistle","DeepPink",
+      "OliveDrab","DarkOliveGreen","Green")
+    # "PaleGreen3" SpringGreen LawnGreen DarkSeaGreen "ForestGreen"
     # Positions for scale bar:
     sbx=bbox(map)[1,1]+20
     sby=bbox(map)[2,2]+50
@@ -18,16 +24,18 @@ plotmap=function(lok="Valdres"){
     legy=bbox(map)[2,2]
     legx=bbox(map)[1,1]-450
     xlim=c(bbox(map)[1,1]-300,bbox(map)[1,2]+50) # Need some extra space for legend
-    pal=c("DimGrey","Red","LightGrey","cornflower blue","RosyBrown",
-      "SpringGreen","DarkSeaGreen","PaleGreen","DarkKhaki","LightSeaGreen",
-      "Black","Black","DarkGoldenrod","YellowGreen","MediumSeaGreen",
-      "SpringGreen","wheat","peru","PaleGreen3","Yellow3",
-      "AntiqueWhite","LemonChiffon","LightPink","LightPink","ForestGreen",
-      "LightPink","OliveDrab","DarkOliveGreen","Green","Gold",
-      "SaddleBrown","LightGray","coral","DarkOrange3","DarkOrchid4",
-      "IndianRed","firebrick","LemonChiffon","khaki")
-    # ,"LightGray","Black","thistle","","Green Yellow")
-    # SandyBrown
+    pal=c("DimGrey","Red","LightGrey","cornflower blue","DarkOliveGreen",
+      "ForestGreen","LightSeaGreen","IndianRed","DarkGoldenrod","Green Yellow",
+      "Red","Red","DarkKhaki","YellowGreen","Red",
+      "Red","coral","peru","Red","Yellow3",
+      "yellow","Red","LightPink","LightPink","DeepSkyBlue2",
+      "Red","OliveDrab", "LemonChiffon","MediumSeaGreen","dark orchid",
+      "SaddleBrown","violet red","burlywood","DeepPink","Red",
+      "PaleGreen","Red","LightGray")
+    # ,"LightGray","Black","thistle","firebrick",)  LawnGreen Gol thistle coral
+    # SandyBrown "MediumSeaGreen","SpringGreen" "PaleGreen3" ForestGreen SpringGreen
+    # "DarkOrchid4",","khaki" Green "RosyBrown", "thistle" DarkSeaGreen
+    # DarkOrange3
     sbx=legx+10
     sby=bbox(map)[2,1]+50
   
@@ -36,7 +44,7 @@ plotmap=function(lok="Valdres"){
   plot(map,col=map$categorycode,xlim=xlim,lwd=0.2)
   types=unique(map$category)
   nums=unique(map$categorycode)
-  if(!(exists(nolegend))||!(nolegend)){
+  if(!(exists("nolegend"))||!(nolegend)){
     legend(legx,legy,types,fill=nums,border=nums,cex=lgncex,bty="n")
   }
   drawscale(sbx,sby,1000,"1 km",lgncex*2)
@@ -84,24 +92,26 @@ fetchodday=function(date){
 dayplot=function(date){
   lwd=1
   logs=logdays(date=date)
-  herd=logs$cowid
-  palette(c("cyan","magenta","orange","yellow","purple"))
-  for(i in c(1:length(herd))){
-    cow=herd[i]
-    data=fetchdata(cow,date)
-    if(length(data)>0){
-      lines(data$x,data$y,col=i,lwd=lwd)
-      text(data$x,data$y,labels=data$marker-1,cex=0.3)
+   if(length(logs)>0){
+    herd=logs$cowid
+    palette(c("cyan","magenta","orange","yellow","purple"))
+    for(i in c(1:length(herd))){
+      cow=herd[i]
+      data=fetchdata(cow,date)
+      if(length(data)>0){
+        lines(data$x,data$y,col=i,lwd=lwd)
+        text(data$x,data$y,labels=data$marker-1,cex=0.3)
+      }
     }
+    if(lok=="Valdres"){
+      legy=bbox(map)[2,1]+500
+      legx=bbox(map)[1,1]-10
+    }else{
+      legy=bbox(map)[2,2]-1200
+      legx=bbox(map)[1,1]-450
+    }
+    legend(legx,legy,herd,col=c(1:length(herd)),cex=lgncex,lwd=lwd,bty="n")
   }
-  if(lok=="Valdres"){
-    legy=bbox(map)[2,1]+500
-    legx=bbox(map)[1,1]-10
-  }else{
-    legy=bbox(map)[2,2]-1200
-    legx=bbox(map)[1,1]-450
-  }
-  legend(legx,legy,herd,col=c(1:length(herd)),cex=lgncex,lwd=lwd,bty="n")
 }
 
 #
