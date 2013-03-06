@@ -14080,7 +14080,7 @@ ALTER TABLE public.geilo_pp_day OWNER TO postgres;
 --
 
 CREATE VIEW geilo_summ_cats AS
-    SELECT gc1.kombinert, sum(gc1.shape_area) AS areal, sum(gr.n) AS graze, sum(wa.n) AS walk, sum(re.n) AS rest, sum(pnt.count) AS gps FROM (geilo_cat gc1 LEFT JOIN geilo_obstype_poly gr ON (((gr.gid = gc1.gid) AND ((gr.obstype)::text = 'grazing'::text)))), (geilo_cat gc2 LEFT JOIN geilo_obstype_poly wa ON (((wa.gid = gc2.gid) AND ((wa.obstype)::text = 'walking'::text)))), (geilo_cat gc3 LEFT JOIN geilo_obstype_poly re ON (((re.gid = gc3.gid) AND ((re.obstype)::text = 'resting'::text)))), (geilo_cat gc4 LEFT JOIN geilo_poly_points pnt ON ((pnt.gid = gc4.gid))) WHERE (((gc1.gid = gc2.gid) AND (gc3.gid = gc3.gid)) AND (gc3.gid = gc4.gid)) GROUP BY gc1.kombinert;
+    SELECT gc1.kombinert, sum(gc1.shape_area) AS areal, sum(gr.n) AS graze, sum(wa.n) AS walk, sum(re.n) AS rest, sum(pnt.count) AS gps FROM (geilo_cat gc1 LEFT JOIN geilo_obstype_poly gr ON (((gr.gid = gc1.gid) AND ((gr.obstype)::text = 'grazing'::text)))), (geilo_cat gc2 LEFT JOIN geilo_obstype_poly wa ON (((wa.gid = gc2.gid) AND ((wa.obstype)::text = 'walking'::text)))), (geilo_cat gc3 LEFT JOIN geilo_obstype_poly re ON (((re.gid = gc3.gid) AND ((re.obstype)::text = 'resting'::text)))), (geilo_cat gc4 LEFT JOIN geilo_poly_points pnt ON ((pnt.gid = gc4.gid))) WHERE (((gc1.gid = gc2.gid) AND (gc2.gid = gc3.gid)) AND (gc3.gid = gc4.gid)) GROUP BY gc1.kombinert;
 
 
 ALTER TABLE public.geilo_summ_cats OWNER TO postgres;
@@ -14777,6 +14777,36 @@ CREATE VIEW valdres_poly_points AS
 ALTER TABLE public.valdres_poly_points OWNER TO postgres;
 
 --
+-- Name: valdrestolkn; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW valdrestolkn AS
+    SELECT "Valdres_complete_03jun2012_utm32".gid, "Valdres_complete_03jun2012_utm32".__gid, "Valdres_complete_03jun2012_utm32".objectid, "Valdres_complete_03jun2012_utm32".shape_leng, "Valdres_complete_03jun2012_utm32".poly_id, "Valdres_complete_03jun2012_utm32".busksjikt, "Valdres_complete_03jun2012_utm32".busks_c, "Valdres_complete_03jun2012_utm32".dekn_busk, "Valdres_complete_03jun2012_utm32".busk_dek_c, "Valdres_complete_03jun2012_utm32".dekn_tresj, "Valdres_complete_03jun2012_utm32".dekn_tre_c, "Valdres_complete_03jun2012_utm32".felt_bunn, "Valdres_complete_03jun2012_utm32".felt_bun_c, "Valdres_complete_03jun2012_utm32".fuktigh, "Valdres_complete_03jun2012_utm32".fuktigh_c, "Valdres_complete_03jun2012_utm32".skogvege, "Valdres_complete_03jun2012_utm32".skogsveg_c, "Valdres_complete_03jun2012_utm32".marktype, "Valdres_complete_03jun2012_utm32".marktype_c, "Valdres_complete_03jun2012_utm32".shape_le_1, "Valdres_complete_03jun2012_utm32".shape_area, "Valdres_complete_03jun2012_utm32".the_geom FROM "Valdres_complete_03jun2012_utm32";
+
+
+ALTER TABLE public.valdrestolkn OWNER TO postgres;
+
+--
+-- Name: valdresclassified; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW valdresclassified AS
+    SELECT t.gid, t.__gid, t.objectid, t.shape_leng, t.poly_id, t.busksjikt, t.busks_c, t.dekn_busk, t.busk_dek_c, t.dekn_tresj, t.dekn_tre_c, t.felt_bunn, t.felt_bun_c, t.fuktigh, t.fuktigh_c, t.skogvege, t.skogsveg_c, t.marktype, t.marktype_c, t.shape_le_1, t.shape_area, t.the_geom, c.kombinert AS category, c.categorycode FROM (valdrestolkn t LEFT JOIN valdres_category c ON ((((((((((c.marktype)::text = (t.marktype_c)::text) OR ((c.marktype IS NULL) AND (t.marktype_c IS NULL))) AND (((c.felt_og_bu)::text = (t.felt_bun_c)::text) OR ((c.felt_og_bu IS NULL) AND (t.felt_bun_c IS NULL)))) AND (((c.fuktighet)::text = (t.fuktigh_c)::text) OR ((c.fuktighet IS NULL) AND (t.fuktigh_c IS NULL)))) AND (((c.busksjikt)::text = (t.busks_c)::text) OR ((c.busksjikt IS NULL) AND (t.busks_c IS NULL)))) AND (((c.dekn_busk)::text = (t.busk_dek_c)::text) OR ((c.dekn_busk IS NULL) AND (t.busk_dek_c IS NULL)))) AND (((c.skogsvegetasjon)::text = (t.skogsveg_c)::text) OR ((c.skogsvegetasjon IS NULL) AND (t.skogsveg_c IS NULL)))) AND (((c.dekning_tre)::text = (t.dekn_tre_c)::text) OR ((c.dekning_tre IS NULL) AND (t.dekn_tre_c IS NULL))))));
+
+
+ALTER TABLE public.valdresclassified OWNER TO postgres;
+
+--
+-- Name: valdres_summ_cats; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW valdres_summ_cats AS
+    SELECT vc1.category, sum(vc1.shape_area) AS areal, sum(gr.n) AS graze, sum(wa.n) AS walk, sum(re.n) AS rest, sum(pnt.count) AS gps FROM (valdresclassified vc1 LEFT JOIN valdres_obstype_poly gr ON (((gr.gid = vc1.gid) AND ((gr.obstype)::text = 'grazing'::text)))), (valdresclassified vc2 LEFT JOIN valdres_obstype_poly wa ON (((wa.gid = vc2.gid) AND ((wa.obstype)::text = 'walking'::text)))), (valdresclassified vc3 LEFT JOIN valdres_obstype_poly re ON (((re.gid = vc3.gid) AND ((re.obstype)::text = 'resting'::text)))), (valdresclassified vc4 LEFT JOIN valdres_poly_points pnt ON ((pnt.gid = vc4.gid))) WHERE (((vc1.gid = vc2.gid) AND (vc2.gid = vc3.gid)) AND (vc3.gid = vc4.gid)) GROUP BY vc1.category;
+
+
+ALTER TABLE public.valdres_summ_cats OWNER TO postgres;
+
+--
 -- Name: valdres_summary_npoints; Type: VIEW; Schema: public; Owner: postgres
 --
 
@@ -14805,26 +14835,6 @@ CREATE VIEW valdresclasses AS
 
 
 ALTER TABLE public.valdresclasses OWNER TO postgres;
-
---
--- Name: valdrestolkn; Type: VIEW; Schema: public; Owner: postgres
---
-
-CREATE VIEW valdrestolkn AS
-    SELECT "Valdres_complete_03jun2012_utm32".gid, "Valdres_complete_03jun2012_utm32".__gid, "Valdres_complete_03jun2012_utm32".objectid, "Valdres_complete_03jun2012_utm32".shape_leng, "Valdres_complete_03jun2012_utm32".poly_id, "Valdres_complete_03jun2012_utm32".busksjikt, "Valdres_complete_03jun2012_utm32".busks_c, "Valdres_complete_03jun2012_utm32".dekn_busk, "Valdres_complete_03jun2012_utm32".busk_dek_c, "Valdres_complete_03jun2012_utm32".dekn_tresj, "Valdres_complete_03jun2012_utm32".dekn_tre_c, "Valdres_complete_03jun2012_utm32".felt_bunn, "Valdres_complete_03jun2012_utm32".felt_bun_c, "Valdres_complete_03jun2012_utm32".fuktigh, "Valdres_complete_03jun2012_utm32".fuktigh_c, "Valdres_complete_03jun2012_utm32".skogvege, "Valdres_complete_03jun2012_utm32".skogsveg_c, "Valdres_complete_03jun2012_utm32".marktype, "Valdres_complete_03jun2012_utm32".marktype_c, "Valdres_complete_03jun2012_utm32".shape_le_1, "Valdres_complete_03jun2012_utm32".shape_area, "Valdres_complete_03jun2012_utm32".the_geom FROM "Valdres_complete_03jun2012_utm32";
-
-
-ALTER TABLE public.valdrestolkn OWNER TO postgres;
-
---
--- Name: valdresclassified; Type: VIEW; Schema: public; Owner: postgres
---
-
-CREATE VIEW valdresclassified AS
-    SELECT t.gid, t.__gid, t.objectid, t.shape_leng, t.poly_id, t.busksjikt, t.busks_c, t.dekn_busk, t.busk_dek_c, t.dekn_tresj, t.dekn_tre_c, t.felt_bunn, t.felt_bun_c, t.fuktigh, t.fuktigh_c, t.skogvege, t.skogsveg_c, t.marktype, t.marktype_c, t.shape_le_1, t.shape_area, t.the_geom, c.kombinert AS category, c.categorycode FROM (valdrestolkn t LEFT JOIN valdres_category c ON ((((((((((c.marktype)::text = (t.marktype_c)::text) OR ((c.marktype IS NULL) AND (t.marktype_c IS NULL))) AND (((c.felt_og_bu)::text = (t.felt_bun_c)::text) OR ((c.felt_og_bu IS NULL) AND (t.felt_bun_c IS NULL)))) AND (((c.fuktighet)::text = (t.fuktigh_c)::text) OR ((c.fuktighet IS NULL) AND (t.fuktigh_c IS NULL)))) AND (((c.busksjikt)::text = (t.busks_c)::text) OR ((c.busksjikt IS NULL) AND (t.busks_c IS NULL)))) AND (((c.dekn_busk)::text = (t.busk_dek_c)::text) OR ((c.dekn_busk IS NULL) AND (t.busk_dek_c IS NULL)))) AND (((c.skogsvegetasjon)::text = (t.skogsveg_c)::text) OR ((c.skogsvegetasjon IS NULL) AND (t.skogsveg_c IS NULL)))) AND (((c.dekning_tre)::text = (t.dekn_tre_c)::text) OR ((c.dekning_tre IS NULL) AND (t.dekn_tre_c IS NULL))))));
-
-
-ALTER TABLE public.valdresclassified OWNER TO postgres;
 
 --
 -- Name: veg_gid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
