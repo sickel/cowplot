@@ -2,7 +2,7 @@ library(rgdal)
 library(DBI)
 library(RPostgreSQL)
 source('gpslib.R')
-
+options("width"=160)
 
 connect2db=function()
 {

@@ -28,9 +28,11 @@ alldists=function(){
 
 fetchmap=function(sted){
   if (sted=="Geilo")
-    layer="geilo_kategorisert"
+    # layer="geilo_kategorisert"
+    layer = "geilo_classified"
   else
-    layer="valdresclassified"
+    # layer="valdresclassified"
+    layer ="valdres_classified"
   map=readOGR("PG:dbname=beitedata user=postgres password=postgres",layer=layer)
   return(map)
 }
@@ -97,8 +99,7 @@ analyseobsspeed=function(od,deltamin,locality="All",type="Displacement",maxvalue
   dev.new()
   nf=layout(matrix(c(1,2,3,4), 2, 2, byrow=TRUE), respect=TRUE)
   for(mod in modes){  
-    print(mod)
-    
+    print(mod)    
     hist(od[,fieldname][od$adjobs==mod],breaks=c(0:ceiling(max/binsize))*binsize,main=paste(type,":",locality,mod),xlim=xlim,xlab=paste(type,deltamin,'minutes'))
     filename=paste("hist",locality,sub('/','-',type),deltamin,sep='_')
   }
@@ -434,3 +435,110 @@ locationdates=function(loc){
   dates=logdays()
   return(unique(dates[dates$lokalitet==lok,2]))
 }
+
+
+#
+# Geilo: 5 min movement: > 25 m/5min : grazing
+#                        < 25 m/5min : rest
+# ratio5 >0.8 && movement5 > 75 m/5min
+#
+# Valdres: 
+# ratio5 >0.8 && movement5 > 75 m/5min
+
+fetchmodanalyse=function(){
+  o=observationdistances(5)
+  o=testmodel(o)
+  return(o)
+}
+
+testmodeltrav=function(o,rtrav=25,wrat=0.8,wtrav=100){
+  o$model=ifelse((o$trav5min<rtrav),'resting','grazing')
+  o$model=ifelse((o$ratio5min> wrat & o$trav5min>wtrav) ,'walking',o$model)
+  o$model=as.factor(o$model)
+  return(o)
+}
+
+
+
+testmodeldist=function(o,rtrav=25,wrat=0.8,wtrav=100){
+  o$model=ifelse((o$dists5min<rtrav),'resting','grazing')
+  o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
+  o$model=as.factor(o$model)
+  return(o)
+}
+
+geilomodel=function(o,rtrav=25,wrat=0.8,wtrav=100){
+  o$model=ifelse((o$trav5min<rtrav),'resting','grazing')
+  o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
+  o$model=as.factor(o$model)
+  return(o)
+}
+
+
+analysesinglemodel=function(o,lok="all"){
+  if(lok!='all'){
+    o=o[o$lokalitet==lok,]
+  }
+  xt=xtabs(~adjobs+model,data=o)
+  return(round(xt/rowSums(xt),3)*100)
+}
+
+modelhits=function(o,lok="all"){
+  o=analysesinglemodel(o,lok)
+  print(o[1,1]+o[3,2]+o[4,3])
+  return(o)
+}
+
+analysemodelset=function(o,lok="all",rtravs,wrats,wtravs,testmodel=testmodeltrav){
+  for (rtrav in rtravs){
+    for(wrat in wrats){
+      for(wtrav in wtravs){
+        o=testmodel(o,rtrav,wrat,wtrav)
+        xt=analysesinglemodel(o,lok)
+        tothit=xt[1,1]+xt[3,2]+xt[4,3]
+        data=c(rtrav,wrat,wtrav,tothit,xt)
+       
+        if(!exists('output')){
+          output=data
+         # output=data.frame(data,row.names=c)
+         #
+        }else{
+          output=rbind(output,data)
+      }        
+      }
+    }
+  }
+  colnames(output)=c("rtrav","wrat","wtrav","tothit",
+                        "g2g","gw2g","r2g","w2g",
+                        "g2r","gw2r","r2r","w2r",
+                        "g2w","gw2w","r2w","w2w")
+  rownames(output)=c(1:length(output[,1]))
+  return(as.data.frame(output))
+}
+
+#
+#
+#  To run model analyses:
+#
+
+if(FALSE){
+  rtravs=c(1:10)*10
+  wrats=c(1:9)/10
+  wtravs=rtravs+40
+  vmov5=analysemodelset(o,lok='Valdres',rtravs,wrats,wtravs,testmodel=testmodeltrav)
+  vdisp5=analysemodelset(o,lok='Valdres',rtravs,wrats,wtravs,testmodel=testmodeldist)
+  gmov5=analysemodelset(o,lok='Geilo',rtravs,wrats,wtravs,testmodel=testmodeltrav)
+  gdisp5=analysemodelset(o,lok='Geilo',rtravs,wrats,wtravs,testmodel=testmodeldist)
+}
+
+
+fetchtrackwithvegcat=function(lok,date,cowid){
+  table=ifelse(lok=="Valdres","valdres_classifiedgps","geilo_classified")
+  sql=paste("select * from ",table," where date='",date,"' and cowid=",cowid,sep="");
+  rs=dbSendQuery(con,statement=sql)
+  data$category=as.factor(data$category)
+  data=fetch(rs,n=-1)
+  return(data)
+}
+
+

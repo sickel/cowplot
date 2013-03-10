@@ -1,14 +1,18 @@
 #
 # Plots a base map with legend
 #
-lgncex=0.3 # defines size of the legend
+#
+#
+lgncex=0.4 # defines size of the legend
 
 plotmap=function(lok="Valdres"){
+  par(xpd=NA)
   if(!(exists('map'))) map=fetchmap(lok)
+  if(!(exists('rast'))) rast=fetchrast(lok)
   if(lok=='Valdres'){
     # Positions for legend:
     legy=bbox(map)[2,1]+1500
-    legx=bbox(map)[1,1]-10
+    legx=bbox(map)[1,1]-1000
     xlim=NULL
     pal=c("firebrick","peru","Yellow","LightPink","RosyBrown",
       "SandyBrown","LightGrey","LightPink","LightGrey","DarkKhaki",
@@ -18,11 +22,12 @@ plotmap=function(lok="Valdres"){
       "OliveDrab","DarkOliveGreen","Green")
     # "PaleGreen3" SpringGreen LawnGreen DarkSeaGreen "ForestGreen"
     # Positions for scale bar:
-    sbx=bbox(map)[1,1]+20
-    sby=bbox(map)[2,2]+50
+    sbx=legx+10
+    sby=legy+100
+    # sby=bbox(map)[2,2]+50
   }else{
-    legy=bbox(map)[2,2]
-    legx=bbox(map)[1,1]-450
+    legy=bbox(map)[2,2]-150
+    legx=bbox(map)[1,1]-1000
     xlim=c(bbox(map)[1,1]-300,bbox(map)[1,2]+50) # Need some extra space for legend
     pal=c("DimGrey","Red","LightGrey","cornflower blue","DarkOliveGreen",
       "ForestGreen","LightSeaGreen","IndianRed","DarkGoldenrod","Green Yellow",
@@ -37,11 +42,12 @@ plotmap=function(lok="Valdres"){
     # "DarkOrchid4",","khaki" Green "RosyBrown", "thistle" DarkSeaGreen
     # DarkOrange3
     sbx=legx+10
-    sby=bbox(map)[2,1]+50
+    sby=bbox(map)[2,2]-50
   
   }
+  image(rast, red="band1", green="band2", blue="band3")
   palette(pal)
-  plot(map,col=map$categorycode,xlim=xlim,lwd=0.2)
+  plot(map,col=map$categorycode,xlim=xlim,lwd=0.2,add=TRUE)
   types=unique(map$category)
   nums=unique(map$categorycode)
   if(!(exists("nolegend"))||!(nolegend)){
@@ -92,7 +98,7 @@ fetchodday=function(date){
 dayplot=function(date){
   lwd=1
   logs=logdays(date=date)
-   if(length(logs)>0){
+  if(length(logs)>0){
     herd=logs$cowid
     palette(c("cyan","magenta","orange","yellow","purple"))
     for(i in c(1:length(herd))){
@@ -145,4 +151,10 @@ plotalltracks=function(lok){
     print(day)
     plotdatetrack(day,lok)
   }
+}
+
+
+fetchrast=function(lok){
+  if(lok=='Valdres') return(readGDAL('valdres_googlemaps.png'))
+  else return(readGDAL('geilo_googlemaps.png'))
 }
