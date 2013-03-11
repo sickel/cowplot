@@ -5,13 +5,12 @@
 #
 lgncex=0.4 # defines size of the legend
 
-plotmap=function(lok="Valdres"){
+plotmap=function(lok="Valdres",drawlegend=TRUE){
   par(xpd=NA)
-  par(mar=c(0,0,0,0))
-  par(mai=c(0,0,0,0))
-  
-  if(!(exists('map'))) map=fetchmap(lok)
-  if(!(exists('rast'))) rast=fetchrast(lok)
+  par(mar=c(0,0,1,0))
+  # par(mai=c(0,0,0))
+  map=fetchmap(lok)
+  rast=fetchrast(lok)
   if(lok=='Valdres'){
     # Positions for legend:
     legy=bbox(map)[2,1]+1300
@@ -55,11 +54,12 @@ plotmap=function(lok="Valdres"){
   plot(map,col=map$categorycode,xlim=xlim,lwd=0.2,add=TRUE)
   types=unique(map$category)
   nums=unique(map$categorycode)
-  if(!(exists("nolegend"))||!(nolegend)){
+  if(drawlegend){
     legend(legx,legy,types,fill=nums,border=nums,cex=lgncex,bg="white")
+    drawscale(sbx,sby,1000,"1 km",lgncex*2)
   }
-  drawscale(sbx,sby,1000,"1 km",lgncex*2)
 }
+
 # Draws a line of desired lengt at a specified locations
 drawscale=function(sbx,sby,length,text="1 km",cex=1){
   lines(c(sbx,sbx+length),c(sby,sby))
@@ -100,12 +100,16 @@ fetchodday=function(date){
 # mapplot(lok) must be run first to plot the background map and set up
 # the plotting environment
 # (or use plotdaytrack() (below)
-dayplot=function(date){
+dayplot=function(date,drawlegend=TRUE,allblack=FALSE){
+  if(allblack) drawlegend=FALSE
   lwd=1
   logs=logdays(date=date)
   if(length(logs)>0){
     herd=logs$cowid
     palette(c("cyan","magenta","orange","yellow","purple"))
+    if(allblack){
+      palette(c("black","black"))
+    }
     for(i in c(1:length(herd))){
       cow=herd[i]
       data=fetchdata(cow,date)
@@ -121,7 +125,9 @@ dayplot=function(date){
       legy=bbox(map)[2,2]-1200
       legx=bbox(map)[1,1]-450
     }
-    legend(legx,legy,herd,col=c(1:length(herd)),cex=lgncex,lwd=lwd,bg="white")
+    if(drawlegend){
+      legend(legx,legy,herd,col=c(1:length(herd)),cex=lgncex,lwd=lwd,bg="white")
+    }
   }
 }
 
@@ -135,7 +141,7 @@ classplot=function(data){
 
 # Plots a map with all tracks and observations for one given day and locations
 plotdatetrack=function(date,lok){
-  if(lok=="Valdres") paper="a4" else paper="a4r"
+  paper="a4r"
   if(pdfplot) pdf(paste(lok,"_track_",date,".pdf",sep=""),paper=paper,width=0,height=0,title=paste(lok,date,sep=" "))
   # Widht and height set to 0 gives default margins.
   plotmap(lok)
@@ -145,6 +151,7 @@ plotdatetrack=function(date,lok){
   title(main=date)
   if(pdfplot) dev.off()
 }
+
 
 # Run to plot maps for all days
 
@@ -163,3 +170,35 @@ fetchrast=function(lok){
   if(lok=='Valdres') return(readGDAL('valdres_googlemaps.png'))
   else return(readGDAL('geilo_osm.png'))
 }
+
+
+plotmonthlies=function(dates){
+  paper="a4r"
+  for (lok in unique(dates$lokalitet)){
+    print(lok)
+    pdates=data.frame(date=as.Date(unique(dates$date[dates$lokalitet==lok])))
+    pdates$years=as.integer(strftime(pdates$date,format="%Y"))
+    pdates$month=as.factor(ifelse(strftime(pdates$date,format="%j")<220,"July","August"))
+    for(year in unique(pdates$years)){
+      print(year)
+      for(month in unique(pdates$month)){
+        print(month)
+        tdates=pdates$date[pdates$year==year & pdates$month==month]
+        pdf(paste(lok,"_Mndtracks_",year,'-',month,".pdf",sep=""),paper=paper,width=0,height=0,title=paste(lok,year,month,sep=" "))
+        setplot(lok,tdates)
+        title(main=paste(lok,month,year))
+        dev.off()
+      }
+    }
+  }
+}
+
+setplot=function(lok,dates){
+   plotmap(lok,FALSE)
+   for(date in dates){
+     date=format(as.Date(date,origin="1970-01-01"))
+     print(date)
+     dayplot(date,drawlegend=FALSE,allblack=TRUE)
+   }
+ }
+   
