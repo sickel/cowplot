@@ -254,7 +254,7 @@ fetchobs=function(cowid=NULL,date=NULL,lok=NULL){
 # 
 #
 
-calcdist=function(data,delta,date,cowid){
+calcdist=function(data,delta,date='',cowid=''){
   # Reuses dists5s if already defined, calculates if needed
   if(!(exists("dists5s",data))){
     data$dists5s=distance(data,1)
@@ -467,8 +467,16 @@ testmodeldist=function(o,rtrav=25,wrat=0.8,wtrav=100){
   return(o)
 }
 
+
 geilomodel=function(o,rtrav=25,wrat=0.8,wtrav=100){
   o$model=ifelse((o$trav5min<rtrav),'resting','grazing')
+  o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
+  o$model=as.factor(o$model)
+  return(o)
+}
+
+valdresmodel=function(o,rtrav=10,wrat=0.7,wtrav=80){
+  o$model=ifelse((o$dists5min<rtrav),'resting','grazing')
   o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
   return(o)
@@ -516,7 +524,7 @@ analysemodelset=function(o,lok="all",rtravs,wrats,wtravs,testmodel=testmodeltrav
   return(as.data.frame(output))
 }
 
-#
+# Valdres: 10 m 
 #
 #  To run model analyses:
 #
@@ -532,13 +540,31 @@ if(FALSE){
 }
 
 
+
 fetchtrackwithvegcat=function(lok,date,cowid){
   table=ifelse(lok=="Valdres","valdres_classifiedgps","geilo_classified")
-  sql=paste("select * from ",table," where date='",date,"' and cowid=",cowid,sep="");
+  sql=paste("select * from ",table," where date='",date,"' and cowid=",cowid," order by datetime",sep="");
   rs=dbSendQuery(con,statement=sql)
-  data$category=as.factor(data$category)
   data=fetch(rs,n=-1)
+  data$category=as.factor(data$category)
   return(data)
 }
 
 
+runallmodels=function(lok,deltamin=5,days=NA){
+  if(is.na(days)){
+    days=logdays()
+  }
+  for(day in unique(days[days$lokalitet==lok,2])){
+    logs=logdays(date=date)
+    # Pick out from dates in stead?
+    if(length(logs)>0){
+      herd=logs$cowid
+      for(cow in herd){
+        data=fetchtrackwithvegcat(cow,day)
+        data=calcdist(data,deltamin*12)
+        data=valdresmodel(data)
+      }
+    }
+  }
+}

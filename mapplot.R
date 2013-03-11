@@ -7,12 +7,15 @@ lgncex=0.4 # defines size of the legend
 
 plotmap=function(lok="Valdres"){
   par(xpd=NA)
+  par(mar=c(0,0,0,0))
+  par(mai=c(0,0,0,0))
+  
   if(!(exists('map'))) map=fetchmap(lok)
   if(!(exists('rast'))) rast=fetchrast(lok)
   if(lok=='Valdres'){
     # Positions for legend:
-    legy=bbox(map)[2,1]+1500
-    legx=bbox(map)[1,1]-1000
+    legy=bbox(map)[2,1]+1300
+    legx=bbox(map)[1,1]-1300
     xlim=NULL
     pal=c("firebrick","peru","Yellow","LightPink","RosyBrown",
       "SandyBrown","LightGrey","LightPink","LightGrey","DarkKhaki",
@@ -26,8 +29,9 @@ plotmap=function(lok="Valdres"){
     sby=legy+100
     # sby=bbox(map)[2,2]+50
   }else{
-    legy=bbox(map)[2,2]-150
-    legx=bbox(map)[1,1]-1000
+    # legy=bbox(map)[2,1]+800
+    legy=bbox(map)[2,2]+50
+    legx=bbox(map)[1,1]-910
     xlim=c(bbox(map)[1,1]-300,bbox(map)[1,2]+50) # Need some extra space for legend
     pal=c("DimGrey","Red","LightGrey","cornflower blue","DarkOliveGreen",
       "ForestGreen","LightSeaGreen","IndianRed","DarkGoldenrod","Green Yellow",
@@ -42,7 +46,8 @@ plotmap=function(lok="Valdres"){
     # "DarkOrchid4",","khaki" Green "RosyBrown", "thistle" DarkSeaGreen
     # DarkOrange3
     sbx=legx+10
-    sby=bbox(map)[2,2]-50
+    #sby=bbox(map)[2,2]-50
+    sby=bbox(map)[2,1]-5000
   
   }
   image(rast, red="band1", green="band2", blue="band3")
@@ -51,7 +56,7 @@ plotmap=function(lok="Valdres"){
   types=unique(map$category)
   nums=unique(map$categorycode)
   if(!(exists("nolegend"))||!(nolegend)){
-    legend(legx,legy,types,fill=nums,border=nums,cex=lgncex,bty="n")
+    legend(legx,legy,types,fill=nums,border=nums,cex=lgncex,bg="white")
   }
   drawscale(sbx,sby,1000,"1 km",lgncex*2)
 }
@@ -116,7 +121,7 @@ dayplot=function(date){
       legy=bbox(map)[2,2]-1200
       legx=bbox(map)[1,1]-450
     }
-    legend(legx,legy,herd,col=c(1:length(herd)),cex=lgncex,lwd=lwd,bty="n")
+    legend(legx,legy,herd,col=c(1:length(herd)),cex=lgncex,lwd=lwd,bg="white")
   }
 }
 
@@ -131,7 +136,7 @@ classplot=function(data){
 # Plots a map with all tracks and observations for one given day and locations
 plotdatetrack=function(date,lok){
   if(lok=="Valdres") paper="a4" else paper="a4r"
-  if(pdfplot) pdf(paste(lok,"_track_",date,".pdf",sep=""),paper=paper,width=0,height=0)
+  if(pdfplot) pdf(paste(lok,"_track_",date,".pdf",sep=""),paper=paper,width=0,height=0,title=paste(lok,date,sep=" "))
   # Widht and height set to 0 gives default margins.
   plotmap(lok)
   od=fetchodday(date)
@@ -156,5 +161,5 @@ plotalltracks=function(lok){
 
 fetchrast=function(lok){
   if(lok=='Valdres') return(readGDAL('valdres_googlemaps.png'))
-  else return(readGDAL('geilo_googlemaps.png'))
+  else return(readGDAL('geilo_osm.png'))
 }
