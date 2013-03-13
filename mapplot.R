@@ -178,7 +178,7 @@ plotmonthlies=function(dates){
     print(lok)
     pdates=data.frame(date=as.Date(unique(dates$date[dates$lokalitet==lok])))
     pdates$years=as.integer(strftime(pdates$date,format="%Y"))
-    pdates$month=as.factor(ifelse(strftime(pdates$date,format="%j")<220,"July","August"))
+    pdates$month=as.factor(ifelse(strftime(pdates$date,format="%j")<213,"July","August"))
     for(year in unique(pdates$years)){
       print(year)
       for(month in unique(pdates$month)){

@@ -55,12 +55,7 @@ observationdistances=function(deltamin){
     data=fetchdata(cowid,date)
     if(length(data)>0){
       data=fetchgpsobs(cowid,date)
-      adjobs=data$obstype
-      l=length(adjobs)
-      rep=round(delta/2)
-      adjobs=c(rep(NA,rep),adjobs)
-      length(adjobs)=l
-      data$adjobs=as.factor(adjobs)
+      data=adjustobservations(data,delta)
       data=calcdist(data,delta,date,cowid)
       data=data[!(is.na(data$adjobs)),]
       if(!exists('obsspeed')){
@@ -75,6 +70,9 @@ observationdistances=function(deltamin){
   obsspeed$lokalitet=as.factor(obsspeed$lokalitet)
   return(obsspeed)
 }
+
+
+
 
 # To be run on the output of the former
 
@@ -206,7 +204,7 @@ precip=function(precip,date){
 # Fetches a dataset for a given cow and date
 #
 fetchdata=function(cowid,date){
-  sql=paste('select id,datetime,date,trim(lokalitet) as lokalitet, cowid, x,y, case when extract(second from datetime)<5 and extract(minute from datetime) = 0 then extract(hour from datetime) end as marker from gps_coord where cowid=',cowid," and date='",date,"'",sep='')
+  sql=paste('select id,datetime,date,trim(lokalitet) as lokalitet, cowid, x,y, case when extract(second from datetime)<5 and extract(minute from datetime) = 0 then extract(hour from datetime) end as marker from gps_coord where cowid=',cowid," and date='",date,"' order by datetime",sep='')
   rs=dbSendQuery(con,statement=sql)
   data=fetch(rs,n=-1)
   return(data)	
@@ -455,12 +453,21 @@ testmodeltrav=function(o,rtrav=25,wrat=0.8,wtrav=100){
   o$model=ifelse((o$trav5min<rtrav),'resting','grazing')
   o$model=ifelse((o$ratio5min> wrat & o$trav5min>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
+  o=removeshort(o)
   return(o)
 }
 
 
 
 testmodeldist=function(o,rtrav=25,wrat=0.8,wtrav=100){
+  o$model=ifelse((o$dists5min<rtrav),'resting','grazing')
+  o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
+  o$model=as.factor(o$model)
+  o=removeshort(o)
+  return(o)
+}
+
+oldvaldres=function(o,rtrav=10,wrat=0.8,wtrav=80){
   o$model=ifelse((o$dists5min<rtrav),'resting','grazing')
   o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
@@ -472,6 +479,7 @@ geilomodel=function(o,rtrav=25,wrat=0.8,wtrav=100){
   o$model=ifelse((o$trav5min<rtrav),'resting','grazing')
   o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
+  o=removeshort(o)
   return(o)
 }
 
@@ -479,6 +487,17 @@ valdresmodel=function(o,rtrav=10,wrat=0.7,wtrav=80){
   o$model=ifelse((o$dists5min<rtrav),'resting','grazing')
   o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
+  o=removeshort(o)
+  return(o)
+}
+
+removeshort=function(o){
+  rle=rle(as.vector(o$model))
+  rl=data.frame(val=rle$values,len=rle$lengths)
+  rl$newval=rl$val
+  rl$newval[rl$len<500 & rl$val=='resting']='grazing'
+  rle$values=rl$newval
+  o$model=as.factor(inverse.rle(rle))
   return(o)
 }
 
@@ -541,6 +560,8 @@ if(FALSE){
 
 
 
+
+
 fetchtrackwithvegcat=function(lok,date,cowid){
   table=ifelse(lok=="Valdres","valdres_classifiedgps","geilo_classified")
   sql=paste("select * from ",table," where date='",date,"' and cowid=",cowid," order by datetime",sep="");
@@ -568,3 +589,86 @@ runallmodels=function(lok,deltamin=5,days=NA){
     }
   }
 }
+
+
+#
+# Fetches all observation days, runs model on each day and reports hits
+#
+
+
+observationdistances=function(deltamin,models,lok='',rtravs,wrats,wtravs){
+  delta=deltamin*12 # number of 5 sec steps
+  and=ifelse(lok=='','',paste("and lokalitet='",lok,"'",sep=''))
+  limit=22
+  limit=ifelse(limit>0,paste('limit=',limit),'')
+  sql=paste("select distinct cowid, timestamp::date from observation where cowid > 0",and,limit)
+  # finds all cow / date combinations in observations
+  rs=dbSendQuery(con,statement=sql)
+  sets=fetch(rs,n=-1)
+  print(sets)
+  for(i in c(1:length(sets[,1]))){
+  # for(i in c(1:2)){
+    print(i)
+    cowid=sets[i,1]
+    date=sets[i,2]
+                                        #    data=fetchdata(cowid,date)
+                                        #   if(length(data)>0){
+    data=fetchgpsobs(cowid,date)
+    data=adjustobservations(data,delta)
+    data=calcdist(data,delta)
+    for(model in models){
+      # Runs all the models in the entire parameter space
+      for(rtrav in rtravs){
+        for(wrat in wrats){
+          for(wtrav in wtravs){
+            data=model(data,rtrav,wrat,wtrav)
+            data=data[!(is.na(data$adjobs)),]
+            xt=analysesinglemodel(data,lok)
+            tothit=0
+            for(d in intersect(dimnames(xt)$adjobs,dimnames(xt)$model)){
+              tothit=tothit+xt[d,d]
+            }
+            out=c(rtrav,wrat,wtrav,tothit,xt)
+         #   print(out)
+             if(!exists('obsspeed')){
+              output=out
+            }else{
+              output=rbind(output,out)
+            }
+          }
+        }
+      }
+    }
+                                        #}
+  }
+#                                      print("OK so far")
+#  obsspeed$obstype=as.factor(obsspeed$obstype)
+#  obsspeed$lokalitet=as.factor(obsspeed$lokalitet)
+  rownames(output)=c(1:length(output[,1]))
+  colnames(output)=c("rtrav","wrat","wtrav","tothit",
+                        "g2g","gw2g","r2g","w2g",
+                        "g2r","gw2r","r2r","w2r",
+                        "g2w","gw2w","r2w","w2w")
+  return(output)
+}
+
+
+
+
+
+#
+# Moves observation delta/2 timestamps later to fit it with
+# behaviour around observation time
+# 
+
+adjustobservations=function(data,deltamin){
+  delta=deltamin*12
+  adjobs=data$obstype
+  l=length(adjobs)
+  rep=round(delta/2)
+  adjobs=c(rep(NA,rep),adjobs)
+  length(adjobs)=l
+  data$adjobs=as.factor(adjobs)
+  return(data)
+}
+
