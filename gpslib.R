@@ -219,6 +219,8 @@ fetchgpsobs=function(cowid,date){
   sql=paste('select * from gps_observation where cowid=',cowid," and date='",date,"'",sep='')
   rs=dbSendQuery(con,statement=sql)
   data=fetch(rs,n=-1)
+  data$observation=as.factor(data$observation)
+  data$obstype=as.factor(data$obstype)
   return(data)	
 }
 
@@ -321,11 +323,13 @@ distplot=function(set,delta,obs=c()){
   if(length(obs)>0){
     ot=levels(obs$obstype)
     points(obs$timestamp,obs$n-(ymax/50),col=as.integer(obs$obstype)+2,pch=7)
-    legend(max(set$datetime)-(3600*legendoffset),y=ymax,c('movement','displacement',ot),
+    legend(max(set$datetime)-(3600*legendoffset),y=ymax,
+           c('movement','displacement',ot),
            lty=c('solid','solid',NA,NA,NA,NA),col=c(2,1,3:(length(ot)+2)),
            pch=c(NA,NA,rep(7,length(ot))))
   }else{
-    legend(max(data$datetime)-3600*legendoffset,y=ymax,c('movement','displacement'),lty=c('solid','solid'),col=c(2,1))
+    legend(max(data$datetime)-3600*legendoffset,y=ymax,
+           c('movement','displacement'),lty=c('solid','solid'),col=c(2,1))
   }
 }
 
@@ -599,8 +603,8 @@ runallmodels=function(lok,deltamin=5,days=NA){
 observationdistances=function(deltamin,models,lok='',rtravs,wrats,wtravs){
   delta=deltamin*12 # number of 5 sec steps
   and=ifelse(lok=='','',paste("and lokalitet='",lok,"'",sep=''))
-  limit=22
-  limit=ifelse(limit>0,paste('limit=',limit),'')
+  limit=10
+  limit=ifelse(limit>0,paste('limit ',limit),'')
   sql=paste("select distinct cowid, timestamp::date from observation where cowid > 0",and,limit)
   # finds all cow / date combinations in observations
   rs=dbSendQuery(con,statement=sql)
@@ -629,8 +633,8 @@ observationdistances=function(deltamin,models,lok='',rtravs,wrats,wtravs){
               tothit=tothit+xt[d,d]
             }
             out=c(rtrav,wrat,wtrav,tothit,xt)
-         #   print(out)
-             if(!exists('obsspeed')){
+            print(out)
+             if(!exists('output')){
               output=out
             }else{
               output=rbind(output,out)
@@ -646,10 +650,10 @@ observationdistances=function(deltamin,models,lok='',rtravs,wrats,wtravs){
 #  obsspeed$lokalitet=as.factor(obsspeed$lokalitet)
   rownames(output)=c(1:length(output[,1]))
   colnames(output)=c("rtrav","wrat","wtrav","tothit",
-                        "g2g","gw2g","r2g","w2g",
-                        "g2r","gw2r","r2r","w2r",
-                        "g2w","gw2w","r2w","w2w")
-  return(output)
+                         "g2g","r2g","w2g",
+                        "g2r","r2r","w2r",
+                        "g2w","r2w","w2w")
+  return(data.frame(output))
 }
 
 
@@ -672,3 +676,16 @@ adjustobservations=function(data,deltamin){
   return(data)
 }
 
+#
+# Overview of observations and model
+#
+
+plotobsmod=function(d,deltamin,type='dists'){
+  lok=d[1,'lokalitet']
+  date=d[1,'date']
+  cowid=d[1,'cowid']
+  palette(bioforskpalette)
+  clmn=paste(type,deltamin,'min',sep='')
+  plot(d$datetime,d[,clmn],col=d$model,main=paste(lok,cowid,date),pch=20,xlab='',ylab='')
+  points(d$datetime,rep(0,length(d[,1])),col=d$obstype,pch=7)
+}
