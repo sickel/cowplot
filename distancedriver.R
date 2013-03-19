@@ -27,3 +27,5 @@ if(!(exists('tstep'))){
 if(!(exists('data'))){
   data=db2plot(cowid,date,tstep)
 }
+
+disttype=c('trav'='movement','dists'='displacement')

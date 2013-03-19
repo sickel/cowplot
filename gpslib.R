@@ -45,7 +45,7 @@ observationdistances=function(deltamin){
   delta=deltamin*12 # number of 5 sec steps
   sql="select distinct cowid, timestamp::date from observation where cowid > 0"
   # finds all cow / date cmbinations in observations
-  rs=dbSendQuery(con,statement=sql)
+ rs=dbSendQuery(con,statement=sql)
   sets=fetch(rs,n=-1)
   for(i in c(1:length(sets[,1]))){
   # for(i in c(1:2)){
@@ -135,10 +135,8 @@ alldistplots=function(){
       prefix=paste("Dist",prefix,date,cowid,sep='_')
       data=calcdist(data,delta,date,cowid)
       obs=fetchobs(cowid,date)
+      pdf(file=paste(prefix,'pdf',sep='.'))
       distplot(data,delta,obs)
-# TODO: Make pdf-files directly
-      dev.copy2pdf(file=paste(prefix,'pdf',sep='.'))
-      dev.copy(png,paste(prefix,'png',sep='.'))
       dev.off()
     }
   }
@@ -153,7 +151,7 @@ alldistplots=function(){
 
 distprday=function(cowid,date){
     data=fetchdata(cowid,date)
-    data=data[c(TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE),] # Once pr minute;
+    data=data[c(TRUE,rep(11,FALSE)),] # Once pr minute;
     # use rep()!
     dist=sum(distance(data,1),na.rm=TRUE)
     return(dist)
@@ -216,7 +214,8 @@ fetchdata=function(cowid,date){
 #
 
 fetchgpsobs=function(cowid,date){
-  sql=paste('select * from gps_observation where cowid=',cowid," and date='",date,"'",sep='')
+  sql=paste('select * from gps_observation where cowid=',cowid," and date='",
+    date,"'",sep='')
   rs=dbSendQuery(con,statement=sql)
   data=fetch(rs,n=-1)
   data$observation=as.factor(data$observation)
@@ -237,7 +236,8 @@ fetchobs=function(cowid=NULL,date=NULL,lok=NULL){
   # The n column (always 0) is just added to simplify plotting
   fields=c()
   if(!(is.null(cowid))) fields=c(fields,paste("cowid",cowid,sep='='))
-  if(!(is.null(date))) fields=c(fields,paste("timestamp::date='",date,"'",sep=''))
+  if(!(is.null(date))) fields=c(fields,
+                         paste("timestamp::date='",date,"'",sep=''))
   if(!(is.null(lok))) fields=c(fields,paste("lokalitet='",lok,"'",sep=''))
   if(length(fields)>0){
     where=paste(fields,collapse=" and ")
@@ -268,7 +268,7 @@ calcdist=function(data,delta,date='',cowid=''){
   # ratio between travel distance and displacement 
   rcol=paste("ratio",delta/12,"min",sep='')
   data[,rcol]=data[,dcol]/data[,tcol]
-  return(data)
+   return(data)
 }
 
 #
@@ -315,8 +315,10 @@ distplot=function(set,delta,obs=c()){
   # TODO: Check if columns exist. Error message or recalc if not.
   ymax=max(set[tcol],na.rm=TRUE)
   prec=precip(fetchprecip(cowid,date),date)
-  main=paste(max(set$date),"- cow",max(set$cowid),'-',prec,"mm -",delta/12,'min') 
-  plot(set$datetime,set[,dcol],col="1",type='l',xlab='UTC-time',ylab="meters",main=main,ylim=c(0,ymax))
+  main=paste(max(set$date),"- cow",max(set$cowid),'-',prec,"mm -",delta/12,
+    'min') 
+  plot(set$datetime,set[,dcol],col="1",type='l',xlab='UTC-time',ylab="meters",
+       main=main,ylim=c(0,ymax))
   lines(set$datetime,set[,tcol],col="2")
   # Calculated ratio - normalized to scale on graph
   lines(set$datetime,set[,dcol]/set[,tcol]*ymax,col="3")
@@ -368,7 +370,8 @@ logdays=function(cowid='',date=''){
   if(date>''){
     select=paste(select," and date='",date,"'",sep='')
   }
-  sql=paste("select * from cowid_date_location where not cowid is null",select," order by date,lokalitet",sep='');
+  sql=paste("select * from cowid_date_location where not cowid is null",
+    select," order by date,lokalitet",sep='');
   rs=dbSendQuery(con,statement=sql)
   data=fetch(rs,n=-1)
   return(data)	
@@ -453,7 +456,7 @@ fetchmodanalyse=function(){
   return(o)
 }
 
-testmodeltrav=function(o,rtrav=25,wrat=0.8,wtrav=100){
+modeltrav=function(o,rtrav=25,wrat=0.8,wtrav=100){
   o$model=ifelse((o$trav5min<rtrav),'resting','grazing')
   o$model=ifelse((o$ratio5min> wrat & o$trav5min>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
@@ -461,9 +464,23 @@ testmodeltrav=function(o,rtrav=25,wrat=0.8,wtrav=100){
   return(o)
 }
 
+modeltd=function(o,rtrav=25,wrat=0.8,wtrav=100){
+  o$model=ifelse((o$trav5min<rtrav),'resting','grazing')
+  o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
+  o$model=as.factor(o$model)
+  o=removeshort(o)
+  return(o)
+}
+modeldt=function(o,rtrav=25,wrat=0.8,wtrav=100){
+  o$model=ifelse((o$dists5min<rtrav),'resting','grazing')
+  o$model=ifelse((o$ratio5min> wrat & o$trav5min>wtrav) ,'walking',o$model)
+  o$model=as.factor(o$model)
+  o=removeshort(o)
+  return(o)
+}
 
 
-testmodeldist=function(o,rtrav=25,wrat=0.8,wtrav=100){
+modeldist=function(o,rtrav=25,wrat=0.8,wtrav=100){
   o$model=ifelse((o$dists5min<rtrav),'resting','grazing')
   o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
@@ -487,31 +504,46 @@ geilomodel=function(o,rtrav=25,wrat=0.8,wtrav=100){
   return(o)
 }
 
-valdresmodel=function(o,rtrav=10,wrat=0.7,wtrav=80){
+valdresmodel=function(o,rtrav=10,wrat=0.7,wtrav=80,length=500){
   o$model=ifelse((o$dists5min<rtrav),'resting','grazing')
   o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
-  o=removeshort(o)
+  o=removeshort(o,length)
   return(o)
 }
 
-removeshort=function(o){
+removeshort=function(o,length=500){
   rle=rle(as.vector(o$model))
   rl=data.frame(val=rle$values,len=rle$lengths)
   rl$newval=rl$val
-  rl$newval[rl$len<500 & rl$val=='resting']='grazing'
+  rl$newval[rl$len<length & rl$val=='resting']='grazing'
   rle$values=rl$newval
   o$model=as.factor(inverse.rle(rle))
   return(o)
 }
 
 
+
+
 analysesinglemodel=function(o,lok="all"){
   if(lok!='all'){
     o=o[o$lokalitet==lok,]
   }
+  # adds in to make sure that all combinations exists
+  acts=c('walking','grazing','resting')
+  for(i in acts){
+    for(j in acts){
+      rw=o[1,]
+      rw$datetime=NA
+      rw$adjobs=i
+      rw$model=j
+      o=rbind(o,rw)
+    }
+  }
   xt=xtabs(~adjobs+model,data=o)
-  return(round(xt/rowSums(xt),3)*100)
+  xt=xt-1
+  xt=round(xt/rowSums(xt),3)*100
+  return(xt)
 }
 
 modelhits=function(o,lok="all"){
@@ -520,7 +552,8 @@ modelhits=function(o,lok="all"){
   return(o)
 }
 
-analysemodelset=function(o,lok="all",rtravs,wrats,wtravs,testmodel=testmodeltrav){
+analysemodelset=function(o,lok="all",rtravs,wrats,wtravs,
+  testmodel=testmodeltrav){
   for (rtrav in rtravs){
     for(wrat in wrats){
       for(wtrav in wtravs){
@@ -556,10 +589,14 @@ if(FALSE){
   rtravs=c(1:10)*10
   wrats=c(1:9)/10
   wtravs=rtravs+40
-  vmov5=analysemodelset(o,lok='Valdres',rtravs,wrats,wtravs,testmodel=testmodeltrav)
-  vdisp5=analysemodelset(o,lok='Valdres',rtravs,wrats,wtravs,testmodel=testmodeldist)
-  gmov5=analysemodelset(o,lok='Geilo',rtravs,wrats,wtravs,testmodel=testmodeltrav)
-  gdisp5=analysemodelset(o,lok='Geilo',rtravs,wrats,wtravs,testmodel=testmodeldist)
+  vmov5=analysemodelset(o,lok='Valdres',rtravs,wrats,wtravs,
+    testmodel=testmodeltrav)
+  vdisp5=analysemodelset(o,lok='Valdres',rtravs,wrats,wtravs,
+    testmodel=testmodeldist)
+  gmov5=analysemodelset(o,lok='Geilo',rtravs,wrats,wtravs,
+    testmodel=testmodeltrav)
+  gdisp5=analysemodelset(o,lok='Geilo',rtravs,wrats,wtravs,
+    testmodel=testmodeldist)
 }
 
 
@@ -600,10 +637,10 @@ runallmodels=function(lok,deltamin=5,days=NA){
 #
 
 
-observationdistances=function(deltamin,models,lok='',rtravs,wrats,wtravs){
+runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs){
   delta=deltamin*12 # number of 5 sec steps
   and=ifelse(lok=='','',paste("and lokalitet='",lok,"'",sep=''))
-  limit=10
+  limit=0
   limit=ifelse(limit>0,paste('limit ',limit),'')
   sql=paste("select distinct cowid, timestamp::date from observation where cowid > 0",and,limit)
   # finds all cow / date combinations in observations
@@ -618,32 +655,33 @@ observationdistances=function(deltamin,models,lok='',rtravs,wrats,wtravs){
                                         #    data=fetchdata(cowid,date)
                                         #   if(length(data)>0){
     data=fetchgpsobs(cowid,date)
-    data=adjustobservations(data,delta)
-    data=calcdist(data,delta)
-    for(model in models){
-      # Runs all the models in the entire parameter space
-      for(rtrav in rtravs){
-        for(wrat in wrats){
-          for(wtrav in wtravs){
-            data=model(data,rtrav,wrat,wtrav)
-            data=data[!(is.na(data$adjobs)),]
-            xt=analysesinglemodel(data,lok)
-            tothit=0
-            for(d in intersect(dimnames(xt)$adjobs,dimnames(xt)$model)){
-              tothit=tothit+xt[d,d]
-            }
-            out=c(rtrav,wrat,wtrav,tothit,xt)
-            print(out)
-             if(!exists('output')){
-              output=out
-            }else{
-              output=rbind(output,out)
+    if(length(data[,1])>0){
+      data=adjustobservations(data,delta)
+      data=calcdist(data,delta)
+      for(model in models){
+                                        # Runs all the models in the entire parameter space
+        for(rtrav in rtravs){
+          for(wrat in wrats){
+            for(wtrav in wtravs){
+              data=model(data,rtrav,wrat,wtrav)
+              data=data[!(is.na(data$adjobs)),]
+              xt=analysesinglemodel(data,lok)
+              tothit=0
+              for(d in intersect(dimnames(xt)$adjobs,dimnames(xt)$model)){
+                tothit=tothit+xt[d,d]
+              }
+              out=c(rtrav,wrat,wtrav,tothit,xt)
+              print(out)
+              if(!exists('output')){
+                output=out
+              }else{
+                output=rbind(output,out)
+              }
             }
           }
         }
       }
-    }
-                                        #}
+    }                                   #}
   }
 #                                      print("OK so far")
 #  obsspeed$obstype=as.factor(obsspeed$obstype)
@@ -662,17 +700,19 @@ observationdistances=function(deltamin,models,lok='',rtravs,wrats,wtravs){
 
 #
 # Moves observation delta/2 timestamps later to fit it with
-# behaviour around observation time
+# behaviour around observation time (then the adjusted observation is fit
+# with the speed calculated around the real observation point)
 # 
 
 adjustobservations=function(data,deltamin){
   delta=deltamin*12
-  adjobs=data$obstype
+  adjobs=as.character(data$obstype)
   l=length(adjobs)
   rep=round(delta/2)
   adjobs=c(rep(NA,rep),adjobs)
   length(adjobs)=l
-  data$adjobs=as.factor(adjobs)
+#  data$adjobs=as.factor(adjobs)
+  data$adjobs=adjobs
   return(data)
 }
 
@@ -680,12 +720,38 @@ adjustobservations=function(data,deltamin){
 # Overview of observations and model
 #
 
-plotobsmod=function(d,deltamin,type='dists'){
+plotobsmod=function(d,deltamin,type='dists',timeunit='min'){
   lok=d[1,'lokalitet']
   date=d[1,'date']
   cowid=d[1,'cowid']
   palette(bioforskpalette)
-  clmn=paste(type,deltamin,'min',sep='')
-  plot(d$datetime,d[,clmn],col=d$model,main=paste(lok,cowid,date),pch=20,xlab='',ylab='')
-  points(d$datetime,rep(0,length(d[,1])),col=d$obstype,pch=7)
+  clmn=paste(type,deltamin,timeunit,sep='')
+  par(xpd=TRUE)
+  plot(d$datetime,d[,clmn],col=d$model,main=paste(lok,cowid,date),pch=20,
+       xlab='',ylab='')
+  top=max(d[,clmn],na.rm=TRUE)
+  points(d$datetime,rep(top/-50,length(d[,1])),col=d$obstype,pch=7)
+  legend(max(d$datetime)-3500,top*1.15,pch=16,col=c(1:3),
+         legend=c("grazing","resting","walking"),bg="white")
+}
+
+
+#
+# TODO: Beregne derivert - få mer av gå-toppene som gange.
+#
+# Derivative:
+#
+
+if(FALSE){
+spl <- smooth.spline(x, y=ycs)
+pred <- predict(spl)
+
+plot (x, ycs, log="xy")
+lines(pred, col=2)
+
+ycs.prime <- diff(ycs)/diff(x)
+pred.prime <- predict(spl, deriv=1)
+
+plot(ycs.prime)
+lines(pred.prime$y, col=2)
 }
