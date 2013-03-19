@@ -6,8 +6,13 @@ nohup.out
 \#*
 .\#*
 .RData
-.pngw
+*.pngw
 *.prj
 *.dbf
 *.shp
 *.shx
+*.zip
+*.html
+*.svg
+*.csv
+*.dat
