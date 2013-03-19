@@ -456,33 +456,45 @@ fetchmodanalyse=function(){
   return(o)
 }
 
-modeltrav=function(o,rtrav=25,wrat=0.8,wtrav=100){
-  o$model=ifelse((o$trav5min<rtrav),'resting','grazing')
-  o$model=ifelse((o$ratio5min> wrat & o$trav5min>wtrav) ,'walking',o$model)
+modeltrav=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5){
+  tf=paste("trav",mins,"min",sep="")
+  rf=paste("ratio",mins,"min",sep="")
+  df=paste("dists",mins,"min",sep="")
+  o$model=ifelse((o[tf]<rtrav),'resting','grazing')
+  o$model=ifelse((o[rf]> wrat & o[tf]>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
   o=removeshort(o)
   return(o)
 }
 
-modeltd=function(o,rtrav=25,wrat=0.8,wtrav=100){
-  o$model=ifelse((o$trav5min<rtrav),'resting','grazing')
-  o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
+modeltd=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5){
+  tf=paste("trav",mins,"min",sep="")
+  rf=paste("ratio",mins,"min",sep="")
+  df=paste("dists",mins,"min",sep="")
+  o$model=ifelse((o[tf]<rtrav),'resting','grazing')
+  o$model=ifelse((o[rf]> wrat & o[df]>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
   o=removeshort(o)
   return(o)
 }
-modeldt=function(o,rtrav=25,wrat=0.8,wtrav=100){
-  o$model=ifelse((o$dists5min<rtrav),'resting','grazing')
-  o$model=ifelse((o$ratio5min> wrat & o$trav5min>wtrav) ,'walking',o$model)
+modeldt=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5){
+  tf=paste("trav",mins,"min",sep="")
+  rf=paste("ratio",mins,"min",sep="")
+  df=paste("dists",mins,"min",sep="")
+  o$model=ifelse((o[df]<rtrav),'resting','grazing')
+  o$model=ifelse((o[rf]> wrat & o[tf]>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
   o=removeshort(o)
   return(o)
 }
 
 
-modeldist=function(o,rtrav=25,wrat=0.8,wtrav=100){
-  o$model=ifelse((o$dists5min<rtrav),'resting','grazing')
-  o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
+modeldist=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5){
+  tf=paste("trav",mins,"min",sep="")
+  rf=paste("ratio",mins,"min",sep="")
+  df=paste("dists",mins,"min",sep="")
+  o$model=ifelse((o[df]<rtrav),'resting','grazing')
+  o$model=ifelse((o[rf]> wrat & o[df]>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
   o=removeshort(o)
   return(o)
@@ -553,7 +565,7 @@ modelhits=function(o,lok="all"){
 }
 
 analysemodelset=function(o,lok="all",rtravs,wrats,wtravs,
-  testmodel=testmodeltrav){
+  testmodel=testmodeltrav,mins=5){
   for (rtrav in rtravs){
     for(wrat in wrats){
       for(wtrav in wtravs){
@@ -648,22 +660,25 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs){
   sets=fetch(rs,n=-1)
   print(sets)
   for(i in c(1:length(sets[,1]))){
-  # for(i in c(1:2)){
-    print(i)
+  #for(i in c(1:2)){  # testing
+    cat(i,cowid,date,":\n")
     cowid=sets[i,1]
     date=sets[i,2]
-                                        #    data=fetchdata(cowid,date)
-                                        #   if(length(data)>0){
     data=fetchgpsobs(cowid,date)
     if(length(data[,1])>0){
       data=adjustobservations(data,delta)
       data=calcdist(data,delta)
+      j=0
       for(model in models){
-                                        # Runs all the models in the entire parameter space
+                                        # Runs all the models in the
+                                        # entire parameter space
         for(rtrav in rtravs){
           for(wrat in wrats){
             for(wtrav in wtravs){
-              data=model(data,rtrav,wrat,wtrav)
+              j=j+1
+              cat("\b\b\b\b\b")
+              cat(j)
+              data=model(data,rtrav,wrat,wtrav,deltamin)
               data=data[!(is.na(data$adjobs)),]
               xt=analysesinglemodel(data,lok)
               tothit=0
@@ -671,7 +686,6 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs){
                 tothit=tothit+xt[d,d]
               }
               out=c(rtrav,wrat,wtrav,tothit,xt)
-              print(out)
               if(!exists('output')){
                 output=out
               }else{
@@ -681,6 +695,7 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs){
           }
         }
       }
+      cat("\n")
     }                                   #}
   }
 #                                      print("OK so far")
