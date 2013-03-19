@@ -1,0 +1,968 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis projectname="" version="1.8.0-Lisboa">
+    <title></title>
+    <mapcanvas>
+        <units>meters</units>
+        <extent>
+            <xmin>490860.732019</xmin>
+            <ymin>6756286.350094</ymin>
+            <xmax>496804.986814</xmax>
+            <ymax>6760274.919328</ymax>
+        </extent>
+        <projections>1</projections>
+        <destinationsrs>
+            <spatialrefsys>
+                <proj4>+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs</proj4>
+                <srsid>3116</srsid>
+                <srid>32632</srid>
+                <authid>EPSG:32632</authid>
+                <description>WGS 84 / UTM zone 32N</description>
+                <projectionacronym>utm</projectionacronym>
+                <ellipsoidacronym>WGS84</ellipsoidacronym>
+                <geographicflag>false</geographicflag>
+            </spatialrefsys>
+        </destinationsrs>
+    </mapcanvas>
+    <legend updateDrawingOrder="false">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="valdres_points" showFeatureCount="0">
+            <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="valdres_points20130227170335123" visible="0"/>
+            </filegroup>
+        </legendlayer>
+        <legendlayer drawingOrder="0" open="false" checked="Qt::Unchecked" name="valdresclassified" showFeatureCount="0">
+            <filegroup open="false" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="valdresclassified20130210124819638" visible="0"/>
+            </filegroup>
+        </legendlayer>
+        <legendlayer drawingOrder="1" open="false" checked="Qt::Unchecked" name="Valdres_complete_03jun2012_utm32" showFeatureCount="1">
+            <filegroup open="false" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="Valdres_complete_03jun2012_utm3220121211101550573" visible="0"/>
+            </filegroup>
+        </legendlayer>
+        <legendlayer drawingOrder="2" open="false" checked="Qt::Unchecked" name="Valdres_complete_03jun2012_utm32" showFeatureCount="0">
+            <filegroup open="false" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="Valdres_complete_03jun2012_utm3220130122211532335" visible="0"/>
+            </filegroup>
+        </legendlayer>
+        <legendlayer drawingOrder="3" open="true" checked="Qt::Unchecked" name="OCM Landscape" showFeatureCount="0">
+            <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="OpenLayers_plugin_layer20130210145909940" visible="0"/>
+            </filegroup>
+        </legendlayer>
+        <legendlayer drawingOrder="4" open="true" checked="Qt::Checked" name="Google Streets" showFeatureCount="0">
+            <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="OpenLayers_plugin_layer20130210145559154" visible="1"/>
+            </filegroup>
+        </legendlayer>
+        <legendlayer drawingOrder="5" open="true" checked="Qt::Unchecked" name="OpenStreetMap" showFeatureCount="0">
+            <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="OpenLayers_plugin_layer20130210131325428" visible="0"/>
+            </filegroup>
+        </legendlayer>
+    </legend>
+    <Composer title="Composer 1" visible="0">
+        <ComposerLabel valign="32" labelText="Utolket polygon" halign="1" margin="1">
+            <LabelFont description="Sans Serif,14,-1,5,75,0,0,0,0,0"/>
+            <FontColor red="0" blue="0" green="0"/>
+            <ComposerItem width="47.2198" x="201.216" y="43.3911" rotation="0" height="8.50806" frame="false" outlineWidth="0.3" zValue="3" lastValidViewScaleFactor="2.35071" id="" positionLock="false">
+                <FrameColor alpha="255" red="0" blue="0" green="0"/>
+                <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+            </ComposerItem>
+        </ComposerLabel>
+        <ComposerLabel valign="32" labelText="Valdres 20121211" halign="1" margin="1">
+            <LabelFont description="Sans Serif,26,-1,5,50,0,0,0,0,0"/>
+            <FontColor red="0" blue="0" green="0"/>
+            <ComposerItem width="160.377" x="109.329" y="13.6129" rotation="0" height="18.7177" frame="true" outlineWidth="0.3" zValue="4" lastValidViewScaleFactor="2.35071" id="" positionLock="false">
+                <FrameColor alpha="255" red="0" blue="0" green="0"/>
+                <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+            </ComposerItem>
+        </ComposerLabel>
+        <ComposerMap keepLayerSet="false" id="0" previewMode="Cache" drawCanvasItems="true">
+            <Extent ymin="6.75668e+06" xmin="490674" ymax="6.75783e+06" xmax="492138"/>
+            <LayerSet/>
+            <Grid gridStyle="0" crossLength="3" penColorRed="0" penColorBlue="0" intervalX="0" offsetX="0" intervalY="0" offsetY="0" show="0" penWidth="0" penColorGreen="0">
+                <Annotation direction="0" precision="3" position="1" frameDistance="1" show="0" font="Sans Serif,9,-1,5,50,0,0,0,0,0"/>
+            </Grid>
+            <ComposerItem width="240.998" x="28.7077" y="13.3488" rotation="0" height="188.718" frame="true" outlineWidth="0.3" zValue="1" lastValidViewScaleFactor="2.35071" id="" positionLock="false">
+                <FrameColor alpha="255" red="0" blue="0" green="0"/>
+                <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+            </ComposerItem>
+        </ComposerMap>
+        <ComposerArrow startMarkerFile="" arrowHeadWidth="4" endMarkerFile="" outlineWidth="1" markerMode="0">
+            <ArrowColor alpha="255" red="0" blue="0" green="0"/>
+            <StartPoint x="201.831" y="51.4112"/>
+            <StopPoint x="129.506" y="110.72"/>
+            <ComposerItem width="77.325" x="127.006" y="48.9112" rotation="0" height="64.3088" frame="true" outlineWidth="0" zValue="2" lastValidViewScaleFactor="2.35071" id="" positionLock="false">
+                <FrameColor alpha="0" red="255" blue="255" green="255"/>
+                <BackgroundColor alpha="0" red="255" blue="255" green="255"/>
+            </ComposerItem>
+        </ComposerArrow>
+        <Composition printResolution="300" paperWidth="297" snapGridOffsetX="0" snapGridResolution="0" snapGridOffsetY="0" snapping="0" paperHeight="210" printAsRaster="0"/>
+    </Composer>
+    <Composer title="Composer 2" visible="0">
+        <ComposerLabel valign="32" labelText="Korr 8" halign="1" margin="1">
+            <LabelFont description="Sans Serif,10,-1,5,50,0,0,0,0,0"/>
+            <FontColor red="0" blue="0" green="0"/>
+            <ComposerItem width="26.6" x="128.046" y="9.35887" rotation="0" height="6.9" frame="true" outlineWidth="0.3" zValue="2" lastValidViewScaleFactor="2.35071" id="" positionLock="false">
+                <FrameColor alpha="255" red="0" blue="0" green="0"/>
+                <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+            </ComposerItem>
+        </ComposerLabel>
+        <ComposerMap keepLayerSet="false" id="0" previewMode="Cache" drawCanvasItems="true">
+            <Extent ymin="6.75477e+06" xmin="488742" ymax="6.75847e+06" xmax="493123"/>
+            <LayerSet/>
+            <Grid gridStyle="0" crossLength="3" penColorRed="0" penColorBlue="0" intervalX="0" offsetX="0" intervalY="0" offsetY="0" show="0" penWidth="0" penColorGreen="0">
+                <Annotation direction="0" precision="3" position="1" frameDistance="1" show="0" font="Sans Serif,9,-1,5,50,0,0,0,0,0"/>
+            </Grid>
+            <ComposerItem width="200" x="74.8508" y="22.1714" rotation="0" height="169" frame="true" outlineWidth="0.3" zValue="1" lastValidViewScaleFactor="2.35071" id="" positionLock="false">
+                <FrameColor alpha="255" red="0" blue="0" green="0"/>
+                <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+            </ComposerItem>
+        </ComposerMap>
+        <Composition printResolution="300" paperWidth="297" snapGridOffsetX="0" snapGridResolution="0" snapGridOffsetY="0" snapping="0" paperHeight="210" printAsRaster="0"/>
+    </Composer>
+    <projectlayers layercount="7">
+        <maplayer minimumScale="0" maximumScale="1e+08" ol_layer_type="4" type="plugin" hasScaleBasedVisibilityFlag="0" name="openlayers">
+            <id>OpenLayers_plugin_layer20130210131325428</id>
+            <datasource>.</datasource>
+            <title></title>
+            <abstract></abstract>
+            <layername>OpenStreetMap</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+                    <srsid>3857</srsid>
+                    <srid>3857</srid>
+                    <authid>EPSG:3857</authid>
+                    <description>WGS 84 / Pseudo Mercator</description>
+                    <projectionacronym>merc</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <customproperties/>
+        </maplayer>
+        <maplayer minimumScale="0" maximumScale="1e+08" ol_layer_type="1" type="plugin" hasScaleBasedVisibilityFlag="0" name="openlayers">
+            <id>OpenLayers_plugin_layer20130210145559154</id>
+            <datasource>.</datasource>
+            <title></title>
+            <abstract></abstract>
+            <layername>Google Streets</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+                    <srsid>3857</srsid>
+                    <srid>3857</srid>
+                    <authid>EPSG:3857</authid>
+                    <description>WGS 84 / Pseudo Mercator</description>
+                    <projectionacronym>merc</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <customproperties/>
+        </maplayer>
+        <maplayer minimumScale="0" maximumScale="1e+08" ol_layer_type="6" type="plugin" hasScaleBasedVisibilityFlag="0" name="openlayers">
+            <id>OpenLayers_plugin_layer20130210145909940</id>
+            <datasource>.</datasource>
+            <title></title>
+            <abstract></abstract>
+            <layername>OCM Landscape</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs</proj4>
+                    <srsid>3857</srsid>
+                    <srid>3857</srid>
+                    <authid>EPSG:3857</authid>
+                    <description>WGS 84 / Pseudo Mercator</description>
+                    <projectionacronym>merc</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <customproperties/>
+        </maplayer>
+        <maplayer minimumScale="0" maximumScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0">
+            <id>Valdres_complete_03jun2012_utm3220121211101550573</id>
+            <datasource>dbname='beitedata' host=localhost port=5432 user='postgres' password='postgres' sslmode=disable key='gid' srid=32632 type=MULTIPOLYGON table="Valdres_complete_03jun2012_utm32" (the_geom) sql="gid" = 277</datasource>
+            <title></title>
+            <abstract></abstract>
+            <layername>Valdres_complete_03jun2012_utm32</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs</proj4>
+                    <srsid>3116</srsid>
+                    <srid>32632</srid>
+                    <authid>EPSG:32632</authid>
+                    <description>WGS 84 / UTM zone 32N</description>
+                    <projectionacronym>utm</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="System">postgres</provider>
+            <vectorjoins/>
+            <renderer-v2 symbollevels="0" type="singleSymbol">
+                <symbols>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="0">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="100,110,205,255"/>
+                            <prop k="color_border" v="255,255,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </symbols>
+                <rotation field=""/>
+                <sizescale field=""/>
+            </renderer-v2>
+            <customproperties/>
+            <displayfield>gid</displayfield>
+            <label>0</label>
+            <labelattributes>
+                <label fieldname="" text="Label"/>
+                <family fieldname="" name="Sans Serif"/>
+                <size fieldname="" units="pt" value="12"/>
+                <bold fieldname="" on="0"/>
+                <italic fieldname="" on="0"/>
+                <underline fieldname="" on="0"/>
+                <strikeout fieldname="" on="0"/>
+                <color fieldname="" red="0" blue="0" green="0"/>
+                <x fieldname=""/>
+                <y fieldname=""/>
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+                <angle fieldname="" value="0" auto="0"/>
+                <alignment fieldname="" value="center"/>
+                <buffercolor fieldname="" red="255" blue="255" green="255"/>
+                <buffersize fieldname="" units="pt" value="1"/>
+                <bufferenabled fieldname="" on=""/>
+                <multilineenabled fieldname="" on=""/>
+                <selectedonly on=""/>
+            </labelattributes>
+            <edittypes>
+                <edittype type="0" name="__gid"/>
+                <edittype type="0" name="busk_dek_c"/>
+                <edittype type="0" name="busks_c"/>
+                <edittype type="0" name="busksjikt"/>
+                <edittype type="0" name="dekn_busk"/>
+                <edittype type="0" name="dekn_tre_c"/>
+                <edittype type="0" name="dekn_tresj"/>
+                <edittype type="0" name="felt_bun_c"/>
+                <edittype type="0" name="felt_bunn"/>
+                <edittype type="0" name="fuktigh"/>
+                <edittype type="0" name="fuktigh_c"/>
+                <edittype type="0" name="gid"/>
+                <edittype type="0" name="marktype"/>
+                <edittype type="0" name="marktype_c"/>
+                <edittype type="0" name="objectid"/>
+                <edittype type="0" name="poly_id"/>
+                <edittype type="0" name="shape_area"/>
+                <edittype type="0" name="shape_le_1"/>
+                <edittype type="0" name="shape_leng"/>
+                <edittype type="0" name="skogsveg_c"/>
+                <edittype type="0" name="skogvege"/>
+            </edittypes>
+            <editform>.</editform>
+            <editforminit></editforminit>
+            <annotationform>.</annotationform>
+            <attributeactions/>
+        </maplayer>
+        <maplayer minimumScale="0" maximumScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0">
+            <id>Valdres_complete_03jun2012_utm3220130122211532335</id>
+            <datasource>dbname='beitedata' host=localhost port=5432 user='postgres' password='postgres' sslmode=disable key='gid' srid=32632 type=MULTIPOLYGON table="Valdres_complete_03jun2012_utm32" (the_geom) sql=</datasource>
+            <title></title>
+            <abstract></abstract>
+            <layername>Valdres_complete_03jun2012_utm32</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs</proj4>
+                    <srsid>3116</srsid>
+                    <srid>32632</srid>
+                    <authid>EPSG:32632</authid>
+                    <description>WGS 84 / UTM zone 32N</description>
+                    <projectionacronym>utm</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="UTF-8">postgres</provider>
+            <vectorjoins/>
+            <renderer-v2 symbollevels="0" type="singleSymbol">
+                <symbols>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="0">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="170,170,127,255"/>
+                            <prop k="color_border" v="131,131,98,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </symbols>
+                <rotation field=""/>
+                <sizescale field=""/>
+            </renderer-v2>
+            <customproperties/>
+            <displayfield>gid</displayfield>
+            <label>0</label>
+            <labelattributes>
+                <label fieldname="" text="Label"/>
+                <family fieldname="" name="Sans Serif"/>
+                <size fieldname="" units="pt" value="12"/>
+                <bold fieldname="" on="0"/>
+                <italic fieldname="" on="0"/>
+                <underline fieldname="" on="0"/>
+                <strikeout fieldname="" on="0"/>
+                <color fieldname="" red="0" blue="0" green="0"/>
+                <x fieldname=""/>
+                <y fieldname=""/>
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+                <angle fieldname="" value="0" auto="0"/>
+                <alignment fieldname="" value="center"/>
+                <buffercolor fieldname="" red="255" blue="255" green="255"/>
+                <buffersize fieldname="" units="pt" value="1"/>
+                <bufferenabled fieldname="" on=""/>
+                <multilineenabled fieldname="" on=""/>
+                <selectedonly on=""/>
+            </labelattributes>
+            <edittypes>
+                <edittype type="0" name="__gid"/>
+                <edittype type="0" name="busk_dek_c"/>
+                <edittype type="0" name="busks_c"/>
+                <edittype type="0" name="busksjikt"/>
+                <edittype type="0" name="dekn_busk"/>
+                <edittype type="0" name="dekn_tre_c"/>
+                <edittype type="0" name="dekn_tresj"/>
+                <edittype type="0" name="felt_bun_c"/>
+                <edittype type="0" name="felt_bunn"/>
+                <edittype type="0" name="fuktigh"/>
+                <edittype type="0" name="fuktigh_c"/>
+                <edittype type="0" name="gid"/>
+                <edittype type="0" name="marktype"/>
+                <edittype type="0" name="marktype_c"/>
+                <edittype type="0" name="objectid"/>
+                <edittype type="0" name="poly_id"/>
+                <edittype type="0" name="shape_area"/>
+                <edittype type="0" name="shape_le_1"/>
+                <edittype type="0" name="shape_leng"/>
+                <edittype type="0" name="skogsveg_c"/>
+                <edittype type="0" name="skogvege"/>
+            </edittypes>
+            <editform>.</editform>
+            <editforminit></editforminit>
+            <annotationform>.</annotationform>
+            <attributeactions/>
+        </maplayer>
+        <maplayer minimumScale="0" maximumScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0">
+            <id>valdres_points20130227170335123</id>
+            <datasource>dbname='beitedata' host=localhost port=5432 user='postgres' password='postgres' sslmode=disable key='id' srid=32632 type=POINT table="valdres_points" (shape_utm) sql="date" = '2008-08-15'</datasource>
+            <title></title>
+            <abstract></abstract>
+            <layername>valdres_points</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs</proj4>
+                    <srsid>3116</srsid>
+                    <srid>32632</srid>
+                    <authid>EPSG:32632</authid>
+                    <description>WGS 84 / UTM zone 32N</description>
+                    <projectionacronym>utm</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="UTF-8">postgres</provider>
+            <vectorjoins/>
+            <renderer-v2 attr="cowid" symbollevels="0" type="categorizedSymbol">
+                <categories>
+                    <category symbol="0" value="277" label="277"/>
+                    <category symbol="1" value="280" label="280"/>
+                    <category symbol="2" value="283" label="283"/>
+                    <category symbol="3" value="286" label="286"/>
+                    <category symbol="4" value="" label=""/>
+                </categories>
+                <symbols>
+                    <symbol outputUnit="MM" alpha="1" type="marker" name="0">
+                        <layer pass="0" class="FontMarker" locked="0">
+                            <prop k="angle" v="0"/>
+                            <prop k="chr" v="l"/>
+                            <prop k="color" v="172,78,117,255"/>
+                            <prop k="font" v="Dingbats"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="size" v="2"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="marker" name="1">
+                        <layer pass="0" class="FontMarker" locked="0">
+                            <prop k="angle" v="0"/>
+                            <prop k="chr" v="l"/>
+                            <prop k="color" v="169,124,76,255"/>
+                            <prop k="font" v="Dingbats"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="size" v="2"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="marker" name="2">
+                        <layer pass="0" class="FontMarker" locked="0">
+                            <prop k="angle" v="0"/>
+                            <prop k="chr" v="l"/>
+                            <prop k="color" v="27,19,55,255"/>
+                            <prop k="font" v="Dingbats"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="size" v="2"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="marker" name="3">
+                        <layer pass="0" class="FontMarker" locked="0">
+                            <prop k="angle" v="0"/>
+                            <prop k="chr" v="l"/>
+                            <prop k="color" v="96,141,71,255"/>
+                            <prop k="font" v="Dingbats"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="size" v="2"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="marker" name="4">
+                        <layer pass="0" class="FontMarker" locked="0">
+                            <prop k="angle" v="0"/>
+                            <prop k="chr" v="l"/>
+                            <prop k="color" v="0,0,0,255"/>
+                            <prop k="font" v="Dingbats"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="size" v="2"/>
+                        </layer>
+                    </symbol>
+                </symbols>
+                <source-symbol>
+                    <symbol outputUnit="MM" alpha="1" type="marker" name="0">
+                        <layer pass="0" class="FontMarker" locked="0">
+                            <prop k="angle" v="0"/>
+                            <prop k="chr" v="l"/>
+                            <prop k="color" v="0,0,0,255"/>
+                            <prop k="font" v="Dingbats"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="size" v="2"/>
+                        </layer>
+                    </symbol>
+                </source-symbol>
+                <colorramp type="random" name="[source]">
+                    <prop k="count" v="16"/>
+                    <prop k="hueMax" v="359"/>
+                    <prop k="hueMin" v="0"/>
+                    <prop k="satMax" v="255"/>
+                    <prop k="satMin" v="100"/>
+                    <prop k="valMax" v="255"/>
+                    <prop k="valMin" v="50"/>
+                </colorramp>
+                <rotation field=""/>
+                <sizescale field=""/>
+            </renderer-v2>
+            <customproperties/>
+            <displayfield>id</displayfield>
+            <label>0</label>
+            <labelattributes>
+                <label fieldname="" text="Label"/>
+                <family fieldname="" name="Sans Serif"/>
+                <size fieldname="" units="pt" value="12"/>
+                <bold fieldname="" on="0"/>
+                <italic fieldname="" on="0"/>
+                <underline fieldname="" on="0"/>
+                <strikeout fieldname="" on="0"/>
+                <color fieldname="" red="0" blue="0" green="0"/>
+                <x fieldname=""/>
+                <y fieldname=""/>
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+                <angle fieldname="" value="0" auto="0"/>
+                <alignment fieldname="" value="center"/>
+                <buffercolor fieldname="" red="255" blue="255" green="255"/>
+                <buffersize fieldname="" units="pt" value="1"/>
+                <bufferenabled fieldname="" on=""/>
+                <multilineenabled fieldname="" on=""/>
+                <selectedonly on=""/>
+            </labelattributes>
+            <edittypes>
+                <edittype type="0" name="cowid"/>
+                <edittype type="0" name="date"/>
+                <edittype type="0" name="datetime"/>
+                <edittype type="0" name="id"/>
+                <edittype type="0" name="lat"/>
+                <edittype type="0" name="lokalitet"/>
+                <edittype type="0" name="lon"/>
+            </edittypes>
+            <editform>.</editform>
+            <editforminit></editforminit>
+            <annotationform>.</annotationform>
+            <attributeactions/>
+        </maplayer>
+        <maplayer minimumScale="0" maximumScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0">
+            <id>valdresclassified20130210124819638</id>
+            <datasource>dbname='beitedata' host=localhost port=5432 user='postgres' password='postgres' sslmode=disable key='gid' srid=32632 type=MULTIPOLYGON table="valdresclassified" (the_geom) sql=</datasource>
+            <title></title>
+            <abstract></abstract>
+            <layername>valdresclassified</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs</proj4>
+                    <srsid>3116</srsid>
+                    <srid>32632</srid>
+                    <authid>EPSG:32632</authid>
+                    <description>WGS 84 / UTM zone 32N</description>
+                    <projectionacronym>utm</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="UTF-8">postgres</provider>
+            <vectorjoins/>
+            <renderer-v2 attr="category" symbollevels="0" type="categorizedSymbol">
+                <categories>
+                    <category symbol="0" value="" label=""/>
+                    <category symbol="1" value="Åpen fjellbjørkeskog (5-19% tresjikt), blåbær-smyle, tørr/frisk" label="Åpen fjellbjørkeskog (5-19% tresjikt), blåbær-smyle, tørr/frisk"/>
+                    <category symbol="2" value="Åpen fjellbjørkeskog (5-19% tresjikt), høgstaudetype, frisk/fuktig" label="Åpen fjellbjørkeskog (5-19% tresjikt), høgstaudetype, frisk/fuktig"/>
+                    <category symbol="3" value="Åpen, fuktig, gras- og urterik eng" label="Åpen, fuktig, gras- og urterik eng"/>
+                    <category symbol="4" value="Fattig rishei, tørr" label="Fattig rishei, tørr"/>
+                    <category symbol="5" value="Frisk gras- og urterik eng, 20-59% busksjikt" label="Frisk gras- og urterik eng, 20-59% busksjikt"/>
+                    <category symbol="6" value="Frisk rishei (krattbevokst eng), rikere utforming, 60-100% busksjikt" label="Frisk rishei (krattbevokst eng), rikere utforming, 60-100% busksjikt"/>
+                    <category symbol="7" value="Frisk, gras- og urterik eng, 0-19% busksjikt" label="Frisk, gras- og urterik eng, 0-19% busksjikt"/>
+                    <category symbol="8" value="Fuktig gras- og urterik eng, 20-59% busksjikt" label="Fuktig gras- og urterik eng, 20-59% busksjikt"/>
+                    <category symbol="9" value="Halvåpen fjellbjørkeskog (20-59% tresjikt), blåbær-smyle, tørr-frisk" label="Halvåpen fjellbjørkeskog (20-59% tresjikt), blåbær-smyle, tørr-frisk"/>
+                    <category symbol="10" value="Halvåpen fjellbjørkeskog (20-59% tresjikt), høgstaudetype, frisk" label="Halvåpen fjellbjørkeskog (20-59% tresjikt), høgstaudetype, frisk"/>
+                    <category symbol="11" value="Halvåpen fjellbjørkeskog (20-59% tresjikt), høgstaudetype, fuktig" label="Halvåpen fjellbjørkeskog (20-59% tresjikt), høgstaudetype, fuktig"/>
+                    <category symbol="12" value="Hogstfelt/Ryddet fjellbjørkeskog" label="Hogstfelt/Ryddet fjellbjørkeskog"/>
+                    <category symbol="13" value="Hyttetun med tilgjengelig plen" label="Hyttetun med tilgjengelig plen"/>
+                    <category symbol="14" value="Innmark" label="Innmark"/>
+                    <category symbol="15" value="Intermediær gras- og starrdominert myr, fuktig" label="Intermediær gras- og starrdominert myr, fuktig"/>
+                    <category symbol="16" value="Intermediær gras- og starrdominert myr, våt" label="Intermediær gras- og starrdominert myr, våt"/>
+                    <category symbol="17" value="Kunstig dam/gravd hull" label="Kunstig dam/gravd hull"/>
+                    <category symbol="18" value="Plantefelt fjellbjørk" label="Plantefelt fjellbjørk"/>
+                    <category symbol="19" value="Sandtak" label="Sandtak"/>
+                    <category symbol="20" value="Skogbevokst intermediær gras- og starrdominert myr" label="Skogbevokst intermediær gras- og starrdominert myr"/>
+                    <category symbol="21" value="Stølstun/ Hyttetun inngjerdet" label="Stølstun/ Hyttetun inngjerdet"/>
+                    <category symbol="22" value="Strand/båtplass/P-plass" label="Strand/båtplass/P-plass"/>
+                    <category symbol="23" value="Tett fjellbjørkeskog (60-100% tresjikt), høgstaudetype, frisk-fuktig" label="Tett fjellbjørkeskog (60-100% tresjikt), høgstaudetype, frisk-fuktig"/>
+                    <category symbol="24" value="Tynnet fjellbjørkeskog, høgstaude skog, frisk-fuktig" label="Tynnet fjellbjørkeskog, høgstaude skog, frisk-fuktig"/>
+                    <category symbol="25" value="Vei" label="Vei"/>
+                    <category symbol="26" value="Veikant/grøft" label="Veikant/grøft"/>
+                </categories>
+                <symbols>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="0">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="161,84,32,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="1">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="161,84,32,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="10">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="61,120,98,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="11">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="95,43,57,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="12">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="105,148,51,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="13">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="105,148,51,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="14">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="57,77,21,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="15">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="0,255,127,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.2"/>
+                        </layer>
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="0,0,255,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="diagonal_x"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="16">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="3,255,201,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.2"/>
+                        </layer>
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="0,0,255,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="diagonal_x"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="17">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="86,203,121,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="18">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="86,203,121,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="19">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="164,166,160,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="2">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="16,70,194,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="20">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="0,255,127,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.2"/>
+                        </layer>
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="0,0,255,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="b_diagonal"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="21">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="40,74,242,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="22">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="164,166,160,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="23">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="141,148,245,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="24">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="35,179,31,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="25">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="164,166,160,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="26">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="170,112,196,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="3">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="16,70,194,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="4">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="168,123,17,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="5">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="168,123,17,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="6">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="135,228,248,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="7">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="32,181,169,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="8">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="32,181,169,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="9">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="61,120,98,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </symbols>
+                <source-symbol>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="0">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="20,175,252,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </source-symbol>
+                <colorramp type="random" name="[source]">
+                    <prop k="count" v="16"/>
+                    <prop k="hueMax" v="359"/>
+                    <prop k="hueMin" v="0"/>
+                    <prop k="satMax" v="255"/>
+                    <prop k="satMin" v="100"/>
+                    <prop k="valMax" v="255"/>
+                    <prop k="valMin" v="50"/>
+                </colorramp>
+                <rotation field=""/>
+                <sizescale field=""/>
+            </renderer-v2>
+            <customproperties/>
+            <displayfield>gid</displayfield>
+            <label>0</label>
+            <labelattributes>
+                <label fieldname="" text="Label"/>
+                <family fieldname="" name="Sans Serif"/>
+                <size fieldname="" units="pt" value="12"/>
+                <bold fieldname="" on="0"/>
+                <italic fieldname="" on="0"/>
+                <underline fieldname="" on="0"/>
+                <strikeout fieldname="" on="0"/>
+                <color fieldname="" red="0" blue="0" green="0"/>
+                <x fieldname=""/>
+                <y fieldname=""/>
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+                <angle fieldname="" value="0" auto="0"/>
+                <alignment fieldname="" value="center"/>
+                <buffercolor fieldname="" red="255" blue="255" green="255"/>
+                <buffersize fieldname="" units="pt" value="1"/>
+                <bufferenabled fieldname="" on=""/>
+                <multilineenabled fieldname="" on=""/>
+                <selectedonly on=""/>
+            </labelattributes>
+            <edittypes>
+                <edittype type="0" name="__gid"/>
+                <edittype type="0" name="busk_dek_c"/>
+                <edittype type="0" name="busks_c"/>
+                <edittype type="0" name="busksjikt"/>
+                <edittype type="0" name="category"/>
+                <edittype type="0" name="categorycode"/>
+                <edittype type="0" name="dekn_busk"/>
+                <edittype type="0" name="dekn_tre_c"/>
+                <edittype type="0" name="dekn_tresj"/>
+                <edittype type="0" name="felt_bun_c"/>
+                <edittype type="0" name="felt_bunn"/>
+                <edittype type="0" name="fuktigh"/>
+                <edittype type="0" name="fuktigh_c"/>
+                <edittype type="0" name="gid"/>
+                <edittype type="0" name="marktype"/>
+                <edittype type="0" name="marktype_c"/>
+                <edittype type="0" name="objectid"/>
+                <edittype type="0" name="poly_id"/>
+                <edittype type="0" name="shape_area"/>
+                <edittype type="0" name="shape_le_1"/>
+                <edittype type="0" name="shape_leng"/>
+                <edittype type="0" name="skogsveg_c"/>
+                <edittype type="0" name="skogvege"/>
+            </edittypes>
+            <editform>.</editform>
+            <editforminit></editforminit>
+            <annotationform>.</annotationform>
+            <attributeactions/>
+        </maplayer>
+    </projectlayers>
+    <properties>
+        <WMSServiceAbstract type="QString"></WMSServiceAbstract>
+        <WMSOnlineResource type="QString"></WMSOnlineResource>
+        <WMSContactPerson type="QString"></WMSContactPerson>
+        <Identify>
+            <disabledLayers type="QStringList"/>
+        </Identify>
+        <WMSContactPhone type="QString"></WMSContactPhone>
+        <SpatialRefSys>
+            <ProjectCRSProj4String type="QString">+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs</ProjectCRSProj4String>
+            <ProjectCrs type="QString">EPSG:4326</ProjectCrs>
+            <ProjectCRSID type="int">3116</ProjectCRSID>
+            <ProjectionsEnabled type="int">1</ProjectionsEnabled>
+        </SpatialRefSys>
+        <Paths>
+            <Absolute type="bool">false</Absolute>
+        </Paths>
+        <Gui>
+            <SelectionColorBluePart type="int">0</SelectionColorBluePart>
+            <CanvasColorGreenPart type="int">255</CanvasColorGreenPart>
+            <CanvasColorRedPart type="int">255</CanvasColorRedPart>
+            <SelectionColorRedPart type="int">255</SelectionColorRedPart>
+            <SelectionColorAlphaPart type="int">255</SelectionColorAlphaPart>
+            <SelectionColorGreenPart type="int">255</SelectionColorGreenPart>
+            <CanvasColorBluePart type="int">255</CanvasColorBluePart>
+        </Gui>
+        <WMSContactMail type="QString"></WMSContactMail>
+        <WFSLayers type="QStringList"/>
+        <PositionPrecision>
+            <DecimalPlaces type="int">2</DecimalPlaces>
+            <Automatic type="bool">true</Automatic>
+        </PositionPrecision>
+        <WMSAddWktGeometry type="bool">false</WMSAddWktGeometry>
+        <WMSContactOrganization type="QString"></WMSContactOrganization>
+        <WMSServiceCapabilities type="bool">false</WMSServiceCapabilities>
+        <WMSServiceTitle type="QString"></WMSServiceTitle>
+    </properties>
+</qgis>
