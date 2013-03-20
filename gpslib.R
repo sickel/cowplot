@@ -456,46 +456,46 @@ fetchmodanalyse=function(){
   return(o)
 }
 
-modeltrav=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5){
+modeltt=function(o,rtrav=25,wrat=0.8,wtrav=100,lenght=500,mins=5){
   tf=paste("trav",mins,"min",sep="")
   rf=paste("ratio",mins,"min",sep="")
   df=paste("dists",mins,"min",sep="")
   o$model=ifelse((o[tf]<rtrav),'resting','grazing')
   o$model=ifelse((o[rf]> wrat & o[tf]>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
-  o=removeshort(o)
+  o=removeshort(o,lenght)
   return(o)
 }
 
-modeltd=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5){
+modeltd=function(o,rtrav=25,wrat=0.8,wtrav=100,lenght=500,mins=5){
   tf=paste("trav",mins,"min",sep="")
   rf=paste("ratio",mins,"min",sep="")
   df=paste("dists",mins,"min",sep="")
   o$model=ifelse((o[tf]<rtrav),'resting','grazing')
   o$model=ifelse((o[rf]> wrat & o[df]>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
-  o=removeshort(o)
+  o=removeshort(o,length)
   return(o)
 }
-modeldt=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5){
+modeldt=function(o,rtrav=25,wrat=0.8,wtrav=100,lenght=500,mins=5){
   tf=paste("trav",mins,"min",sep="")
   rf=paste("ratio",mins,"min",sep="")
   df=paste("dists",mins,"min",sep="")
   o$model=ifelse((o[df]<rtrav),'resting','grazing')
   o$model=ifelse((o[rf]> wrat & o[tf]>wtrav) ,'walking',o$model)
-  o$model=as.factor(o$model)
+  o$model=as.factor(o$model,length)
   o=removeshort(o)
   return(o)
 }
 
 
-modeldist=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5){
+modeldd=function(o,rtrav=25,wrat=0.8,wtrav=100,length=500,mins=5){
   tf=paste("trav",mins,"min",sep="")
   rf=paste("ratio",mins,"min",sep="")
   df=paste("dists",mins,"min",sep="")
   o$model=ifelse((o[df]<rtrav),'resting','grazing')
   o$model=ifelse((o[rf]> wrat & o[df]>wtrav) ,'walking',o$model)
-  o$model=as.factor(o$model)
+  o$model=as.factor(o$model,length)
   o=removeshort(o)
   return(o)
 }
@@ -660,7 +660,7 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs){
   sets=fetch(rs,n=-1)
   print(sets)
   for(i in c(1:length(sets[,1]))){
-  #for(i in c(1:2)){  # testing
+  # for(i in c(1:2)){  # testing
     cat(i,cowid,date,":\n")
     cowid=sets[i,1]
     date=sets[i,2]
@@ -706,7 +706,9 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs){
                          "g2g","r2g","w2g",
                         "g2r","r2r","w2r",
                         "g2w","r2w","w2w")
-  return(data.frame(output))
+  output=data.frame(output)
+  output=output[!(is.na(output$tothit)),]
+  return(output)
 }
 
 
@@ -770,3 +772,73 @@ pred.prime <- predict(spl, deriv=1)
 plot(ycs.prime)
 lines(pred.prime$y, col=2)
 }
+
+
+#
+#
+# Run a complete model set
+#
+
+if(FALSE){
+  # rtravs=c(1:10)*10
+  # wtravs=rtravs+40
+  # wrats=c(1:9)/10
+  rtravs=c(1:6)*5
+  wtravs=c(5:10)*10
+  wrats=c(1:7)/10
+  
+  lok="Valdres"
+  Vtdmod5=runmodelspace(5,c(modeltd),lok,rtravs,wrats,wtravs)
+  Vtdmod10=runmodelspace(10,c(modeltd),lok,rtravs,wrats,wtravs)
+  Vtdmod15=runmodelspace(15,c(modeltd),lok,rtravs,wrats,wtravs)
+  Vtdmod20=runmodelspace(20,c(modeltd),lok,rtravs,wrats,wtravs)
+  Vdtmod5=runmodelspace(5,c(modeldt),lok,rtravs,wrats,wtravs)
+  Vdtmod10=runmodelspace(10,c(modeldt),lok,rtravs,wrats,wtravs)
+  Vdtmod15=runmodelspace(15,c(modeldt),lok,rtravs,wrats,wtravs)
+  Vdtmod20=runmodelspace(20,c(modeldt),lok,rtravs,wrats,wtravs)
+  Vddmod5=runmodelspace(5,c(modeldist),lok,rtravs,wrats,wtravs)
+  Vddmod10=runmodelspace(10,c(modeldist),lok,rtravs,wrats,wtravs)
+  Vddmod15=runmodelspace(15,c(modeldist),lok,rtravs,wrats,wtravs)
+  Vddmod20=runmodelspace(20,c(modeldist),lok,rtravs,wrats,wtravs)
+  Vttmod5=runmodelspace(5,c(modeltrav),lok,rtravs,wrats,wtravs)
+  Vttmod10=runmodelspace(10,c(modeltrav),lok,rtravs,wrats,wtravs)
+  Vttmod15=runmodelspace(15,c(modeltrav),lok,rtravs,wrats,wtravs)
+  Vttmod20=runmodelspace(20,c(modeltrav),lok,rtravs,wrats,wtravs)
+  lok="Geilo"
+  Gtdmod5=runmodelspace(5,c(modeltd),lok,rtravs,wrats,wtravs)
+  Gtdmod10=runmodelspace(10,c(modeltd),lok,rtravs,wrats,wtravs)
+  Gtdmod15=runmodelspace(15,c(modeltd),lok,rtravs,wrats,wtravs)
+  Gtdmod20=runmodelspace(20,c(modeltd),lok,rtravs,wrats,wtravs)
+  Gdtmod5=runmodelspace(5,c(modeldt),lok,rtravs,wrats,wtravs)
+  Gdtmod10=runmodelspace(10,c(modeldt),lok,rtravs,wrats,wtravs)
+  Gdtmod15=runmodelspace(15,c(modeldt),lok,rtravs,wrats,wtravs)
+  Gdtmod20=runmodelspace(20,c(modeldt),lok,rtravs,wrats,wtravs)
+  Gddmod5=runmodelspace(5,c(modeldist),lok,rtravs,wrats,wtravs)
+  Gddmod10=runmodelspace(10,c(modeldist),lok,rtravs,wrats,wtravs)
+  Gddmod15=runmodelspace(15,c(modeldist),lok,rtravs,wrats,wtravs)
+  Gddmod20=runmodelspace(20,c(modeldist),lok,rtravs,wrats,wtravs)
+  Gttmod5=runmodelspace(5,c(modeltrav),lok,rtravs,wrats,wtravs)
+  Gttmod10=runmodelspace(10,c(modeltrav),lok,rtravs,wrats,wtravs)
+  Gttmod15=runmodelspace(15,c(modeltrav),lok,rtravs,wrats,wtravs)
+  Gttmod20=runmodelspace(20,c(modeltrav),lok,rtravs,wrats,wtravs)
+  lok="All"
+  Atdmod5=runmodelspace(5,c(modeltd),lok,rtravs,wrats,wtravs)
+  Atdmod10=runmodelspace(10,c(modeltd),lok,rtravs,wrats,wtravs)
+  Atdmod15=runmodelspace(15,c(modeltd),lok,rtravs,wrats,wtravs)
+  Atdmod20=runmodelspace(20,c(modeltd),lok,rtravs,wrats,wtravs)
+  Adtmod5=runmodelspace(5,c(modeldt),lok,rtravs,wrats,wtravs)
+  Adtmod10=runmodelspace(10,c(modeldt),lok,rtravs,wrats,wtravs)
+  Adtmod15=runmodelspace(15,c(modeldt),lok,rtravs,wrats,wtravs)
+  Adtmod20=runmodelspace(20,c(modeldt),lok,rtravs,wrats,wtravs)
+  Addmod5=runmodelspace(5,c(modeldist),lok,rtravs,wrats,wtravs)
+  Addmod10=runmodelspace(10,c(modeldist),lok,rtravs,wrats,wtravs)
+  Addmod15=runmodelspace(15,c(modeldist),lok,rtravs,wrats,wtravs)
+  Addmod20=runmodelspace(20,c(modeldist),lok,rtravs,wrats,wtravs)
+  Attmod5=runmodelspace(5,c(modeltrav),lok,rtravs,wrats,wtravs)
+  Attmod10=runmodelspace(10,c(modeltrav),lok,rtravs,wrats,wtravs)
+  Attmod15=runmodelspace(15,c(modeltrav),lok,rtravs,wrats,wtravs)
+  Attmod20=runmodelspace(20,c(modeltrav),lok,rtravs,wrats,wtravs)
+ 
+  
+}
+  
