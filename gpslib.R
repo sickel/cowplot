@@ -658,9 +658,9 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs,rtimes){
   # finds all cow / date combinations in observations
   rs=dbSendQuery(con,statement=sql)
   sets=fetch(rs,n=-1)
-  print(sets)
-  for(i in c(1:length(sets[,1]))){
-  # for(i in c(1:2)){  # testing
+#  print(sets)
+ # for(i in c(1:length(sets[,1]))){
+  for(i in c(1:2)){  # testing
     cat(i,cowid,date,":\n")
     cowid=sets[i,1]
     date=sets[i,2]
@@ -686,7 +686,7 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs,rtimes){
               for(d in intersect(dimnames(xt)$adjobs,dimnames(xt)$model)){
                 tothit=tothit+xt[d,d]
               }
-              out=c(rtrav,wrat,wtravt,rtime,tothi,xt)
+              out=c(rtrav,wrat,wtrav,rtime,tothit,xt)
               if(!exists('output')){
                 output=out
               }else{
@@ -781,59 +781,33 @@ lines(pred.prime$y, col=2)
 # Run a complete model set
 #
 
-
 if(FALSE){
-        Vtdmod5=runmodelspace(5,c(modeltd),lok,rtravs,wrats,wtravs,rtimes)
-        Vtdmod10=runmodelspace(10,c(modeltd),lok,rtravs,wrats,wtravs,rtimes)
-        Vtdmod15=runmodelspace(15,c(modeltd),lok,rtravs,wrats,wtravs,rtimes)
-  Vtdmod20=runmodelspace(20,c(modeltd),lok,rtravs,wrats,wtravs,rtimes)
-  Vdtmod5=runmodelspace(5,c(modeldt),lok,rtravs,wrats,wtravs,rtimes)
-  Vdtmod10=runmodelspace(10,c(modeldt),lok,rtravs,wrats,wtravs,rtimes)
-  Vdtmod15=runmodelspace(15,c(modeldt),lok,rtravs,wrats,wtravs,rtimes)
-  Vdtmod20=runmodelspace(20,c(modeldt),lok,rtravs,wrats,wtravs,rtimes)
-  Vddmod5=runmodelspace(5,c(modeldist),lok,rtravs,wrats,wtravs,rtimes)
-  Vddmod10=runmodelspace(10,c(modeldist),lok,rtravs,wrats,wtravs,rtimes)
-  Vddmod15=runmodelspace(15,c(modeldist),lok,rtravs,wrats,wtravs,rtimes)
-  Vddmod20=runmodelspace(20,c(modeldist),lok,rtravs,wrats,wtravs,rtimes)
-  Vttmod5=runmodelspace(5,c(modeltrav),lok,rtravs,wrats,wtravs,rtimes)
-  Vttmod10=runmodelspace(10,c(modeltrav),lok,rtravs,wrats,wtravs,rtimes)
-  Vttmod15=runmodelspace(15,c(modeltrav),lok,rtravs,wrats,wtravs,rtimes)
-  Vttmod20=runmodelspace(20,c(modeltrav),lok,rtravs,wrats,wtravs,rtimes)
-  lok="Geilo"
-  Gtdmod5=runmodelspace(5,c(modeltd),lok,rtravs,wrats,wtravs,rtimes)
-  Gtdmod10=runmodelspace(10,c(modeltd),lok,rtravs,wrats,wtravs,rtimes)
-  Gtdmod15=runmodelspace(15,c(modeltd),lok,rtravs,wrats,wtravs,rtimes)
-  Gtdmod20=runmodelspace(20,c(modeltd),lok,rtravs,wrats,wtravs,rtimes)
-  Gdtmod5=runmodelspace(5,c(modeldt),lok,rtravs,wrats,wtravs,rtimes)
-  Gdtmod10=runmodelspace(10,c(modeldt),lok,rtravs,wrats,wtravs,rtimes)
-  Gdtmod15=runmodelspace(15,c(modeldt),lok,rtravs,wrats,wtravs,rtimes)
-  Gdtmod20=runmodelspace(20,c(modeldt),lok,rtravs,wrats,wtravs,rtimes)
-  Gddmod5=runmodelspace(5,c(modeldist),lok,rtravs,wrats,wtravs,rtimes)
-  Gddmod10=runmodelspace(10,c(modeldist),lok,rtravs,wrats,wtravs,rtimes)
-  Gddmod15=runmodelspace(15,c(modeldist),lok,rtravs,wrats,wtravs,rtimes)
-  Gddmod20=runmodelspace(20,c(modeldist),lok,rtravs,wrats,wtravs,rtimes)
-  Gttmod5=runmodelspace(5,c(modeltrav),lok,rtravs,wrats,wtravs,rtimes)
-  Gttmod10=runmodelspace(10,c(modeltrav),lok,rtravs,wrats,wtravs,rtimes)
-  Gttmod15=runmodelspace(15,c(modeltrav),lok,rtravs,wrats,wtravs,rtimes)
-  Gttmod20=runmodelspace(20,c(modeltrav),lok,rtravs,wrats,wtravs,rtimes)
-  lok="All"
-  Atdmod5=runmodelspace(5,c(modeltd),lok,rtravs,wrats,wtravs,rtimes)
-  Atdmod10=runmodelspace(10,c(modeltd),lok,rtravs,wrats,wtravs,rtimes)
-  Atdmod15=runmodelspace(15,c(modeltd),lok,rtravs,wrats,wtravs,rtimes)
-  Atdmod20=runmodelspace(20,c(modeltd),lok,rtravs,wrats,wtravs,rtimes)
-  Adtmod5=runmodelspace(5,c(modeldt),lok,rtravs,wrats,wtravs,rtimes)
-  Adtmod10=runmodelspace(10,c(modeldt),lok,rtravs,wrats,wtravs,rtimes)
-  Adtmod15=runmodelspace(15,c(modeldt),lok,rtravs,wrats,wtravs,rtimes)
-  Adtmod20=runmodelspace(20,c(modeldt),lok,rtravs,wrats,wtravs,rtimes)
-  Addmod5=runmodelspace(5,c(modeldist),lok,rtravs,wrats,wtravs,rtimes)
-  Addmod10=runmodelspace(10,c(modeldist),lok,rtravs,wrats,wtravs,rtimes)
-  Addmod15=runmodelspace(15,c(modeldist),lok,rtravs,wrats,wtravs,rtimes)
-  Addmod20=runmodelspace(20,c(modeldist),lok,rtravs,wrats,wtravs,rtimes)
-  Attmod5=runmodelspace(5,c(modeltrav),lok,rtravs,wrats,wtravs,rtimes)
-  Attmod10=runmodelspace(10,c(modeltrav),lok,rtravs,wrats,wtravs,rtimes)
-  Attmod15=runmodelspace(15,c(modeltrav),lok,rtravs,wrats,wtravs,rtimes)
-  Attmod20=runmodelspace(20,c(modeltrav),lok,rtravs,wrats,wtravs,rtimes)
- 
-  
+  # rtravs=c(1:10)*10
+  # wtravs=rtravs+40
+  # wrats=c(1:9)/10
+  rtravs=c(1:6)*5
+  wtravs=c(5:10)*10
+  wrats=c(1:7)/10
+  rtimes=c(5:10)*50
+  for(lok in c('Valdres','Geilo')){
+    loksummary=paste(lok,'summ',sep='.')
+    if(exists(loksummary)){loksummary<-NULL}
+    for(time in c(5,10,15,20)){
+      for(mtyp in c('td','dt','trav','dist')){
+        outvar=paste(lok,time,mtyp,sep='.')
+        mod=paste('model',mtyp,sep='')
+        modlist=c(get(mod))
+        assign(outvar,runmodelspace(time,modlist,lok,rtravs,wrats,wtravs,rtimes))
+        out=get(outvar)
+        out$modtype=rep(mtyp,length(out[1,]))
+        if(is.null(loksummary)){
+          assign(loksummary,out)
+          summary(get(loksummary))
+        }else{
+          assign(loksummary,rbind(get(loksummary),out))
+        }
+      }
+    }
+  }  
 }
-  
+
