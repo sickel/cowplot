@@ -483,8 +483,8 @@ modeldt=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,length=500){
   df=paste("dists",mins,"min",sep="")
   o$model=ifelse((o[df]<rtrav),'resting','grazing')
   o$model=ifelse((o[rf]> wrat & o[tf]>wtrav) ,'walking',o$model)
-  o$model=as.factor(o$model,length)
-  o=removeshort(o)
+  o$model=as.factor(o$model)
+  o=removeshort(o,length)
   return(o)
 }
 
@@ -495,8 +495,8 @@ modeldd=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,length=500){
   df=paste("dists",mins,"min",sep="")
   o$model=ifelse((o[df]<rtrav),'resting','grazing')
   o$model=ifelse((o[rf]> wrat & o[df]>wtrav) ,'walking',o$model)
-  o$model=as.factor(o$model,length)
-  o=removeshort(o)
+  o$model=as.factor(o$model)
+  o=removeshort(o,length)
   return(o)
 }
 
@@ -659,8 +659,8 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs,rtimes){
   rs=dbSendQuery(con,statement=sql)
   sets=fetch(rs,n=-1)
 #  print(sets)
- # for(i in c(1:length(sets[,1]))){
-  for(i in c(1:2)){  # testing
+  for(i in c(1:length(sets[,1]))){
+  # for(i in c(1:2)){  # testing
     cat(i,cowid,date,":\n")
     cowid=sets[i,1]
     date=sets[i,2]
@@ -789,25 +789,33 @@ if(FALSE){
   wtravs=c(5:10)*10
   wrats=c(1:7)/10
   rtimes=c(5:10)*50
+ # rtravs=c(1:2)*5
+ # wtravs=c(8:10)*10
+ # wrats=c(1:3)/10
+ # rtimes=c(5:7)*50
+  tempsumm<-NULL
   for(lok in c('Valdres','Geilo')){
+    cat("========================================\n")
     loksummary=paste(lok,'summ',sep='.')
-    if(exists(loksummary)){loksummary<-NULL}
+    if(exists("tempsumm")){tempsumm<-NULL}
     for(time in c(5,10,15,20)){
-      for(mtyp in c('td','dt','trav','dist')){
+      for(mtyp in c('td','dt','tt','dd')){
         outvar=paste(lok,time,mtyp,sep='.')
         mod=paste('model',mtyp,sep='')
+        cat('-------------------------->',lok,' ',mod,' ',time," min\n")
         modlist=c(get(mod))
-        assign(outvar,runmodelspace(time,modlist,lok,rtravs,wrats,wtravs,rtimes))
-        out=get(outvar)
-        out$modtype=rep(mtyp,length(out[1,]))
-        if(is.null(loksummary)){
-          assign(loksummary,out)
-          summary(get(loksummary))
+        out=runmodelspace(time,modlist,lok,rtravs,wrats,wtravs,rtimes)
+        out$modtype=rep(mtyp,length(out[,1]))
+        if(is.null(tempsumm)){
+          tempsumm=out
         }else{
-          assign(loksummary,rbind(get(loksummary),out))
+          tempsumm=rbind(tempsumm,out)
         }
       }
     }
-  }  
+    tempsumm$modtype=as.factor(tempsumm$modtype)
+    assign(paste(lok,'summary',sep='.'),tempsumm)
+  }
+  
 }
 
