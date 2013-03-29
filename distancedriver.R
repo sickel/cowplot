@@ -29,3 +29,4 @@ if(!(exists('data'))){
 }
 
 disttype=c('trav'='movement','dists'='displacement')
+options(width=200)

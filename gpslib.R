@@ -659,8 +659,9 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs,rtimes){
   rs=dbSendQuery(con,statement=sql)
   sets=fetch(rs,n=-1)
 #  print(sets)
-  for(i in c(1:length(sets[,1]))){
-  # for(i in c(1:2)){  # testing
+  nloop=length(sets[,1])
+  # nloop=2 # testing
+  for(i in c(1:nloop)){
     cat(i,cowid,date,":\n")
     cowid=sets[i,1]
     date=sets[i,2]
@@ -686,7 +687,7 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs,rtimes){
               for(d in intersect(dimnames(xt)$adjobs,dimnames(xt)$model)){
                 tothit=tothit+xt[d,d]
               }
-              out=c(rtrav,wrat,wtrav,rtime,tothit,xt)
+              out=c(rtrav,wrat,wtrav,rtime,tothit,deltamin,xt)
               if(!exists('output')){
                 output=out
               }else{
@@ -704,7 +705,7 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs,rtimes){
 #  obsspeed$obstype=as.factor(obsspeed$obstype)
 #  obsspeed$lokalitet=as.factor(obsspeed$lokalitet)
   rownames(output)=c(1:length(output[,1]))
-  colnames(output)=c("rtrav","wrat","wtrav","rtime","tothit",
+  colnames(output)=c("rtrav","wrat","wtrav","rtime","tothit","deltamin",
                          "g2g","r2g","w2g",
                         "g2r","r2r","w2r",
                         "g2w","r2w","w2w")
@@ -781,41 +782,4 @@ lines(pred.prime$y, col=2)
 # Run a complete model set
 #
 
-if(FALSE){
-  # rtravs=c(1:10)*10
-  # wtravs=rtravs+40
-  # wrats=c(1:9)/10
-  rtravs=c(1:6)*5
-  wtravs=c(5:10)*10
-  wrats=c(1:7)/10
-  rtimes=c(5:10)*50
- # rtravs=c(1:2)*5
- # wtravs=c(8:10)*10
- # wrats=c(1:3)/10
- # rtimes=c(5:7)*50
-  tempsumm<-NULL
-  for(lok in c('Valdres','Geilo')){
-    cat("========================================\n")
-    loksummary=paste(lok,'summ',sep='.')
-    if(exists("tempsumm")){tempsumm<-NULL}
-    for(time in c(5,10,15,20)){
-      for(mtyp in c('td','dt','tt','dd')){
-        outvar=paste(lok,time,mtyp,sep='.')
-        mod=paste('model',mtyp,sep='')
-        cat('-------------------------->',lok,' ',mod,' ',time," min\n")
-        modlist=c(get(mod))
-        out=runmodelspace(time,modlist,lok,rtravs,wrats,wtravs,rtimes)
-        out$modtype=rep(mtyp,length(out[,1]))
-        if(is.null(tempsumm)){
-          tempsumm=out
-        }else{
-          tempsumm=rbind(tempsumm,out)
-        }
-      }
-    }
-    tempsumm$modtype=as.factor(tempsumm$modtype)
-    assign(paste(lok,'summary',sep='.'),tempsumm)
-  }
-  
-}
 
