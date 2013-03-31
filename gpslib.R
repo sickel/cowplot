@@ -1,4 +1,4 @@
-#
+
 # Calculates the distance from the location <delta> logsteps ago
 # Input: data frame with raw metric data (e.g. utm coordinates) in x and y
 #
@@ -489,14 +489,14 @@ modeldt=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,length=500){
 }
 
 
-modeldd=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,length=500){
+modeldd=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,rlength=500){
   tf=paste("trav",mins,"min",sep="")
   rf=paste("ratio",mins,"min",sep="")
   df=paste("dists",mins,"min",sep="")
   o$model=ifelse((o[df]<rtrav),'resting','grazing')
   o$model=ifelse((o[rf]> wrat & o[df]>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
-  o=removeshort(o,length)
+  o=removeshort(o,rlength,50)
   return(o)
 }
 
@@ -524,11 +524,12 @@ valdresmodel=function(o,rtrav=10,wrat=0.7,wtrav=80,length=500){
   return(o)
 }
 
-removeshort=function(o,length=500){
+removeshort=function(o,glength=500,wlength=50){
   rle=rle(as.vector(o$model))
   rl=data.frame(val=rle$values,len=rle$lengths)
   rl$newval=rl$val
-  rl$newval[rl$len<length & rl$val=='resting']='grazing'
+  rl$newval[rl$len<glength & rl$val=='resting']='grazing'
+  rl$newval[rl$len<wlength & rl$val=='walking']='grazing'
   rle$values=rl$newval
   o$model=as.factor(inverse.rle(rle))
   return(o)
@@ -538,9 +539,11 @@ removeshort=function(o,length=500){
 
 
 analysesinglemodel=function(o,lok="all"){
+# Easier to handle afterwards if the return matrix always is the same 
   if(lok!='all'){
     o=o[o$lokalitet==lok,]
   }
+  xtreal=xtabs(~adjobs+model,data=o)
   # adds in to make sure that all combinations exists
   acts=c('walking','grazing','resting')
   for(i in acts){
@@ -555,6 +558,14 @@ analysesinglemodel=function(o,lok="all"){
   xt=xtabs(~adjobs+model,data=o)
   xt=xt-1
   xt=round(xt/rowSums(xt),3)*100
+  # Sets "syntetic" observations to NA
+  for (a in setdiff(dimnames(xt)$adjobs,dimnames(xtreal)$adjobs))
+    {
+    for (m in dimnames(xt)$model) 
+      { 
+        xt[a,m]=NA
+      }
+  }
   return(xt)
 }
 
@@ -662,7 +673,7 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs,rtimes){
   nloop=length(sets[,1])
   # nloop=2 # testing
   for(i in c(1:nloop)){
-    cat(i,cowid,date,":\n")
+    cat(i,cowid,format(as.Date(date,origin="1970-01-01")),":\n")
     cowid=sets[i,1]
     date=sets[i,2]
     data=fetchgpsobs(cowid,date)
@@ -775,11 +786,5 @@ pred.prime <- predict(spl, deriv=1)
 plot(ycs.prime)
 lines(pred.prime$y, col=2)
 }
-
-
-#
-#
-# Run a complete model set
-#
 
 
