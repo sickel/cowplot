@@ -758,7 +758,7 @@ plotobsmod=function(d,deltamin,type='dists',timeunit='min'){
   palette(bioforskpalette)
   clmn=paste(type,deltamin,timeunit,sep='')
   par(xpd=TRUE)
-  plot(d$datetime,d[,clmn],col=d$model,main=paste(lok,cowid,date),pch=20,
+  plot(d$datetime,d[,clmn],col=d$model,main=paste(lok,cowid,date,deltamin,"min"),pch=20,
        xlab='',ylab='')
   top=max(d[,clmn],na.rm=TRUE)
   points(d$datetime,rep(top/-50,length(d[,1])),col=d$obstype,pch=7)
