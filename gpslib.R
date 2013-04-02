@@ -489,14 +489,28 @@ modeldt=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,length=500){
 }
 
 
-modeldd=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,rlength=500){
+modeldd2=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,rlength=500,wlength=50){
+  tf=paste("trav",mins,"min",sep="")
+  rf=paste("ratio",mins,"min",sep="")
+  df=paste("dists",mins,"min",sep="")
+  wtrav=wtrav*mins
+  rtrav=rtrav*mins
+  cat(wtrav,"\n")
+  cat(rtrav,"\n")
+  o$model=ifelse((o[df]<rtrav),'resting','grazing')
+  o$model=ifelse((o[rf]> wrat & o[df]>wtrav) ,'walking',o$model)
+  o$model=as.factor(o$model)
+  o=removeshort(o,rlength,wlength)
+  return(o)
+}
+modeldd=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,rlength=500,wlength=50){
   tf=paste("trav",mins,"min",sep="")
   rf=paste("ratio",mins,"min",sep="")
   df=paste("dists",mins,"min",sep="")
   o$model=ifelse((o[df]<rtrav),'resting','grazing')
   o$model=ifelse((o[rf]> wrat & o[df]>wtrav) ,'walking',o$model)
   o$model=as.factor(o$model)
-  o=removeshort(o,rlength,50)
+  o=removeshort(o,rlength,wlength)
   return(o)
 }
 
