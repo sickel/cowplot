@@ -250,6 +250,17 @@ fetchobs=function(cowid=NULL,date=NULL,lok=NULL){
 }
 
 #
+# Adjust timing
+#
+
+adjusttiming=function(dataset,delta){
+  lgt=length(dataset)
+  dataset=dataset[(delta/2):lgt]
+  length(dataset)=lgt
+  return(dataset)
+}
+
+#
 # Calculates travelled distance and movement over the last <delta> timesteps.
 # 
 #
@@ -260,7 +271,9 @@ calcdist=function(data,delta,date='',cowid=''){
     data$dists5s=distance(data,1)
   }
   dists=distance(data,delta)
+  dists=adjusttiming(dists,delta)
   trav=travel(data$dists5s,delta)
+  trav=adjusttiming(dists,delta)
   dcol=paste("dists",delta/12,"min",sep='')
   tcol=paste("trav",delta/12,"min",sep='')
   data[,dcol]=dists
@@ -495,11 +508,10 @@ modeldd2=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,rlength=500,wlength=50){
   df=paste("dists",mins,"min",sep="")
   wtrav=wtrav*mins
   rtrav=rtrav*mins
-  cat(wtrav,"\n")
-  cat(rtrav,"\n")
-  o$model=ifelse((o[df]<rtrav),'resting','grazing')
-  o$model=ifelse((o[rf]> wrat & o[df]>wtrav) ,'walking',o$model)
-  o$model=as.factor(o$model)
+  model=ifelse((o[df]<rtrav),'resting','grazing')
+  model=ifelse((o[rf]> wrat & o[df]>wtrav) ,'walking',model)
+  model=as.factor(model)
+  o$model=model
   o=removeshort(o,rlength,wlength)
   return(o)
 }
