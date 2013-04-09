@@ -563,6 +563,17 @@ removeshort=function(o,glength=500,wlength=50){
 
 
 
+rleframe=function(data,natoblank=TRUE){
+  if(natoblank){
+    data=as.character(data)
+    data[is.na(data)]='';
+    data=as.factor(data)
+  }
+  data=as.vector(data)
+  rl=rle(data)
+  return(data.frame(rl$values,rl$lengths))
+}
+
 
 analysesinglemodel=function(o,lok="all"){
 # Easier to handle afterwards if the return matrix always is the same 
