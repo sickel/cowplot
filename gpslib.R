@@ -476,6 +476,9 @@ locationdates=function(loc){
 }
 
 
+
+
+
 #
 # Geilo: 5 min movement: > 25 m/5min : grazing
 #                        < 25 m/5min : rest
@@ -712,6 +715,29 @@ runallmodels=function(lok,deltamin=5,days=NA){
   }
 }
 
+#
+# List the animals observed
+# main=TRUE: Lists only the main animals
+# lok=... Lists only observation for the indicated location
+
+listobsdays=function(main=FALSE,lok=''){
+  sql="select distinct timestamp::date as date, cowid,lokalitet from observation"
+  if(main | lok>''){
+    sql=paste(sql,'where',sep=' ')
+    if(main){
+      sql=paste(sql,'main=true',sep=' ')
+      if(lok>'')
+        sql=paste(sql,'and',sep=' ')
+    }
+    if(lok>''){
+      sql=paste(sql,' lokalitet=\'',lok,'\'',sep='')
+    }
+  }
+  sql=paste(sql,'order by timestamp::date')
+  rs=dbSendQuery(con,statement=sql)
+  sets=fetch(rs,n=-1)
+  return(sets)
+}
 
 #
 # Fetches all observation days, runs model on each day and reports hits
