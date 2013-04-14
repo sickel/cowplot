@@ -24,6 +24,40 @@ alldists=function(){
 }
 
 
+#
+# Plots histogram of distances
+# data=
+disthist=function(data=alldists(),location="All areas",year='all years'){
+  filename=paste("Dists-",location,year,'.pdf',sep='')
+  #pdf(filename)
+  if(location != "All areas"){
+    data=data[data$lokalitet==location,]
+  }
+  if(year != 'all years'){
+    fromdate=paste(year,'-01-01',sep='')
+    todate=paste(year+1,'-01-01',sep='')
+    data=data[data$date>fromdate & data$date<todate,]
+  }
+  main=paste(location,year,sep=" -")
+  dist=data$dist
+  hist(dist,breaks=20,main=main,xlab="Meters pr day",xlim=c(2000,10000))
+  #dev.off()
+
+
+}
+
+#
+#  calculate the distance travelled for one day at a one minute resolution
+#
+
+distprday=function(cowid,date){
+    data=fetchdata(cowid,date)
+    data=data[c(TRUE,rep(FALSE,11)),] # Once pr minute;
+    # use rep()!
+    dist=sum(distance(data,1),na.rm=TRUE)
+    return(dist)
+}
+
 # Fetches the background map
 
 fetchmap=function(sted){
@@ -143,19 +177,6 @@ alldistplots=function(){
 }
 
 
-
-
-#
-#  calculate the distance travelled for one day at a one minute resolution
-#
-
-distprday=function(cowid,date){
-    data=fetchdata(cowid,date)
-    data=data[c(TRUE,rep(11,FALSE)),] # Once pr minute;
-    # use rep()!
-    dist=sum(distance(data,1),na.rm=TRUE)
-    return(dist)
-}
 
 #
 # Calculates the distance travelled the last <delta> logsteps 
