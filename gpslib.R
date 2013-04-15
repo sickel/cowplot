@@ -369,10 +369,33 @@ distplot=function(set,delta,obs=c()){
   }
 }
 
+#
+# Runs a model and plots for all main animals
+#
+mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=50){
+  obsset=listobsdays(main=TRUE,lok=lok)  
+  for(i in 1:length(obsset$date)){
+    cowid=obsset[i,1]
+    date=obsset[i,2]
+    loka=obsset[i,3]
+    filename=paste(loka,date,cowid,'png',sep='.')
+    data=fetchdata(date,cowid)
+    if(length(data)>2){
+      cat(filename,"\n")
+      png(filename)
+      runandplotmodel(data,rtrav,wrat,wtrav,mins,rlenght,wlength)
+      dev.off()
+    }
+  }
+}
 
 
 
-
+runandplotmodel=function(data,rtrav,wrat,wtrav,mins,rlenght,wlength){
+   data=calcdist(data,mins*12)
+      data=modeldd2(data,rtrav,wrat,wtrav,mins,rlength,wlength)
+      plotobsmod(data,mins)
+ }
 #
 # Utility-function - fetches data and plots it
 #
