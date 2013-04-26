@@ -539,6 +539,7 @@ modeltd=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,length=500){
   o=removeshort(o,length)
   return(o)
 }
+
 modeldt=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,length=500){
   tf=paste("trav",mins,"min",sep="")
   rf=paste("ratio",mins,"min",sep="")
@@ -564,6 +565,24 @@ modeldd2=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,rlength=500,wlength=50){
   o=removeshort(o,rlength,wlength)
   return(o)
 }
+
+model2=function(o,rtrav=1,wrat=0.5,wtrav=2,mins=5,rlength=500,wlength=50,dtyp=c('d','d')){
+  tp=c('d'='dists','t'='trav')
+  typ=tp[dtyp[1]]
+  rdf=paste(typ,mins,"min",sep="") # resting distance field
+  rf=paste("ratio",mins,"min",sep="")
+  typ=tp[dtyp[2]]
+  wdf=paste(typ,mins,"min",sep="") # walking distance field
+  wtrav=wtrav*mins
+  rtrav=rtrav*mins
+  model=ifelse((o[rdf]<rtrav),'resting','grazing')
+  model=ifelse((o[rf]> wrat & o[wdf]>wtrav) ,'walking',model)
+  model=as.factor(model)
+  o$model=model
+  o=removeshort(o,rlength,wlength) 
+  return(o)
+}
+
 modeldd=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,rlength=500,wlength=50){
   tf=paste("trav",mins,"min",sep="")
   rf=paste("ratio",mins,"min",sep="")
