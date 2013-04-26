@@ -198,12 +198,14 @@ travel=function(dists,delta){
 #
 
 fetchprecip=function(cowid,date){
-  sql=paste("select distinct metobs.datetime::date as date, metobs.datetime::time as time,metstationid,\"RR_24\",\"RR_12\"
+  sql=paste("select distinct metobs.datetime::date as date,
+     metobs.datetime::time as time,metstationid,\"RR_24\",\"RR_12\"
   from metobs,metstation,gpspoint
   where cowid=",cowid,"and gpspoint.datetime::date='",date,"' and
   gpspoint.lokalitet=metstation.lokalitet and metstation.id=metstationid
-  and (metobs.datetime::date='",date,"' or metobs.datetime::date-1='",date,"') and  not (\"RR_24\" is null and \"RR_12\" is null) order by metstationid,date,time")
-
+  and (metobs.datetime::date='",date,"' or metobs.datetime::date-1='",date,"')
+    and  not (\"RR_24\" is null and \"RR_12\" is null)
+  order by metstationid,date,time")
   rs=dbSendQuery(con,statement=sql)
   data=fetch(rs,n=-1)
   return(data)	
@@ -375,11 +377,11 @@ distplot=function(set,delta,obs=c()){
 mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=50){
   obsset=listobsdays(main=TRUE,lok=lok)  
   for(i in 1:length(obsset$date)){
-    cowid=obsset[i,1]
-    date=obsset[i,2]
+    cowid=obsset[i,2]
+    date=obsset[i,1]
     loka=obsset[i,3]
     filename=paste(loka,date,cowid,'png',sep='.')
-    data=fetchdata(date,cowid)
+    data=fetchgpsobs(cowid,date)
     if(length(data)>2){
       cat(filename,"\n")
       png(filename)
@@ -393,9 +395,11 @@ mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=
 
 runandplotmodel=function(data,rtrav,wrat,wtrav,mins,rlenght,wlength){
    data=calcdist(data,mins*12)
-      data=modeldd2(data,rtrav,wrat,wtrav,mins,rlength,wlength)
-      plotobsmod(data,mins)
+   data=modeldd2(data,rtrav,wrat,wtrav,mins,rlength,wlength)
+   plotobsmod(data,mins)
+   invisible(data)
  }
+
 #
 # Utility-function - fetches data and plots it
 #
@@ -497,8 +501,6 @@ locationdates=function(loc){
   dates=logdays()
   return(unique(dates[dates$lokalitet==lok,2]))
 }
-
-
 
 
 
@@ -819,7 +821,7 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs,rtimes){
       cat("\n")
     }                                   #}
   }
-#                                      print("OK so far")
+#                                      print("O so far")
 #  obsspeed$obstype=as.factor(obsspeed$obstype)
 #  obsspeed$lokalitet=as.factor(obsspeed$lokalitet)
   rownames(output)=c(1:length(output[,1]))
