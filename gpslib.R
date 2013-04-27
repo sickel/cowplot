@@ -392,7 +392,7 @@ mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=
     if(length(data)>2){
       cat(filename,"\n")
       png(filename)
-      runandplotmodel(data,rtrav,wrat,wtrav,mins,rlenght,wlength)
+      data=runandplotmodel(data,rtrav,wrat,wtrav,mins,rlenght,wlength)
       dev.off()
             
     }
@@ -865,26 +865,6 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs,rtimes){
 
 
 
-
-
-#
-# Moves observation delta/2 timestamps later to fit it with
-# behaviour around observation time (then the adjusted observation is fit
-# with the speed calculated around the real observation point)
-# 
-# 
-
-adjustobservations=function(data,deltamin){
-  delta=deltamin*12
-  adjobs=as.character(data$obstype)
-  l=length(adjobs)
-  rep=round(delta/2)
-  adjobs=c(rep(NA,rep),adjobs)
-  length(adjobs)=l
-#  data$adjobs=as.factor(adjobs)
-  data$adjobs=adjobs
-  return(data)
-}
 
 #
 # Overview of observations and model
