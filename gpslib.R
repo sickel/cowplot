@@ -1,3 +1,10 @@
+# To fetch data and run model:
+# data=fetchgpsobs(cowid,date) # or fetchdata if observations are not needed
+# data=calcdist(data,5*12) # (5 min interval)
+# data=adjustobservations(data,5) - trenges ikke mer, justerer i calcdist
+
+
+
 
 # Calculates the distance from the location <delta> logsteps ago
 # Input: data frame with raw metric data (e.g. utm coordinates) in x and y
@@ -91,7 +98,7 @@ observationdistances=function(deltamin){
       data=fetchgpsobs(cowid,date)
       data=adjustobservations(data,delta)
       data=calcdist(data,delta,date,cowid)
-      data=data[!(is.na(data$adjobs)),]
+      data=data[!(is.na(data$obstype)),]
       if(!exists('obsspeed')){
         obsspeed=data
       }else{
@@ -111,7 +118,7 @@ observationdistances=function(deltamin){
 # To be run on the output of the former
 
 analyseobsspeed=function(od,deltamin,locality="All",type="Displacement",maxvalue=1000){
-  modes=levels(od$adjobs)
+  modes=levels(od$obstype)
   binsize=25
   xlim=c(0,maxvalue)
   if(type=="Displacement")fieldname=paste("dists",deltamin,"min",sep="")
@@ -132,7 +139,7 @@ analyseobsspeed=function(od,deltamin,locality="All",type="Displacement",maxvalue
   nf=layout(matrix(c(1,2,3,4), 2, 2, byrow=TRUE), respect=TRUE)
   for(mod in modes){  
     print(mod)    
-    hist(od[,fieldname][od$adjobs==mod],breaks=c(0:ceiling(max/binsize))*binsize,main=paste(type,":",locality,mod),xlim=xlim,xlab=paste(type,deltamin,'minutes'))
+    hist(od[,fieldname][od$obstype==mod],breaks=c(0:ceiling(max/binsize))*binsize,main=paste(type,":",locality,mod),xlim=xlim,xlab=paste(type,deltamin,'minutes'))
     filename=paste("hist",locality,sub('/','-',type),deltamin,sep='_')
   }
   dev.copy2pdf(file=(paste(filename,"pdf",sep='.')))
@@ -296,7 +303,7 @@ calcdist=function(data,delta,date='',cowid=''){
   dists=distance(data,delta)
   dists=adjusttiming(dists,delta)
   trav=travel(data$dists5s,delta)
-  trav=adjusttiming(dists,delta)
+  trav=adjusttiming(trav,delta)
   dcol=paste("dists",delta/12,"min",sep='')
   tcol=paste("trav",delta/12,"min",sep='')
   data[,dcol]=dists
@@ -387,6 +394,7 @@ mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=
       png(filename)
       runandplotmodel(data,rtrav,wrat,wtrav,mins,rlenght,wlength)
       dev.off()
+            
     }
   }
 }
@@ -395,7 +403,7 @@ mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=
 
 runandplotmodel=function(data,rtrav,wrat,wtrav,mins,rlenght,wlength){
    data=calcdist(data,mins*12)
-   data=modeldd2(data,rtrav,wrat,wtrav,mins,rlength,wlength)
+   data=model2(data,rtrav,wrat,wtrav,mins,rlength,wlength,c('d','d'))
    plotobsmod(data,mins)
    invisible(data)
  }
@@ -566,7 +574,7 @@ modeldd2=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,rlength=500,wlength=50){
   return(o)
 }
 
-model2=function(o,rtrav=1,wrat=0.5,wtrav=2,mins=5,rlength=500,wlength=50,dtyp=c('d','d')){
+model2=function(o,rtrav=1,wrat=0.5,wtrav=2,mins=5,rlength=180,wlength=50,dtyp=c('d','d')){
   tp=c('d'='dists','t'='trav')
   typ=tp[dtyp[1]]
   rdf=paste(typ,mins,"min",sep="") # resting distance field
@@ -643,28 +651,30 @@ rleframe=function(data,natoblank=TRUE){
 }
 
 
-analysesinglemodel=function(o,lok="all"){
+analysesinglemodel=function(o,lok="all",calcratio=TRUE){
 # Easier to handle afterwards if the return matrix always is the same 
   if(lok!='all'){
     o=o[o$lokalitet==lok,]
   }
-  xtreal=xtabs(~adjobs+model,data=o)
+  xtreal=xtabs(~obstype+model,data=o)
   # adds in to make sure that all combinations exists
   acts=c('walking','grazing','resting')
   for(i in acts){
     for(j in acts){
       rw=o[1,]
       rw$datetime=NA
-      rw$adjobs=i
+      rw$obstype=i
       rw$model=j
       o=rbind(o,rw)
     }
   }
-  xt=xtabs(~adjobs+model,data=o)
+  xt=xtabs(~obstype+model,data=o)
   xt=xt-1
-  xt=round(xt/rowSums(xt),3)*100
+  if(calcratio){
+    xt=round(xt/rowSums(xt),3)*100
+  }
   # Sets "syntetic" observations to NA
-  for (a in setdiff(dimnames(xt)$adjobs,dimnames(xtreal)$adjobs))
+  for (a in setdiff(dimnames(xt)$obstype,dimnames(xtreal)$obstype))
     {
     for (m in dimnames(xt)$model) 
       { 
@@ -806,7 +816,7 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs,rtimes){
     date=sets[i,2]
     data=fetchgpsobs(cowid,date)
     if(length(data[,1])>0){
-      data=adjustobservations(data,delta)
+      # data=adjustobservations(data,delta)
       data=calcdist(data,delta)
       j=0
       for(model in models){
@@ -820,10 +830,10 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs,rtimes){
               cat("\b\b\b\b\b")
               cat(j)
               data=model(data,rtrav,wrat,wtrav,deltamin,rtime)
-              data=data[!(is.na(data$adjobs)),]
+              data=data[!(is.na(data$obstype)),]
               xt=analysesinglemodel(data,lok)
               tothit=0
-              for(d in intersect(dimnames(xt)$adjobs,dimnames(xt)$model)){
+              for(d in intersect(dimnames(xt)$obstype,dimnames(xt)$model)){
                 tothit=tothit+xt[d,d]
               }
               out=c(rtrav,wrat,wtrav,rtime,tothit,deltamin,xt)
@@ -861,6 +871,7 @@ runmodelspace=function(deltamin,models,lok='',rtravs,wrats,wtravs,rtimes){
 # Moves observation delta/2 timestamps later to fit it with
 # behaviour around observation time (then the adjusted observation is fit
 # with the speed calculated around the real observation point)
+# 
 # 
 
 adjustobservations=function(data,deltamin){
