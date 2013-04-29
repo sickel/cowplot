@@ -370,8 +370,7 @@ distplot=function(set,delta,obs=c()){
     points(obs$timestamp,obs$n-(ymax/50),col=as.integer(obs$obstype)+2,pch=7)
     legend(max(set$datetime)-(3600*legendoffset),y=ymax,
            c('movement','displacement',ot),
-           lty=c('solid','solid',NA,NA,NA,NA),col=c(2,1,3:(length(ot)+2)),
-           pch=c(NA,NA,rep(7,length(ot))))
+           lty=c('solid','solid',NA,NA,NA,NA),col=c(2,1,3:(length(ot)+2)), pch=c(NA,NA,rep(7,length(ot))))
   }else{
     legend(max(data$datetime)-3600*legendoffset,y=ymax,
            c('movement','displacement'),lty=c('solid','solid'),col=c(2,1))
@@ -381,7 +380,7 @@ distplot=function(set,delta,obs=c()){
 #
 # Runs a model and plots for all main animals
 #
-mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=50){
+mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=50,rrat=1){
   obsset=listobsdays(main=TRUE,lok=lok)  
   for(i in 1:length(obsset$date)){
     cowid=obsset[i,2]
@@ -389,21 +388,40 @@ mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=
     loka=obsset[i,3]
     filename=paste(loka,date,cowid,'png',sep='.')
     data=fetchgpsobs(cowid,date)
+    date=format(as.Date(date,origin="1970-01-01"))
     if(length(data)>2){
       cat(filename,"\n")
       png(filename)
-      data=runandplotmodel(data,rtrav,wrat,wtrav,mins,rlenght,wlength)
+      data=runandplotmodel(data,rtrav,wrat,wtrav,mins,rlenght,wlength,rrat)
       dev.off()
-            
+      xt=analysesinglemodel(data,calcratio=FALSE)      
+      tothit=sum(xt[1,1],xt[2,2],xt[3,3],na.rm=TRUE)
+      totobs=sum(xt,na.rm=TRUE)
+      totmiss=totobs-tothit
+      temp=c(cowid,date,loka,rtrav,wrat,wtrav,mins,rlength,wlength,totobs,tothit,totmiss,xt)
+      if(!exists('modeloutput')){
+         modeloutput=temp
+         # output=data.frame(data,row.names=c)
+         #
+      }else{
+         modeloutput=rbind(modeloutput,temp)
+      }
     }
   }
+  colnames(modeloutput)=c("cowid","date","lok","rtrav","wrat","wtrav","mins","rlength","wlength","totobs","tothit","totmiss",
+                        "g2g","r2g","w2g",
+                        "g2r","r2r","w2r",
+                        "g2w","r2w","w2w")
+  rownames(modeloutput)=c(1:length(modeloutput[,1]))
+  modeloutput=as.data.frame(modeloutput)
+  return(modeloutput)
 }
 
 
 
-runandplotmodel=function(data,rtrav,wrat,wtrav,mins,rlenght,wlength){
+runandplotmodel=function(data,rtrav,wrat,wtrav,mins,rlenght,wlength,rrat,mtyp=c('d','d')){
    data=calcdist(data,mins*12)
-   data=model2(data,rtrav,wrat,wtrav,mins,rlength,wlength,c('d','d'))
+   data=model2(data,rtrav,wrat,wtrav,mins,rlength,wlength,mtyp,rrat)
    plotobsmod(data,mins)
    invisible(data)
  }
@@ -526,55 +544,11 @@ fetchmodanalyse=function(){
   return(o)
 }
 
-modeltt=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,length=500){
-  tf=paste("trav",mins,"min",sep="")
-  rf=paste("ratio",mins,"min",sep="")
-  df=paste("dists",mins,"min",sep="")
-  o$model=ifelse((o[tf]<rtrav),'resting','grazing')
-  o$model=ifelse((o[rf]> wrat & o[tf]>wtrav) ,'walking',o$model)
-  o$model=as.factor(o$model)
-  o=removeshort(o,length)
-  return(o)
-}
-
-modeltd=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,length=500){
-  tf=paste("trav",mins,"min",sep="")
-  rf=paste("ratio",mins,"min",sep="")
-  df=paste("dists",mins,"min",sep="")
-  o$model=ifelse((o[tf]<rtrav),'resting','grazing')
-  o$model=ifelse((o[rf]> wrat & o[df]>wtrav) ,'walking',o$model)
-  o$model=as.factor(o$model)
-  o=removeshort(o,length)
-  return(o)
-}
-
-modeldt=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,length=500){
-  tf=paste("trav",mins,"min",sep="")
-  rf=paste("ratio",mins,"min",sep="")
-  df=paste("dists",mins,"min",sep="")
-  o$model=ifelse((o[df]<rtrav),'resting','grazing')
-  o$model=ifelse((o[rf]> wrat & o[tf]>wtrav) ,'walking',o$model)
-  o$model=as.factor(o$model)
-  o=removeshort(o,length)
-  return(o)
-}
-
-
-modeldd2=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,rlength=500,wlength=50){
-  tf=paste("trav",mins,"min",sep="")
-  rf=paste("ratio",mins,"min",sep="")
-  df=paste("dists",mins,"min",sep="")
-  wtrav=wtrav*mins
-  rtrav=rtrav*mins
-  model=ifelse((o[df]<rtrav),'resting','grazing')
-  model=ifelse((o[rf]> wrat & o[df]>wtrav) ,'walking',model)
-  model=as.factor(model)
-  o$model=model
-  o=removeshort(o,rlength,wlength)
-  return(o)
-}
-
-model2=function(o,rtrav=1,wrat=0.5,wtrav=2,mins=5,rlength=180,wlength=50,dtyp=c('d','d')){
+# oldvaldres=function(o,rtrav=10,wrat=0.8,wtrav=80){
+# geilomodel=function(o,rtrav=25,wrat=0.8,wtrav=100){
+# valdresmodel=function(o,rtrav=10,wrat=0.7,wtrav=80,length=500){
+ 
+model2=function(o,rtrav=1,wrat=0.5,wtrav=2,mins=5,rlength=180,wlength=50,dtyp=c('d','d'),rrat=10000){
   tp=c('d'='dists','t'='trav')
   typ=tp[dtyp[1]]
   rdf=paste(typ,mins,"min",sep="") # resting distance field
@@ -583,46 +557,11 @@ model2=function(o,rtrav=1,wrat=0.5,wtrav=2,mins=5,rlength=180,wlength=50,dtyp=c(
   wdf=paste(typ,mins,"min",sep="") # walking distance field
   wtrav=wtrav*mins
   rtrav=rtrav*mins
-  model=ifelse((o[rdf]<rtrav),'resting','grazing')
-  model=ifelse((o[rf]> wrat & o[wdf]>wtrav) ,'walking',model)
+  model=ifelse(((is.na(o[rf]) | o[rdf]<rtrav) & (o[rf]<rrat) ),'resting','grazing')
+  model=ifelse(( o[rf]> wrat & (o[wdf]>wtrav)) ,'walking',model)
   model=as.factor(model)
   o$model=model
   o=removeshort(o,rlength,wlength) 
-  return(o)
-}
-
-modeldd=function(o,rtrav=25,wrat=0.8,wtrav=100,mins=5,rlength=500,wlength=50){
-  tf=paste("trav",mins,"min",sep="")
-  rf=paste("ratio",mins,"min",sep="")
-  df=paste("dists",mins,"min",sep="")
-  o$model=ifelse((o[df]<rtrav),'resting','grazing')
-  o$model=ifelse((o[rf]> wrat & o[df]>wtrav) ,'walking',o$model)
-  o$model=as.factor(o$model)
-  o=removeshort(o,rlength,wlength)
-  return(o)
-}
-
-oldvaldres=function(o,rtrav=10,wrat=0.8,wtrav=80){
-  o$model=ifelse((o$dists5min<rtrav),'resting','grazing')
-  o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
-  o$model=as.factor(o$model)
-  return(o)
-}
-
-
-geilomodel=function(o,rtrav=25,wrat=0.8,wtrav=100){
-  o$model=ifelse((o$trav5min<rtrav),'resting','grazing')
-  o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
-  o$model=as.factor(o$model)
-  o=removeshort(o)
-  return(o)
-}
-
-valdresmodel=function(o,rtrav=10,wrat=0.7,wtrav=80,length=500){
-  o$model=ifelse((o$dists5min<rtrav),'resting','grazing')
-  o$model=ifelse((o$ratio5min> wrat & o$dists5min>wtrav) ,'walking',o$model)
-  o$model=as.factor(o$model)
-  o=removeshort(o,length)
   return(o)
 }
 
@@ -877,9 +816,9 @@ plotobsmod=function(d,deltamin,type='dists',timeunit='min'){
   palette(bioforskpalette)
   clmn=paste(type,deltamin,timeunit,sep='')
   par(xpd=TRUE)
+  top=100*deltamin
   plot(d$datetime,d[,clmn],col=d$model,main=paste(lok,cowid,date,deltamin,"min"),pch=20,
-       xlab='',ylab='')
-  top=max(d[,clmn],na.rm=TRUE)
+       xlab='',ylab='',ylim=c(0,top))
   points(d$datetime,rep(top/-50,length(d[,1])),col=d$obstype,pch=7)
   legend(max(d$datetime)-3500,top*1.15,pch=16,col=c(1:3),
          legend=c("grazing","resting","walking"),bg="white")
