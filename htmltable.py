@@ -11,6 +11,9 @@ countcol=10
 goods=[11,13,17,21]
 bads=[12,14,15,16,18,19,20]
 statics=[3,4,5,6,7,8]
+goods=[10,12,16,20]
+bads=[11,13,14,15,17,18,19]
+statics=[1,2,3,4,5,6]
 fo.write("""<html><head>
 <style type="text/css">
 td.good {

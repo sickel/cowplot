@@ -381,7 +381,8 @@ distplot=function(set,delta,obs=c()){
 # Runs a model and plots for all main animals
 #
 mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=50,rrat=1){
-  obsset=listobsdays(main=TRUE,lok=lok)  
+  obsset=listobsdays(main=TRUE,lok=lok)
+ # modeloutput=data.frame()  
   for(i in 1:length(obsset$date)){
     cowid=obsset[i,2]
     date=obsset[i,1]
@@ -398,22 +399,29 @@ mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=
       tothit=sum(xt[1,1],xt[2,2],xt[3,3],na.rm=TRUE)
       totobs=sum(xt,na.rm=TRUE)
       totmiss=totobs-tothit
-      temp=c(cowid,date,loka,rtrav,wrat,wtrav,mins,rlength,wlength,totobs,tothit,totmiss,xt)
+      # temp=list(loka,date,cowid,rrat,rtrav,wrat,wtrav,mins,rlength,wlength,totobs,tothit,totmiss,xt))
+      temp=c(rrat,rtrav,wrat,wtrav,mins,rlength,wlength,totobs,tothit,totmiss,xt)
+      # print(temp)
       if(!exists('modeloutput')){
-         modeloutput=temp
-         # output=data.frame(data,row.names=c)
+        modeloutput=temp
+        #  modeloutput=as.data.frame(temp)
          #
       }else{
          modeloutput=rbind(modeloutput,temp)
       }
     }
   }
-  colnames(modeloutput)=c("cowid","date","lok","rtrav","wrat","wtrav","mins","rlength","wlength","totobs","tothit","totmiss",
+  rownames(modeloutput)=c(1:length(modeloutput[,1]))
+  modeloutput=as.data.frame(modeloutput)
+# "lok","date","cowid",
+  colnames=c("rrat","rtrav","wrat","wtrav","mins","rlength","wlength","totobs","tothit","totmiss",
                         "g2g","r2g","w2g",
                         "g2r","r2r","w2r",
                         "g2w","r2w","w2w")
-  rownames(modeloutput)=c(1:length(modeloutput[,1]))
-  modeloutput=as.data.frame(modeloutput)
+  colnames(modeloutput)=colnames
+  modeloutput$cowid=cowid
+  modeloutput$date=date
+  modeloutput$lok=loka
   return(modeloutput)
 }
 
@@ -529,6 +537,12 @@ locationdates=function(loc){
 }
 
 
+fetchmodanalyse=function(){
+  o=observationdistances(5)
+  o=testmodel(o)
+  return(o)
+}
+
 
 #
 # Geilo: 5 min movement: > 25 m/5min : grazing
@@ -537,13 +551,6 @@ locationdates=function(loc){
 #
 # Valdres: 
 # ratio5 >0.8 && movement5 > 75 m/5min
-
-fetchmodanalyse=function(){
-  o=observationdistances(5)
-  o=testmodel(o)
-  return(o)
-}
-
 # oldvaldres=function(o,rtrav=10,wrat=0.8,wtrav=80){
 # geilomodel=function(o,rtrav=25,wrat=0.8,wtrav=100){
 # valdresmodel=function(o,rtrav=10,wrat=0.7,wtrav=80,length=500){
