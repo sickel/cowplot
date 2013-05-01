@@ -377,12 +377,51 @@ distplot=function(set,delta,obs=c()){
   }
 }
 
+storevalidation=function(xt,cowid,date,modelid){
+  sql=paste("select id from modelvalidation where cowid=",cowid,"and date=",sqlquote(date),"and modelid=",modelid,sep='')
+  rs=dbSendQuery(con,statement=sql)
+  ret=fetch(rs,n=-1)
+  if(length(ret)>0){
+    cat(paste('rerun',cowid,date,modelid))
+    return()
+  }
+  g="grazing"
+  r="resting"
+  w="walking"
+  xt[is.na(xt)]<-0
+  sql=paste("insert into modelvalidation (modelid,cowid,date,g2g,r2r,w2w,g2r,g2w,r2g,r2w,w2g,w2r) values(",paste(modelid,cowid,sqlquote(date),xt[g,g],xt[r,r],xt[w,w],xt[g,r],xt[g,w],xt[r,g],xt[r,w],xt[w,g],xt[w,r],sep=','),")",sep='')
+  rs=dbSendQuery(con,statement=sql)
+}
+
+
+storeresult=function(data,modelid){
+  sql="insert into modelresult (modelrunid,gpspointid,result) values "
+  insert=''
+  n=length(data$id)
+  for (i in c(1:n)){
+    if (!is.na(data$model[i])){
+      row=paste('(',modelid,',',data$id[i],',',sqlquote(as.character(data$model[i])),')')
+      if(insert==''){
+        insert=row
+      }else{
+        insert=paste(insert,row,sep=',')
+      }
+    }
+  }
+  sql=paste(sql,insert)
+  rs=dbSendQuery(con,statement=sql)
+}
+        
 #
 # Runs a model and plots for all main animals
 #
-mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=50,rrat=1){
-  obsset=listobsdays(main=TRUE,lok=lok)
+mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=50,rrat=1,mtyp=c('d','d'),onlymain=TRUE){
+  obsset=listobsdays(main=onlymain,lok=lok)
  # modeloutput=data.frame()  
+  modelid=storemodel(rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp)
+  cowids=c()
+  dates=c()
+  
   for(i in 1:length(obsset$date)){
     cowid=obsset[i,2]
     date=obsset[i,1]
@@ -391,17 +430,24 @@ mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=
     data=fetchgpsobs(cowid,date)
     date=format(as.Date(date,origin="1970-01-01"))
     if(length(data)>2){
-      cat(filename,"\n")
+      cat("\n",filename," ")
       png(filename)
-      data=runandplotmodel(data,rtrav,wrat,wtrav,mins,rlenght,wlength,rrat)
+      # cat("OK")
+      data=runandplotmodel(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp)
+      # cat("OK")
       dev.off()
       xt=analysesinglemodel(data,calcratio=FALSE)      
+      storeresult(data,modelid)
+      storevalidation(xt,cowid,date,modelid)
       tothit=sum(xt[1,1],xt[2,2],xt[3,3],na.rm=TRUE)
       totobs=sum(xt,na.rm=TRUE)
       totmiss=totobs-tothit
       # temp=list(loka,date,cowid,rrat,rtrav,wrat,wtrav,mins,rlength,wlength,totobs,tothit,totmiss,xt))
       temp=c(rrat,rtrav,wrat,wtrav,mins,rlength,wlength,totobs,tothit,totmiss,xt)
-      # print(temp)
+      
+#      print(temp)
+      cowids=c(cowids,cowid)
+      dates=c(dates,date)
       if(!exists('modeloutput')){
         modeloutput=temp
         #  modeloutput=as.data.frame(temp)
@@ -411,6 +457,7 @@ mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=
       }
     }
   }
+  cat("\n")
   rownames(modeloutput)=c(1:length(modeloutput[,1]))
   modeloutput=as.data.frame(modeloutput)
 # "lok","date","cowid",
@@ -419,19 +466,61 @@ mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=
                         "g2r","r2r","w2r",
                         "g2w","r2w","w2w")
   colnames(modeloutput)=colnames
-  modeloutput$cowid=cowid
-  modeloutput$date=date
+  modeloutput$cowid=cowids
+  modeloutput$date=dates
   modeloutput$lok=loka
   return(modeloutput)
 }
 
+sqlquote=function(str){
+  return(paste("'",str,"'",sep=''))
+}
+
+storemodel=function(rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp){
+   sql=paste("select id from modelrun where restspeed=",rtrav," and walkspeed=",wtrav,"and walkratio=",wrat,"and restratio=",rrat," and walkspan=",wlength,"and restspan=",rlength," and minutes=",mins," and walktyp=",sqlquote(mtyp[2]),"and resttyp=",sqlquote(mtyp[1]),sep=' ')
+   rs=dbSendQuery(con,statement=sql)
+   ret=fetch(rs,n=-1)
+   if(length(ret)>0){
+     return(ret[1,1])
+   }else{
+     sql=paste("insert into modelrun (restspeed,restratio,walkspeed,walkratio,walkspan,restspan,minutes,resttyp,walktyp) values(",paste(rtrav,rrat,wtrav,wrat,wlength,rlength,mins,sqlquote(mtyp[1]),sqlquote(mtyp[2]),sep=','),')',sep='');
+     rs=dbSendQuery(con,statement=sql)
+     sql="select currval('modelrun_id_seq')"
+     rs=dbSendQuery(con,statement=sql)
+     ret=fetch(rs,n=-1)
+     return(ret$currval)
+   }
+ }
+  
 
 
-runandplotmodel=function(data,rtrav,wrat,wtrav,mins,rlenght,wlength,rrat,mtyp=c('d','d')){
+runandsavemodel=function(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c('d','d')){
+   data=calcdist(data,mins*12)
+   modelid=storemodel(rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp)
+   data=model2(data,  rtrav,wrat,wtrav,mins,rlength,wlength,mtyp,rrat)
+   storeresult(data,modelid)
+   invisible(data)
+ }
+
+
+runandsaveall=function(lok,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c('d','d')){
+  days=logdays(lok=lok)
+  n=length(days$date)
+  for(i in (1:n)){
+    cat(days$cowid[i],' ',days$date[i],"\n")
+    data=fetchdata(days$cowid[i],days$date[i])
+    if(length(data$id)>0){
+      runandsavemodel(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp)
+    }
+  }
+}
+
+
+runandplotmodel=function(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c('d','d')){
    data=calcdist(data,mins*12)
    data=model2(data,rtrav,wrat,wtrav,mins,rlength,wlength,mtyp,rrat)
    plotobsmod(data,mins)
-   invisible(data)
+    invisible(data)
  }
 
 #
@@ -457,13 +546,16 @@ db2plot=function(cowid,date,deltamin,data=c()){
 # Utility: Lists available data
 #
 
-logdays=function(cowid='',date=''){
+logdays=function(cowid='',date='',lok=''){
   select=''
   if(cowid>''){
     select=paste(" and cowid=",cowid,sep='')
   }
   if(date>''){
     select=paste(select," and date='",date,"'",sep='')
+  }
+  if(lok>''){
+    select=paste(select," and lokalitet='",lok,"'",sep='')
   }
   sql=paste("select * from cowid_date_location where not cowid is null",
     select," order by date,lokalitet",sep='');
@@ -543,6 +635,23 @@ fetchmodanalyse=function(){
   return(o)
 }
 
+fetchparams=function(modelrunid){
+  sql=paste("select * from modelrun where id=",modelrunid)
+  rs=dbSendQuery(con,statement=sql)
+  data=fetch(rs,n=-1)
+  rtrav<<-data[1,2]
+  rrat<<-data[1,3]
+  wtrav<<-data[1,4]
+  wrat<<-data[1,5]
+  wlength<<-data[1,6]
+  rlength<<-data[1,7]
+  mins<<-data[1,9]
+  wtyp<<-data[1,10]
+  rtyp<<-data[1,11]
+  mtyp<<-c(rtyp,wtyp)
+  return(data)
+}
+
 
 #
 # Geilo: 5 min movement: > 25 m/5min : grazing
@@ -559,13 +668,15 @@ model2=function(o,rtrav=1,wrat=0.5,wtrav=2,mins=5,rlength=180,wlength=50,dtyp=c(
   tp=c('d'='dists','t'='trav')
   typ=tp[dtyp[1]]
   rdf=paste(typ,mins,"min",sep="") # resting distance field
-  rf=paste("ratio",mins,"min",sep="")
+  rf=paste("ratio",mins,"min",sep="") # ratiofield
   typ=tp[dtyp[2]]
   wdf=paste(typ,mins,"min",sep="") # walking distance field
   wtrav=wtrav*mins
   rtrav=rtrav*mins
-  model=ifelse(((is.na(o[rf]) | o[rdf]<rtrav) & (o[rf]<rrat) ),'resting','grazing')
+  model=ifelse(((is.na(o[rf]) | o[rf]<=rrat) & (o[rdf]<rtrav) ),'resting','grazing')
+  # model=ifelse(o[rf]<rrat,'resting','grazing')
   model=ifelse(( o[rf]> wrat & (o[wdf]>wtrav)) ,'walking',model)
+
   model=as.factor(model)
   o$model=model
   o=removeshort(o,rlength,wlength) 
