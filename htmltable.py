@@ -7,7 +7,7 @@ output=input.split('.')[0]+'.html'
 print(output)
 fi=open(input,'r')
 fo=open(output,'w')
-countcol=10
+countcol=8 
 goods=[11,13,17,21]
 bads=[12,14,15,16,18,19,20]
 statics=[3,4,5,6,7,8]
