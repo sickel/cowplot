@@ -507,8 +507,8 @@ runandsaveall=function(lok,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c('d'
   days=logdays(lok=lok)
   n=length(days$date)
   for(i in (1:n)){
-    cat(days$cowid[i],' ',days$date[i],"\n")
-    data=fetchdata(days$cowid[i],days$date[i])
+    cat(i,':',n,' ',days$cowid[i],' ',days$date[i],"\n")
+    data=fetchdata(days$cowid[i],format(as.Date(days$date[i],origin="1970-01-01")))
     if(length(data$id)>0){
       runandsavemodel(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp)
     }

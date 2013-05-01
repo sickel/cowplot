@@ -13918,6 +13918,18 @@ ALTER SEQUENCE datafile_id_seq OWNED BY datafile.id;
 
 
 --
+-- Name: defaultmodel; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE defaultmodel (
+    lokalitet character varying,
+    modelrunid integer NOT NULL
+);
+
+
+ALTER TABLE public.defaultmodel OWNER TO postgres;
+
+--
 -- Name: exportdata; Type: VIEW; Schema: public; Owner: postgres
 --
 
@@ -14409,6 +14421,16 @@ CREATE TABLE modelresult (
 
 
 ALTER TABLE public.modelresult OWNER TO postgres;
+
+--
+-- Name: modelpoint; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW modelpoint AS
+    SELECT modelresult.id AS mrid, modelresult.modelrunid, modelresult.result, gpspoint.id, gpspoint.gpsstatus, gpspoint.datetime, gpspoint.lat, gpspoint.lon, gpspoint.alt, gpspoint."time", gpspoint.datafileid, gpspoint.shape, gpspoint.speed, gpspoint.dist, gpspoint.shape_utm, gpspoint.lokalitet, gpspoint.cowid, gpspoint.observationid FROM modelresult, gpspoint WHERE (modelresult.gpspointid = gpspoint.id);
+
+
+ALTER TABLE public.modelpoint OWNER TO postgres;
 
 --
 -- Name: modelresults_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -15040,6 +15062,16 @@ CREATE VIEW valdres_classifiedgps AS
 ALTER TABLE public.valdres_classifiedgps OWNER TO postgres;
 
 --
+-- Name: valdres_modtype_poly; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW valdres_modtype_poly AS
+    SELECT count(mp.id) AS n, fly.gid, mp.result FROM modelpoint mp, valdrestolkn fly, defaultmodel dm WHERE (((st_contains(fly.the_geom, mp.shape_utm) AND (mp.lokalitet = 'Valdres'::bpchar)) AND (mp.modelrunid = dm.modelrunid)) AND ((dm.lokalitet)::text = 'Valdres'::text)) GROUP BY fly.gid, mp.result;
+
+
+ALTER TABLE public.valdres_modtype_poly OWNER TO postgres;
+
+--
 -- Name: valdres_obstype_poly; Type: VIEW; Schema: public; Owner: postgres
 --
 
@@ -15068,6 +15100,16 @@ CREATE VIEW valdres_summ_cats AS
 
 
 ALTER TABLE public.valdres_summ_cats OWNER TO postgres;
+
+--
+-- Name: valdres_summ_model; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW valdres_summ_model AS
+    SELECT vc1.category, sum(vc1.shape_area) AS areal, sum(gr.n) AS graze, sum(wa.n) AS walk, sum(re.n) AS rest, sum(pnt.count) AS gps FROM (valdresclassified vc1 LEFT JOIN valdres_modtype_poly gr ON (((gr.gid = vc1.gid) AND ((gr.result)::text = 'grazing'::text)))), (valdresclassified vc2 LEFT JOIN valdres_modtype_poly wa ON (((wa.gid = vc2.gid) AND ((wa.result)::text = 'walking'::text)))), (valdresclassified vc3 LEFT JOIN valdres_modtype_poly re ON (((re.gid = vc3.gid) AND ((re.result)::text = 'resting'::text)))), (valdresclassified vc4 LEFT JOIN valdres_poly_points pnt ON ((pnt.gid = vc4.gid))) WHERE (((vc1.gid = vc2.gid) AND (vc2.gid = vc3.gid)) AND (vc3.gid = vc4.gid)) GROUP BY vc1.category;
+
+
+ALTER TABLE public.valdres_summ_model OWNER TO postgres;
 
 --
 -- Name: valdres_summary_npoints; Type: VIEW; Schema: public; Owner: postgres
