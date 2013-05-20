@@ -54,12 +54,12 @@ disthist=function(data=alldists(),location="All areas",year='all years'){
 }
 
 #
-#  calculate the distance travelled for one day at a one minute resolution
+#  calculate the distance travelled for one day at a (default) one minute resolution
 #
 
-distprday=function(cowid,date){
+distprday=function(cowid,date,nth=12){
     data=fetchdata(cowid,date)
-    data=data[c(TRUE,rep(FALSE,11)),] # Once pr minute;
+    data=data[c(TRUE,rep(FALSE,nth-1)),] # Once pr minute;
     # use rep()!
     dist=sum(distance(data,1),na.rm=TRUE)
     return(dist)
