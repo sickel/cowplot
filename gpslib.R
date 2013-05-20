@@ -311,7 +311,9 @@ calcdist=function(data,delta,date='',cowid=''){
   # ratio between travel distance and displacement 
   rcol=paste("ratio",delta/12,"min",sep='')
   data[,rcol]=data[,dcol]/data[,tcol]
-   return(data)
+  # NaN values are 1: (no movement at all)
+  data[is.nan(data[,rcol]),rcol]=1
+  return(data)
 }
 
 #
