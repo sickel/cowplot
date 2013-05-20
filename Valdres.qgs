@@ -4,10 +4,10 @@
     <mapcanvas>
         <units>meters</units>
         <extent>
-            <xmin>490860.732019</xmin>
-            <ymin>6756286.350094</ymin>
-            <xmax>496804.986814</xmax>
-            <ymax>6760274.919328</ymax>
+            <xmin>488218.530335</xmin>
+            <ymin>6755495.838015</ymin>
+            <xmax>494162.785129</xmax>
+            <ymax>6759147.388703</ymax>
         </extent>
         <projections>1</projections>
         <destinationsrs>
@@ -24,14 +24,14 @@
         </destinationsrs>
     </mapcanvas>
     <legend updateDrawingOrder="false">
-        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="valdres_points" showFeatureCount="0">
-            <filegroup open="true" hidden="false">
+        <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="valdres_points" showFeatureCount="0">
+            <filegroup open="false" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="valdres_points20130227170335123" visible="0"/>
             </filegroup>
         </legendlayer>
-        <legendlayer drawingOrder="0" open="false" checked="Qt::Unchecked" name="valdresclassified" showFeatureCount="0">
+        <legendlayer drawingOrder="0" open="false" checked="Qt::Checked" name="valdresclassified" showFeatureCount="0">
             <filegroup open="false" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="valdresclassified20130210124819638" visible="0"/>
+                <legendlayerfile isInOverview="0" layerid="valdresclassified20130210124819638" visible="1"/>
             </filegroup>
         </legendlayer>
         <legendlayer drawingOrder="1" open="false" checked="Qt::Unchecked" name="Valdres_complete_03jun2012_utm32" showFeatureCount="1">
@@ -44,14 +44,14 @@
                 <legendlayerfile isInOverview="0" layerid="Valdres_complete_03jun2012_utm3220130122211532335" visible="0"/>
             </filegroup>
         </legendlayer>
-        <legendlayer drawingOrder="3" open="true" checked="Qt::Unchecked" name="OCM Landscape" showFeatureCount="0">
+        <legendlayer drawingOrder="3" open="true" checked="Qt::Checked" name="OCM Landscape" showFeatureCount="0">
             <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="OpenLayers_plugin_layer20130210145909940" visible="0"/>
+                <legendlayerfile isInOverview="0" layerid="OpenLayers_plugin_layer20130210145909940" visible="1"/>
             </filegroup>
         </legendlayer>
-        <legendlayer drawingOrder="4" open="true" checked="Qt::Checked" name="Google Streets" showFeatureCount="0">
+        <legendlayer drawingOrder="4" open="true" checked="Qt::Unchecked" name="Google Streets" showFeatureCount="0">
             <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="OpenLayers_plugin_layer20130210145559154" visible="1"/>
+                <legendlayerfile isInOverview="0" layerid="OpenLayers_plugin_layer20130210145559154" visible="0"/>
             </filegroup>
         </legendlayer>
         <legendlayer drawingOrder="5" open="true" checked="Qt::Unchecked" name="OpenStreetMap" showFeatureCount="0">
@@ -363,7 +363,7 @@
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0">
             <id>valdres_points20130227170335123</id>
-            <datasource>dbname='beitedata' host=localhost port=5432 user='postgres' password='postgres' sslmode=disable key='id' srid=32632 type=POINT table="valdres_points" (shape_utm) sql="date" = '2008-08-15'</datasource>
+            <datasource>dbname='beitedata' host=localhost port=5432 user='postgres' password='postgres' sslmode=disable key='id' srid=32632 type=POINT table="valdres_points" (shape_utm) sql="date" = '2009-08-14'</datasource>
             <title></title>
             <abstract></abstract>
             <layername>valdres_points</layername>
@@ -384,18 +384,19 @@
             <vectorjoins/>
             <renderer-v2 attr="cowid" symbollevels="0" type="categorizedSymbol">
                 <categories>
-                    <category symbol="0" value="277" label="277"/>
-                    <category symbol="1" value="280" label="280"/>
-                    <category symbol="2" value="283" label="283"/>
-                    <category symbol="3" value="286" label="286"/>
-                    <category symbol="4" value="" label=""/>
+                    <category symbol="0" value="247" label="247"/>
+                    <category symbol="1" value="277" label="277"/>
+                    <category symbol="2" value="286" label="286"/>
+                    <category symbol="3" value="293" label="293"/>
+                    <category symbol="4" value="294" label="294"/>
+                    <category symbol="5" value="" label=""/>
                 </categories>
                 <symbols>
                     <symbol outputUnit="MM" alpha="1" type="marker" name="0">
                         <layer pass="0" class="FontMarker" locked="0">
                             <prop k="angle" v="0"/>
                             <prop k="chr" v="l"/>
-                            <prop k="color" v="172,78,117,255"/>
+                            <prop k="color" v="231,237,106,255"/>
                             <prop k="font" v="Dingbats"/>
                             <prop k="offset" v="0,0"/>
                             <prop k="size" v="2"/>
@@ -405,7 +406,7 @@
                         <layer pass="0" class="FontMarker" locked="0">
                             <prop k="angle" v="0"/>
                             <prop k="chr" v="l"/>
-                            <prop k="color" v="169,124,76,255"/>
+                            <prop k="color" v="215,24,164,255"/>
                             <prop k="font" v="Dingbats"/>
                             <prop k="offset" v="0,0"/>
                             <prop k="size" v="2"/>
@@ -415,7 +416,7 @@
                         <layer pass="0" class="FontMarker" locked="0">
                             <prop k="angle" v="0"/>
                             <prop k="chr" v="l"/>
-                            <prop k="color" v="27,19,55,255"/>
+                            <prop k="color" v="167,109,237,255"/>
                             <prop k="font" v="Dingbats"/>
                             <prop k="offset" v="0,0"/>
                             <prop k="size" v="2"/>
@@ -425,13 +426,23 @@
                         <layer pass="0" class="FontMarker" locked="0">
                             <prop k="angle" v="0"/>
                             <prop k="chr" v="l"/>
-                            <prop k="color" v="96,141,71,255"/>
+                            <prop k="color" v="3,17,170,255"/>
                             <prop k="font" v="Dingbats"/>
                             <prop k="offset" v="0,0"/>
                             <prop k="size" v="2"/>
                         </layer>
                     </symbol>
                     <symbol outputUnit="MM" alpha="1" type="marker" name="4">
+                        <layer pass="0" class="FontMarker" locked="0">
+                            <prop k="angle" v="0"/>
+                            <prop k="chr" v="l"/>
+                            <prop k="color" v="140,4,77,255"/>
+                            <prop k="font" v="Dingbats"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="size" v="2"/>
+                        </layer>
+                    </symbol>
+                    <symbol outputUnit="MM" alpha="1" type="marker" name="5">
                         <layer pass="0" class="FontMarker" locked="0">
                             <prop k="angle" v="0"/>
                             <prop k="chr" v="l"/>

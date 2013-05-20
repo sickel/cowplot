@@ -4,10 +4,10 @@
     <mapcanvas>
         <units>meters</units>
         <extent>
-            <xmin>452228.309533</xmin>
-            <ymin>6710790.367874</ymin>
-            <xmax>457097.572925</xmax>
-            <ymax>6713781.552253</ymax>
+            <xmin>452837.814180</xmin>
+            <ymin>6711018.193171</ymin>
+            <xmax>457326.534208</xmax>
+            <ymax>6713775.610083</ymax>
         </extent>
         <projections>1</projections>
         <destinationsrs>
@@ -24,9 +24,9 @@
         </destinationsrs>
     </mapcanvas>
     <legend updateDrawingOrder="true">
-        <legendlayer drawingOrder="9" open="true" checked="Qt::Checked" name="geilo_20121211" showFeatureCount="0">
+        <legendlayer drawingOrder="9" open="true" checked="Qt::Unchecked" name="geilo_20121211" showFeatureCount="0">
             <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="geilo_2012121120121211145043011" visible="1"/>
+                <legendlayerfile isInOverview="0" layerid="geilo_2012121120121211145043011" visible="0"/>
             </filegroup>
         </legendlayer>
         <legendlayer drawingOrder="10" open="false" checked="Qt::Checked" name="geilo_20121211b" showFeatureCount="0">
@@ -79,9 +79,9 @@
                 <legendlayerfile isInOverview="0" layerid="OpenLayers_plugin_layer20130131191212910" visible="1"/>
             </filegroup>
         </legendlayer>
-        <legendlayer drawingOrder="5" open="true" checked="Qt::Unchecked" name="Google Streets" showFeatureCount="0">
+        <legendlayer drawingOrder="5" open="true" checked="Qt::Checked" name="Google Streets" showFeatureCount="0">
             <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="OpenLayers_plugin_layer20130131191017885" visible="0"/>
+                <legendlayerfile isInOverview="0" layerid="OpenLayers_plugin_layer20130131191017885" visible="1"/>
             </filegroup>
         </legendlayer>
         <legendlayer drawingOrder="6" open="true" checked="Qt::Unchecked" name="Google Satellite" showFeatureCount="0">
@@ -94,24 +94,13 @@
                 <legendlayerfile isInOverview="0" layerid="OpenLayers_plugin_layer20130131195559805" visible="0"/>
             </filegroup>
         </legendlayer>
-        <legendlayer drawingOrder="8" open="true" checked="Qt::Unchecked" name="Bing Aerial" showFeatureCount="0">
+        <legendlayer drawingOrder="8" open="true" checked="Qt::Checked" name="Bing Aerial" showFeatureCount="0">
             <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="OpenLayers_plugin_layer20130131190558726" visible="0"/>
+                <legendlayerfile isInOverview="0" layerid="OpenLayers_plugin_layer20130131190558726" visible="1"/>
             </filegroup>
         </legendlayer>
     </legend>
     <Composer title="Composer 1" visible="0">
-        <ComposerMap keepLayerSet="false" id="0" previewMode="Cache" drawCanvasItems="true">
-            <Extent ymin="8.51921e+06" xmin="904939" ymax="8.53403e+06" xmax="926365"/>
-            <LayerSet/>
-            <Grid gridStyle="0" crossLength="3" penColorRed="0" penColorBlue="0" intervalX="0" offsetX="0" intervalY="0" offsetY="0" show="0" penWidth="0" penColorGreen="0">
-                <Annotation direction="0" precision="3" position="1" frameDistance="1" show="0" font="Sans Serif,9,-1,5,50,0,0,0,0,0"/>
-            </Grid>
-            <ComposerItem width="292" x="2" y="2" rotation="0" height="202" frame="true" outlineWidth="0.3" zValue="1" lastValidViewScaleFactor="2.35071" id="" positionLock="true">
-                <FrameColor alpha="255" red="0" blue="0" green="0"/>
-                <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
-            </ComposerItem>
-        </ComposerMap>
         <ComposerLabel valign="32" labelText="GPS-sporing 2007" halign="1" margin="1">
             <LabelFont description="Sans Serif,18,-1,5,75,0,0,0,0,0"/>
             <FontColor red="0" blue="0" green="0"/>
@@ -138,6 +127,17 @@
                 <Annotation direction="0" precision="3" position="1" frameDistance="1" show="0" font="Sans Serif,9,-1,5,50,0,0,0,0,0"/>
             </Grid>
             <ComposerItem width="292" x="1.5746" y="1.5746" rotation="0" height="202" frame="true" outlineWidth="0.3" zValue="2" lastValidViewScaleFactor="2.35071" id="" positionLock="false">
+                <FrameColor alpha="255" red="0" blue="0" green="0"/>
+                <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+            </ComposerItem>
+        </ComposerMap>
+        <ComposerMap keepLayerSet="false" id="0" previewMode="Cache" drawCanvasItems="true">
+            <Extent ymin="8.51921e+06" xmin="904939" ymax="8.53403e+06" xmax="926365"/>
+            <LayerSet/>
+            <Grid gridStyle="0" crossLength="3" penColorRed="0" penColorBlue="0" intervalX="0" offsetX="0" intervalY="0" offsetY="0" show="0" penWidth="0" penColorGreen="0">
+                <Annotation direction="0" precision="3" position="1" frameDistance="1" show="0" font="Sans Serif,9,-1,5,50,0,0,0,0,0"/>
+            </Grid>
+            <ComposerItem width="292" x="2" y="2" rotation="0" height="202" frame="true" outlineWidth="0.3" zValue="1" lastValidViewScaleFactor="2.35071" id="" positionLock="true">
                 <FrameColor alpha="255" red="0" blue="0" green="0"/>
                 <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
             </ComposerItem>
