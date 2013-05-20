@@ -58,6 +58,7 @@ plotmap=function(lok="Valdres",drawlegend=TRUE){
     legend(legx,legy,types,fill=nums,border=nums,cex=lgncex,bg="white")
     drawscale(sbx,sby,1000,"1 km",lgncex*2)
   }
+  invisible(map)
 }
 
 # Draws a line of desired lengt at a specified locations
@@ -172,17 +173,22 @@ fetchrast=function(lok){
 }
 
 
+#
+# dates=logdays(lok=lok)
+#
+
+
 plotmonthlies=function(dates){
   paper="a4r"
   for (lok in unique(dates$lokalitet)){
-    print(lok)
+    cat(lok,"\n")
     pdates=data.frame(date=as.Date(unique(dates$date[dates$lokalitet==lok])))
     pdates$years=as.integer(strftime(pdates$date,format="%Y"))
     pdates$month=as.factor(ifelse(strftime(pdates$date,format="%j")<213,"July","August"))
     for(year in unique(pdates$years)){
-      print(year)
+      cat(year,"\n")
       for(month in unique(pdates$month)){
-        print(month)
+        cat(month,"\n")
         tdates=pdates$date[pdates$year==year & pdates$month==month]
         pdf(paste(lok,"_Mndtracks_",year,'-',month,".pdf",sep=""),paper=paper,width=0,height=0,title=paste(lok,year,month,sep=" "))
         setplot(lok,tdates)
@@ -197,7 +203,7 @@ setplot=function(lok,dates){
    plotmap(lok,FALSE)
    for(date in dates){
      date=format(as.Date(date,origin="1970-01-01"))
-     print(date)
+     cat(date,"\n")
      dayplot(date,drawlegend=FALSE,allblack=TRUE)
    }
  }
