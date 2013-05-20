@@ -421,6 +421,7 @@ mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=
   obsset=listobsdays(main=onlymain,lok=lok)
  # modeloutput=data.frame()  
   modelid=storemodel(rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp)
+  cat(modelid,"\n========")
   cowids=c()
   dates=c()
   
@@ -439,7 +440,7 @@ mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=
       # cat("OK")
       dev.off()
       xt=analysesinglemodel(data,calcratio=FALSE)      
-      storeresult(data,modelid)
+      # storeresult(data,modelid)
       storevalidation(xt,cowid,date,modelid)
       tothit=sum(xt[1,1],xt[2,2],xt[3,3],na.rm=TRUE)
       totobs=sum(xt,na.rm=TRUE)
@@ -506,13 +507,19 @@ runandsavemodel=function(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c(
 
 
 runandsaveall=function(lok,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c('d','d')){
+  modelid=storemodel(rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp)
+  cat(modelid,"\n==========\n")
   days=logdays(lok=lok)
   n=length(days$date)
   for(i in (1:n)){
-    cat(i,':',n,' ',days$cowid[i],' ',days$date[i],"\n")
+    if(i<100)cat(' ')
+    if(i<10)cat(' ')
+    cat(i,':',n,' ',days$cowid[i],' ',format(as.Date(days$date[i],origin="1970-01-01")),"\n")
     data=fetchdata(days$cowid[i],format(as.Date(days$date[i],origin="1970-01-01")))
     if(length(data$id)>0){
-      runandsavemodel(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp)
+      data=calcdist(data,mins*12)
+      data=model2(data,  rtrav,wrat,wtrav,mins,rlength,wlength,mtyp,rrat)
+      storeresult(data,modelid)
     }
   }
 }
@@ -638,7 +645,7 @@ fetchmodanalyse=function(){
 }
 
 fetchparams=function(modelrunid){
-  sql=paste("select * from modelrun where id=",modelrunid)
+  sql=paste("select  id,restspeed,restratio,walkspeed,walkratio,walkspan,restspan,minutes,walktyp,resttyp,addtime from modelrun where id=",modelrunid)
   rs=dbSendQuery(con,statement=sql)
   data=fetch(rs,n=-1)
   rtrav<<-data[1,2]
@@ -647,14 +654,17 @@ fetchparams=function(modelrunid){
   wrat<<-data[1,5]
   wlength<<-data[1,6]
   rlength<<-data[1,7]
-  mins<<-data[1,9]
-  wtyp<<-data[1,10]
-  rtyp<<-data[1,11]
+  mins<<-data[1,8]
+  wtyp<<-data[1,9]
+  rtyp<<-data[1,10]
   mtyp<<-c(rtyp,wtyp)
   return(data)
 }
 
-
+showparams=function(id=0){
+  if(id>0) return(fetchparams(id))
+  else   return(as.data.frame(list(id='',restspeed=rtrav,restratio=rrat,walkspeed=wtrav,walkratio=wrat,walkspan=wlength,restspan=rlength,minutes=mins,walktyp=mtyp[1],resttyp=mtyp[2])))
+}
 #
 # Geilo: 5 min movement: > 25 m/5min : grazing
 #                        < 25 m/5min : rest
