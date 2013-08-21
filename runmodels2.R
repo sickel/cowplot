@@ -1,0 +1,16 @@
+for (mins in c(5,15,25))
+  for (rtrav in c(4,6,8))
+  for (rrat in c(0.75,1))
+  for (wtrav in c(15,25,35))
+  for (wrat in c(0,0.5))
+  for (wlength in c(50,150))
+  for (rlength in c(150,250)){
+    mtyp=c('t','t')
+    mainmodel(lok=lok,rtrav=rtrav,wrat=wrat,wtrav=wtrav,mins=mins,rlength=rlength,wlength=wlength,rrat=rrat,mtyp=mtyp,onlymain=FALSE)
+#    mtyp=c('t','d')
+#    mainmodel(lok=lok,rtrav=rtrav,wrat=wrat,wtrav=wtrav,mins=mins,rlength=rlength,wlength=wlength,rrat=rrat,mtyp=mtyp,onlymain=FALSE)
+#    mtyp=c('d','d')
+#    mainmodel(lok=lok,rtrav=rtrav,wrat=wrat,wtrav=wtrav,mins=mins,rlength=rlength,wlength=wlength,rrat=rrat,mtyp=mtyp,onlymain=FALSE)
+#    mtyp=c('d','t')
+#    mainmodel(lok=lok,rtrav=rtrav,wrat=wrat,wtrav=wtrav,mins=mins,rlength=rlength,wlength=wlength,rrat=rrat,mtyp=mtyp,onlymain=FALSE)
+  }
