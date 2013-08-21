@@ -208,3 +208,18 @@ setplot=function(lok,dates){
    }
  }
    
+
+
+#
+# Plots a filtered xy-plot.
+#
+
+plotxyfilter=function(data,min,lim,set='ratio',col=2,gt=TRUE){
+  rcol=paste(set,min,"min",sep='')
+  if(gt){
+    points(data$x[data[,rcol]>lim],data$y[data[,rcol]>lim],col=col)
+  }else{
+    points(data$x[data[,rcol]<lim],data$y[data[,rcol]<lim],col=col)
+  }
+}
+
