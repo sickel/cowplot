@@ -21,12 +21,18 @@ distance=function(data,delta){
 }
 
 # Collects distances for all days
-alldists=function(){
+alldists=function(nth=12){
   sets=logdays()
   dist=c()
-  for(i in c(1:length(sets[,1])))
-    dist=c(dist,distprday(sets[i,1],sets[i,2]))
+  n=length(sets[,1])
+  for(i in c(1:n)){
+    cowid=sets[i,1]
+    day=sets[i,2]
+    cat("\b\b\b\b\b\b\b\b\b\b\b\b",i,":",n)
+    dist=c(dist,distprday(cowid,day,nth))
+  }
   sets$dist=dist
+  cat("\n")
   return(sets)
 }
 
@@ -49,21 +55,42 @@ disthist=function(data=alldists(),location="All areas",year='all years'){
   dist=data$dist
   hist(dist,breaks=20,main=main,xlab="Meters pr day",xlim=c(2000,10000))
   #dev.off()
-
-
 }
 
 #
-#  calculate the distance travelled for one day at a (default) one minute resolution
+# calculate the distance travelled for one day at a (default) one minute
+# resolution
 #
 
 distprday=function(cowid,date,nth=12){
-    data=fetchdata(cowid,date)
+  data=fetchdata(cowid,date)
+  return(distforday(data,nth))
+}
+
+distforday=function(data,nth=12){
     data=data[c(TRUE,rep(FALSE,nth-1)),] # Once pr minute;
-    # use rep()!
     dist=sum(distance(data,1),na.rm=TRUE)
     return(dist)
+  }
+
+
+
+#
+# Utility function to see how the calculated distance varies depending on
+# resolution
+#
+
+analysedistprday=function(cowid,date,maxn){
+  dists=c()
+  for(i in (1:maxn)){
+    cat("\b\b\b\b\b",i)
+    dists=c(dists,distprday(cowid,date,i))
+  }
+  cat("\n")
+  return(dists)
 }
+  
+
 
 # Fetches the background map
 
@@ -96,7 +123,6 @@ observationdistances=function(deltamin){
     data=fetchdata(cowid,date)
     if(length(data)>0){
       data=fetchgpsobs(cowid,date)
-      data=adjustobservations(data,delta)
       data=calcdist(data,delta,date,cowid)
       data=data[!(is.na(data$obstype)),]
       if(!exists('obsspeed')){
@@ -304,6 +330,7 @@ calcdist=function(data,delta,date='',cowid=''){
   dists=adjusttiming(dists,delta)
   trav=travel(data$dists5s,delta)
   trav=adjusttiming(trav,delta)
+  # Returns values in meters per minute.
   dcol=paste("dists",delta/12,"min",sep='')
   tcol=paste("trav",delta/12,"min",sep='')
   data[,dcol]=dists
@@ -385,7 +412,7 @@ storevalidation=function(xt,cowid,date,modelid){
   ret=fetch(rs,n=-1)
   if(length(ret)>0){
     cat(paste('rerun',cowid,date,modelid))
-    return()
+    return('rerun')
   }
   g="grazing"
   r="resting"
@@ -393,6 +420,7 @@ storevalidation=function(xt,cowid,date,modelid){
   xt[is.na(xt)]<-0
   sql=paste("insert into modelvalidation (modelid,cowid,date,g2g,r2r,w2w,g2r,g2w,r2g,r2w,w2g,w2r) values(",paste(modelid,cowid,sqlquote(date),xt[g,g],xt[r,r],xt[w,w],xt[g,r],xt[g,w],xt[r,g],xt[r,w],xt[w,g],xt[w,r],sep=','),")",sep='')
   rs=dbSendQuery(con,statement=sql)
+  return('ok')
 }
 
 
@@ -417,7 +445,7 @@ storeresult=function(data,modelid){
 #
 # Runs a model and plots for all main animals
 #
-mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=50,rrat=1,mtyp=c('d','d'),onlymain=TRUE){
+mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=50,rrat=1,mtyp=c('d','d'),onlymain=TRUE,doplot=FALSE){
   obsset=listobsdays(main=onlymain,lok=lok)
  # modeloutput=data.frame()  
   modelid=storemodel(rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp)
@@ -434,14 +462,15 @@ mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=
     date=format(as.Date(date,origin="1970-01-01"))
     if(length(data)>2){
       cat("\n",filename," ")
-      png(filename)
+      if(doplot) png(filename)
       # cat("OK")
-      data=runandplotmodel(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp)
+      data=runandplotmodel(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp,doplot)
       # cat("OK")
-      dev.off()
+      if(doplot) dev.off()
       xt=analysesinglemodel(data,calcratio=FALSE)      
       # storeresult(data,modelid)
-      storevalidation(xt,cowid,date,modelid)
+      rerun=storevalidation(xt,cowid,date,modelid)
+      if(rerun=='rerun' && norerun) return()
       tothit=sum(xt[1,1],xt[2,2],xt[3,3],na.rm=TRUE)
       totobs=sum(xt,na.rm=TRUE)
       totmiss=totobs-tothit
@@ -472,7 +501,8 @@ mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=
   modeloutput$cowid=cowids
   modeloutput$date=dates
   modeloutput$lok=loka
-  return(modeloutput)
+  cat("Modelid :",modelid,"\n")
+  invisible(modeloutput)
 }
 
 sqlquote=function(str){
@@ -525,11 +555,13 @@ runandsaveall=function(lok,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c('d'
 }
 
 
-runandplotmodel=function(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c('d','d')){
+runandplotmodel=function(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c('d','d'),doplot=TRUE){
    data=calcdist(data,mins*12)
    data=model2(data,rtrav,wrat,wtrav,mins,rlength,wlength,mtyp,rrat)
-   plotobsmod(data,mins)
-    invisible(data)
+   if(doplot){
+     plotobsmod(data,mins)
+   }
+   invisible(data)
  }
 
 #
@@ -575,20 +607,6 @@ logdays=function(cowid='',date='',lok=''){
 
 
 #
-# Plots a filtered xy-plot.
-#
-
-plotxyfilter=function(data,min,lim,set='ratio',col=2,gt=TRUE){
-  rcol=paste(set,min,"min",sep='')
-  if(gt){
-    points(data$x[data[,rcol]>lim],data$y[data[,rcol]>lim],col=col)
-  }else{
-    points(data$x[data[,rcol]<lim],data$y[data[,rcol]<lim],col=col)
-  }
-}
-
-
-#
 # Makes distance plots for all animals in the herd for one day
 #
 
@@ -630,7 +648,7 @@ herdxy=function(date,dm,slow=10,fast=200,set='trav'){
 }
 
 #
-# Untility function: Lists days for a location
+# Utility function: Lists days for a location
 #
 locationdates=function(loc){
   dates=logdays()
@@ -675,7 +693,11 @@ showparams=function(id=0){
 # oldvaldres=function(o,rtrav=10,wrat=0.8,wtrav=80){
 # geilomodel=function(o,rtrav=25,wrat=0.8,wtrav=100){
 # valdresmodel=function(o,rtrav=10,wrat=0.7,wtrav=80,length=500){
- 
+
+#
+# model2 is the model used finally
+# 
+
 model2=function(o,rtrav=1,wrat=0.5,wtrav=2,mins=5,rlength=180,wlength=50,dtyp=c('d','d'),rrat=10000){
   tp=c('d'='dists','t'='trav')
   typ=tp[dtyp[1]]
@@ -685,23 +707,26 @@ model2=function(o,rtrav=1,wrat=0.5,wtrav=2,mins=5,rlength=180,wlength=50,dtyp=c(
   wdf=paste(typ,mins,"min",sep="") # walking distance field
   wtrav=wtrav*mins
   rtrav=rtrav*mins
+  # model is a vector holding the model results
   model=ifelse(((is.na(o[rf]) | o[rf]<=rrat) & (o[rdf]<rtrav) ),'resting','grazing')
   # model=ifelse(o[rf]<rrat,'resting','grazing')
   model=ifelse(( o[rf]> wrat & (o[wdf]>wtrav)) ,'walking',model)
-
   model=as.factor(model)
   o$model=model
+  # Throw away too short concecutive walking or resting
   o=removeshort(o,rlength,wlength) 
   return(o)
 }
 
 removeshort=function(o,glength=500,wlength=50){
+  # rle- runlengthencoding, gives out concecutive factors
   rle=rle(as.vector(o$model))
   rl=data.frame(val=rle$values,len=rle$lengths)
   rl$newval=rl$val
   rl$newval[rl$len<glength & rl$val=='resting']='grazing'
   rl$newval[rl$len<wlength & rl$val=='walking']='grazing'
   rle$values=rl$newval
+  # Inverse.rle returns the original - or in this case manipulated, vector
   o$model=as.factor(inverse.rle(rle))
   return(o)
 }
