@@ -75,16 +75,22 @@ function mark(evt){
     var svgNS = "http://www.w3.org/2000/svg";
     var target = evt.currentTarget;
     
-//    if (!(markedpoly==null)){
-//	markedpoly.style.fill=oldcol;
-//   }
+    if (!(markedpoly==null)){
+	markedpoly.style.fill=oldcol.nodeValue;
+   }
     var markpoly=target.firstChild;
     while(markpoly != null && markpoly.nodeType == 3){ // skip TextNodes
 	markpoly = markpoly.nextSibling;
     }
-//    oldcol=markpoly.attributes.fill;
-    markpoly.style.fill = 'yellow';
-    markedpoly=markpoly;
+    oldcol=markpoly.attributes.fill;
+    if(markpoly==markedpoly){
+	markpoly.style.fill=oldcol.nodeValue;
+	markedpoly=null;
+    }else{
+	markpoly.style.fill = 'yellow';
+	markedpoly=markpoly;
+    }
+
 }
 	
 	
