@@ -96,8 +96,8 @@ analysedistprday=function(cowid,date,maxn){
 
 fetchmap=function(sted){
   if (sted=="Geilo")
-    # layer="geilo_kategorisert"
-    layer = "geilo_classified"
+    layer="geilo_kategorisert"
+    # layer = "geilo_classified"
   else
     # layer="valdresclassified"
     layer ="valdres_classified"
@@ -117,7 +117,7 @@ observationdistances=function(deltamin){
   sets=fetch(rs,n=-1)
   for(i in c(1:length(sets[,1]))){
   # for(i in c(1:2)){
-    print(i)
+    cat(i,"\n")
     cowid=sets[i,1]
     date=sets[i,2]
     data=fetchdata(cowid,date)
@@ -698,7 +698,16 @@ showparams=function(id=0){
 # model2 is the model used finally
 # 
 
-model2=function(o,rtrav=1,wrat=0.5,wtrav=2,mins=5,rlength=180,wlength=50,dtyp=c('d','d'),rrat=10000){
+model2=function(o,rtrav=1,wrat=0,wtrav=2,mins=5,rlength=180,wlength=50,dtyp=c('d','d'),rrat=1){
+  # o : data frame holding the 
+  # rtrav: speed discriminator for resting / grazing
+  # wrat: min displacement / distance ratio for walking / grazing
+  # wtrav: speed discriminator for grazing / walking
+  # mins : minutes averaging time
+  # rlength : minimum numbers of points for a valid resting period
+  # wlength : minimum numbers of points for a valid walking period
+  # dtype : which type of distance measurement to use for resting and walking speed (d: displacement, t: walked distance)
+  # rrat: max displacement / distance ratio for resting / grazing
   tp=c('d'='dists','t'='trav')
   typ=tp[dtyp[1]]
   rdf=paste(typ,mins,"min",sep="") # resting distance field
@@ -708,8 +717,9 @@ model2=function(o,rtrav=1,wrat=0.5,wtrav=2,mins=5,rlength=180,wlength=50,dtyp=c(
   wtrav=wtrav*mins
   rtrav=rtrav*mins
   # model is a vector holding the model results
+  # Sets model to resting if the speed is less than limit and the displacement/distance ratio is less than or equal to limit, else to grazing
   model=ifelse(((is.na(o[rf]) | o[rf]<=rrat) & (o[rdf]<rtrav) ),'resting','grazing')
-  # model=ifelse(o[rf]<rrat,'resting','grazing')
+  # Sets model to walking if speed is more than limit and the displacement/distance ratio is more than limit, else to grazing. 
   model=ifelse(( o[rf]> wrat & (o[wdf]>wtrav)) ,'walking',model)
   model=as.factor(model)
   o$model=model
