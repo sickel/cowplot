@@ -5,12 +5,12 @@
 #
 lgncex=0.4 # defines size of the legend
 
-plotmap=function(lok="Valdres",drawlegend=TRUE){
+plotmap=function(lok="Valdres",drawlegend=TRUE,drawbackground=TRUE){
   par(xpd=NA)
   par(mar=c(0,0,1,0))
   # par(mai=c(0,0,0))
   map=fetchmap(lok)
-  rast=fetchrast(lok)
+  if(drawbackground) rast=fetchrast(lok)
   if(lok=='Valdres'){
     # Positions for legend:
     legy=bbox(map)[2,1]+1300
@@ -49,9 +49,13 @@ plotmap=function(lok="Valdres",drawlegend=TRUE){
     sby=bbox(map)[2,1]-5000
   
   }
-  image(rast, red="band1", green="band2", blue="band3")
   palette(pal)
-  plot(map,col=map$categorycode,xlim=xlim,lwd=0.2,add=TRUE)
+  if(drawbackground){
+    image(rast, red="band1", green="band2", blue="band3")
+    plot(map,col=map$categorycode,xlim=xlim,lwd=0.2,add=TRUE)
+  }else{
+    plot(map,col=map$categorycode,xlim=xlim,lwd=0.2)
+  }
   types=unique(map$category)
   nums=unique(map$categorycode)
   if(drawlegend){
