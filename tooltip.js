@@ -82,15 +82,18 @@ function mark(evt){
     while(markpoly != null && markpoly.nodeType == 3){ // skip TextNodes
 	markpoly = markpoly.nextSibling;
     }
+    var txt;
     oldcol=markpoly.attributes.fill;
     if(markpoly==markedpoly){
 	markpoly.style.fill=oldcol.nodeValue;
 	markedpoly=null;
+	txt='';
     }else{
 	markpoly.style.fill = 'yellow';
 	markedpoly=markpoly;
+	txt=markedpoly.id;
     }
-
+    parent.showalert(txt);
 }
 	
 	
