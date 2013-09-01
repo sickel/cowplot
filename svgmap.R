@@ -57,7 +57,8 @@ for (id in unique(IDs)){
                onmouseover=paste("showTooltip(evt, '",info,"')"),
                onmouseout="hideTooltip()",
                onclick="mark(evt)",
-               class=paste('cc',map$categorycode[n],sep=''))
+               class=paste('cc',map$categorycode[n],sep=''),
+               name=info)
 }
  
 grid.script(filename="tooltip.js")
