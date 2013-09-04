@@ -1,10 +1,16 @@
-if(lok=='Valdres'){
-  inttime=10
-}else{
-  inttime=15
-}
+source('gpslib.R')
+source('distancedriver.R')
+lok=Sys.getenv('RHISTLOK')
+if(lok=='') lok='Valdres'
+inttime=as.numeric(Sys.getenv('RINTTIME'))
+if(is.na(inttime)) inttime=5
+cat("============\n")
+cat(lok,"\n")
+cat(inttime,"\n")
+cat("============\n")
 par=par()
 size=1.4
+nbreak=30
 par(cex.lab=size)
 par(cex.axis=size)
 par(cex.main=size)
@@ -19,25 +25,25 @@ lokobs$ratio=lokobs[,paste('ratio',inttime,'min',sep='')]
 quants=c()
 for (b in c('walking','grazing','resting')){
 
-file=paste(lok,b,'distance.png',sep='_')
+file=paste(lok,b,inttime,'distance.png',sep='_')
 png(file)
-hist(lokobs$travms[lokobs$obstype==b],xlab='m/s',main=paste(lok,b,"- movement"),xlim=c(0,1.5),breaks=c(0:15)*0.1,cex.lab=size,cex.axis=size,cex.main=size,cex.sub=size,lwd=size,col='gray',mai=c(1,2,1,0.5))
+hist(lokobs$travms[lokobs$obstype==b],xlab='m/s',main=paste(lok,b,"- movement",inttime,"mins"),xlim=c(0,1.5),breaks=c(0:nbreak)/nbreak*1.5,cex.lab=size,cex.axis=size,cex.main=size,cex.sub=size,lwd=size,col='gray',mai=c(1,2,1,0.5))
 # die()
 dev.off()
 print(file)
 print(quantile(lokobs$travms[lokobs$obstype==b],c(0.05,0.95),na.rm=TRUE))
 
 
-file=paste(lok,b,'displacement.png',sep='_')
+file=paste(lok,b,inttime,'displacement.png',sep='_')
 png(file)
-hist(lokobs$distms[lokobs$obstype==b],xlab='m/s',main=paste(lok,b,"- displacement"),xlim=c(0,1.5),breaks=c(0:15)*0.1,cex.lab=size,cex.axis=size,cex.main=size,cex.sub=size,lwd=size,col='gray',mai=c(1,2,1,0.5))
+hist(lokobs$distms[lokobs$obstype==b],xlab='m/s',main=paste(lok,b,"- displacement",inttime,"mins"),xlim=c(0,1.5),breaks=c(0:nbreak)/nbreak*1.5,cex.lab=size,cex.axis=size,cex.main=size,cex.sub=size,lwd=size,col='gray',mai=c(1,2,1,0.5))
 dev.off()
 print(file)
 print(quantile(lokobs$distms[lokobs$obstype==b],c(0.05,0.95),na.rm=TRUE))
 
-file=paste(lok,b,'ratio.png',sep='_')
+file=paste(lok,b,inttime,'ratio.png',sep='_')
 png(file)
-hist(lokobs$ratio[lokobs$obstype==b],xlab='',main=paste(lok,b,"- ratio"),xlim=c(0,1),breaks=c(0:10)*0.1,cex.lab=size,cex.axis=size,cex.main=size,cex.sub=size,lwd=size,col='gray',mai=c(1,2,1,0.5))
+hist(lokobs$ratio[lokobs$obstype==b],xlab='',main=paste(lok,b,"- ratio",inttime,"mins"),xlim=c(0,1),breaks=c(0:nbreak)/nbreak,cex.lab=size,cex.axis=size,cex.main=size,cex.sub=size,lwd=size,col='gray',mai=c(1,2,1,0.5))
 dev.off()
 print(file)
 print(quantile(lokobs$ratio[lokobs$obstype==b],c(0.05,0.95),na.rm=TRUE))
