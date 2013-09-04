@@ -5,7 +5,8 @@
 #
 lgncex=0.4 # defines size of the legend
 
-plotmap=function(lok="Valdres",drawlegend=TRUE,drawbackground=TRUE){
+plotmap=function(lok="Valdres",drawlegend=TRUE,drawbackground=TRUE,colors=TRUE){
+  drawlegend=drawlegend & colors #Don't want legend if no colors
   par(xpd=NA)
   par(mar=c(0,0,1,0))
   # par(mai=c(0,0,0))
@@ -52,9 +53,17 @@ plotmap=function(lok="Valdres",drawlegend=TRUE,drawbackground=TRUE){
   palette(pal)
   if(drawbackground){
     image(rast, red="band1", green="band2", blue="band3")
-    plot(map,col=map$categorycode,xlim=xlim,lwd=0.2,add=TRUE)
+    if(colors){
+      plot(map,col=map$categorycode,xlim=xlim,lwd=0.2,add=TRUE)
+    }else{
+      plot(map,xlim=xlim,lwd=0.2,add=TRUE)
+    } 
   }else{
-    plot(map,col=map$categorycode,xlim=xlim,lwd=0.2)
+    if(colors){
+      plot(map,col=map$categorycode,xlim=xlim,lwd=0.2)
+    }else{
+      plot(map,xlim=xlim,lwd=0.2,add=TRUE)
+    }
   }
   types=unique(map$category)
   nums=unique(map$categorycode)
