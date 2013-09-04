@@ -338,8 +338,8 @@ calcdist=function(data,delta,date='',cowid=''){
   # ratio between travel distance and displacement 
   rcol=paste("ratio",delta/12,"min",sep='')
   data[,rcol]=data[,dcol]/data[,tcol]
-  # NaN values are 1: (no movement at all)
-  data[is.nan(data[,rcol]),rcol]=1
+  # NaN values are 0: (no movement at all)
+  data[is.nan(data[,rcol]),rcol]=0
   return(data)
 }
 
@@ -718,9 +718,9 @@ model2=function(o,rtrav=1,wrat=0,wtrav=2,mins=5,rlength=180,wlength=50,dtyp=c('d
   rtrav=rtrav*mins
   # model is a vector holding the model results
   # Sets model to resting if the speed is less than limit and the displacement/distance ratio is less than or equal to limit, else to grazing
-  model=ifelse(((is.na(o[rf]) | o[rf]<=rrat) & (o[rdf]<rtrav) ),'resting','grazing')
+  model=ifelse(((is.na(o[rf]) | o[rf]<=rrat) | (o[rdf]<rtrav) ),'resting','grazing')
   # Sets model to walking if speed is more than limit and the displacement/distance ratio is more than limit, else to grazing. 
-  model=ifelse(( o[rf]> wrat & (o[wdf]>wtrav)) ,'walking',model)
+  model=ifelse(( o[rf]> wrat | (o[wdf]>wtrav)) ,'walking',model)
   model=as.factor(model)
   o$model=model
   # Throw away too short concecutive walking or resting
