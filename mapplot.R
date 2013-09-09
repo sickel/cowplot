@@ -5,13 +5,14 @@
 #
 lgncex=0.4 # defines size of the legend
 
-plotmap=function(lok="Valdres",drawlegend=TRUE,drawbackground=TRUE,colors=TRUE){
-  drawlegend=drawlegend & colors #Don't want legend if no colors
+plotmap=function(lok="Valdres",drawlegend=TRUE,drawbackground=TRUE,drawfill=TRUE){
+  drawlegend=drawlegend & drawfill #Don't want legend if no colors
   par(xpd=NA)
   par(mar=c(0,0,1,0))
   # par(mai=c(0,0,0))
   map=fetchmap(lok)
   if(drawbackground) rast=fetchrast(lok)
+  density=c(1:5)*20
   if(lok=='Valdres'){
     # Positions for legend:
     legy=bbox(map)[2,1]+1300
@@ -53,13 +54,13 @@ plotmap=function(lok="Valdres",drawlegend=TRUE,drawbackground=TRUE,colors=TRUE){
   palette(pal)
   if(drawbackground){
     image(rast, red="band1", green="band2", blue="band3")
-    if(colors){
-      plot(map,col=map$categorycode,xlim=xlim,lwd=0.2,add=TRUE)
+    if(drawfill){
+      plot(map,col=map$categorycode,xlim=xlim,lwd=0.2,add=TRUE,density=density)
     }else{
       plot(map,xlim=xlim,lwd=0.2,add=TRUE)
     } 
   }else{
-    if(colors){
+    if(drawfill){
       plot(map,col=map$categorycode,xlim=xlim,lwd=0.2)
     }else{
       plot(map,xlim=xlim,lwd=0.2,add=TRUE)
@@ -114,22 +115,23 @@ fetchodday=function(date){
 # mapplot(lok) must be run first to plot the background map and set up
 # the plotting environment
 # (or use plotdaytrack() (below)
-dayplot=function(date,drawlegend=TRUE,allblack=FALSE){
-  if(allblack) drawlegend=FALSE
+dayplot=function(date,drawlegend=TRUE,allblack=FALSE,color='black',drawtimemarkers=TRUE){
+  allblack=allblack | color != 'black';
+  drawlegend=drawlegend & !allblack
   lwd=1
   logs=logdays(date=date)
   if(length(logs)>0){
     herd=logs$cowid
     palette(c("cyan","magenta","orange","yellow","purple"))
     if(allblack){
-      palette(c("black","black"))
+      palette(c(color,color))
     }
     for(i in c(1:length(herd))){
       cow=herd[i]
       data=fetchdata(cow,date)
       if(length(data)>0){
         lines(data$x,data$y,col=i,lwd=lwd)
-        text(data$x,data$y,labels=data$marker-1,cex=0.3)
+        if(drawtimemarkers) text(data$x,data$y,labels=data$marker-1,cex=0.3)
       }
     }
     if(lok=="Valdres"){
@@ -189,7 +191,7 @@ fetchrast=function(lok){
 #
 # dates=logdays(lok=lok)
 #
-
+# Makes plots for all tracks within each month for each location
 
 plotmonthlies=function(dates){
   paper="a4r"
@@ -204,7 +206,7 @@ plotmonthlies=function(dates){
         cat(month,"\n")
         tdates=pdates$date[pdates$year==year & pdates$month==month]
         pdf(paste(lok,"_Mndtracks_",year,'-',month,".pdf",sep=""),paper=paper,width=0,height=0,title=paste(lok,year,month,sep=" "))
-        setplot(lok,tdates)
+        setplot2(lok,tdates)
         title(main=paste(lok,month,year))
         dev.off()
       }
@@ -213,11 +215,23 @@ plotmonthlies=function(dates){
 }
 
 setplot=function(lok,dates){
-   plotmap(lok,FALSE)
+   plotmap(lok,FALSE,drawfill=FALSE)
    for(date in dates){
      date=format(as.Date(date,origin="1970-01-01"))
      cat(date,"\n")
-     dayplot(date,drawlegend=FALSE,allblack=TRUE)
+     dayplot(date,drawlegend=FALSE,allblack=FALSE)
+   }
+ }
+   
+setplot2=function(lok,dates){
+   plotmap(lok,FALSE,drawfill=FALSE)
+   palette=c("cyan","magenta","orange","yellow","purple")
+   i=1
+   for(date in dates){
+     date=format(as.Date(date,origin="1970-01-01"))
+     cat(date,"\n")
+     dayplot(date,drawlegend=FALSE,allblack=FALSE,color=palette[i],drawtimemarkers=FALSE)
+     i=i+1
    }
  }
    
