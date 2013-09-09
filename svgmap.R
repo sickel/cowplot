@@ -4,14 +4,12 @@ library(sp)
 library(lattice)
 library(latticeExtra)
 library(maptools)
-library(classInt)
+# library(classInt)
 library(colorspace)
 
 # 
 if(exists('createnewmap')){
   grid.newpage()
-  gidcol=19
-  if(lok=='Geilo') gidcol=23
   set_Polypath(FALSE) 
   panel.str <- deparse(panel.polygonsplot, width=500)
   panel.str <- sub("grid.polygon\\((.*)\\)","grid.polygon(\\1, name=paste('ID', slot(map, 'data'\\)\\$gid\\[i\\], sep=':'))", panel.str)
