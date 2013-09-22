@@ -20,6 +20,27 @@ distance=function(data,delta){
   return(dists)
 }
 
+#
+# Calculates the average distance to the present point through the last <delta>
+# logsteps.
+# Input: data frame with raw metric data (e.g. utm coordinates) in x and y
+#
+
+distz=function(data,delta){
+  distzz=c()
+  l=length(data$x)
+  for (i in (delta+1:l)){
+    zlen=0
+    for(j in (1:delta+1)){
+      zlen=zlen+sqrt((data$x[i]-data$x[i-j])^2+(data$y[i]-data$y[i-j])^2)
+    }
+    distzz[i]=zlen/delta
+  }
+  distzz=distzz[1:l]
+  return(distzz)
+}
+
+
 # Collects distances for all days
 alldists=function(nth=12){
   sets=logdays()
@@ -330,11 +351,14 @@ calcdist=function(data,delta,date='',cowid=''){
   dists=adjusttiming(dists,delta)
   trav=travel(data$dists5s,delta)
   trav=adjusttiming(trav,delta)
+  avgd=distz(data,delta)
   # Returns values in meters per minute.
   dcol=paste("dists",delta/12,"min",sep='')
   tcol=paste("trav",delta/12,"min",sep='')
+  acol=paste("avgd",delta/12,"min",sep='')
   data[,dcol]=dists
   data[,tcol]=trav
+  data[,acol]=avgd
   # ratio between travel distance and displacement 
   rcol=paste("ratio",delta/12,"min",sep='')
   data[,rcol]=data[,dcol]/data[,tcol]
