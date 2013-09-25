@@ -714,7 +714,7 @@ fetchlokparams=function(lok){
 }
 
 fetchparams=function(modelrunid){
-  sql=paste("select  id,restspeed,restratio,walkspeed,walkratio,walkspan,restspan,minutes,walktyp,resttyp,addtime from modelrun where id=",modelrunid)
+  sql=paste("select  id,restspeed,restratio,walkspeed,walkratio,walkspan,restspan,minutes,walktyp,resttyp,restavg,addtime from modelrun where id=",modelrunid)
   rs=dbSendQuery(con,statement=sql)
   data=fetch(rs,n=-1)
   rtrav<<-data[1,2]
@@ -727,12 +727,13 @@ fetchparams=function(modelrunid){
   wtyp<<-data[1,9]
   rtyp<<-data[1,10]
   mtyp<<-c(rtyp,wtyp)
+  avgdist<<-data[1,11]
   return(data)
 }
 
 showparams=function(id=0){
   if(id>0) return(fetchparams(id))
-  else   return(as.data.frame(list(id='',restspeed=rtrav,restratio=rrat,walkspeed=wtrav,walkratio=wrat,walkspan=wlength,restspan=rlength,minutes=mins,walktyp=mtyp[1],resttyp=mtyp[2])))
+  else   return(as.data.frame(list(id='',restspeed=rtrav,restratio=rrat,walkspeed=wtrav,walkratio=wrat,walkspan=wlength,restspan=rlength,minutes=mins,walktyp=mtyp[1],resttyp=mtyp[2],avgdist=avgdist)))
 }
 #
 # Geilo: 5 min movement: > 25 m/5min : grazing
