@@ -134,11 +134,12 @@ observationdistances=function(deltamin){
   delta=deltamin*12 # number of 5 sec steps
   sql="select distinct cowid, timestamp::date from observation where cowid > 0"
   # finds all cow / date cmbinations in observations
- rs=dbSendQuery(con,statement=sql)
+  rs=dbSendQuery(con,statement=sql)
   sets=fetch(rs,n=-1)
-  for(i in c(1:length(sets[,1]))){
+  nobs=length(sets[,1])
+  for(i in c(1:nobs)){
   # for(i in c(1:2)){
-    cat(i,"\n")
+    cat(i,":",nobs,"\n")
     cowid=sets[i,1]
     date=sets[i,2]
     data=fetchdata(cowid,date)
@@ -469,14 +470,13 @@ storeresult=function(data,modelid){
 #
 # Runs a model and plots for all main animals
 #
-mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=50,rrat=1,mtyp=c('d','d'),onlymain=TRUE,doplot=FALSE){
+mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=50,rrat=1,mtyp=c('d','d'),avgdist=0,onlymain=TRUE,doplot=FALSE,modelver=2){
   obsset=listobsdays(main=onlymain,lok=lok)
  # modeloutput=data.frame()  
-  modelid=storemodel(rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp)
+  modelid=storemodel(rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp,avgdist,modelver)
   cat(modelid,"\n========")
   cowids=c()
-  dates=c()
-  
+  dates=c()  
   for(i in 1:length(obsset$date)){
     cowid=obsset[i,2]
     date=obsset[i,1]
@@ -488,7 +488,7 @@ mainmodel=function(lok='',rtrav=2, wrat=0.6,wtrav=10,mins=5,rlength=310,wlength=
       cat("\n",filename," ")
       if(doplot) png(filename)
       # cat("OK")
-      data=runandplotmodel(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp,doplot)
+      data=runandplotmodel(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp,avgdist,modelver,doplot)
       # cat("OK")
       if(doplot) dev.off()
       xt=analysesinglemodel(data,calcratio=FALSE)      
@@ -533,28 +533,44 @@ sqlquote=function(str){
   return(paste("'",str,"'",sep=''))
 }
 
-storemodel=function(rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp){
-   sql=paste("select id from modelrun where restspeed=",rtrav," and walkspeed=",wtrav,"and walkratio=",wrat,"and restratio=",rrat," and walkspan=",wlength,"and restspan=",rlength," and minutes=",mins," and walktyp=",sqlquote(mtyp[2]),"and resttyp=",sqlquote(mtyp[1]),sep=' ')
-   rs=dbSendQuery(con,statement=sql)
-   ret=fetch(rs,n=-1)
-   if(length(ret)>0){
-     return(ret[1,1])
-   }else{
-     sql=paste("insert into modelrun (restspeed,restratio,walkspeed,walkratio,walkspan,restspan,minutes,resttyp,walktyp) values(",paste(rtrav,rrat,wtrav,wrat,wlength,rlength,mins,sqlquote(mtyp[1]),sqlquote(mtyp[2]),sep=','),')',sep='');
-     rs=dbSendQuery(con,statement=sql)
-     sql="select currval('modelrun_id_seq')"
-     rs=dbSendQuery(con,statement=sql)
-     ret=fetch(rs,n=-1)
-     return(ret$currval)
-   }
- }
-  
+storemodel=function(rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp,restavg=0,modelver=1){
+  sql=paste("select id from modelrun where restspeed=",rtrav," and walkspeed=",wtrav,"and walkratio=",wrat,"and restratio=",rrat," and walkspan=",wlength,"and restspan=",rlength," and minutes=",mins," and walktyp=",sqlquote(mtyp[2]),"and resttyp=",sqlquote(mtyp[1]),"and modelversion=",modelver,sep=' ')
+  if(restavg==0){
+    sql=paste(sql,"and (restavg is null or restavg=0)",sep=' ')
+  }else{
+    sql=paste(sql,"and restavg=",restavg)
+  }
+  #  cat("\n",sql,"\n")
+  rs=dbSendQuery(con,statement=sql)
+  ret=fetch(rs,n=-1)
+  if(length(ret)>0){
+    return(ret[1,1])
+  }else{ 
+    sql=paste("insert into modelrun (restspeed,restratio,walkspeed,walkratio,walkspan,restspan,minutes,resttyp,walktyp,restavg,modelversion) values(",paste(rtrav,rrat,wtrav,wrat,wlength,rlength,mins,sqlquote(mtyp[1]),sqlquote(mtyp[2]),restavg,modelver,sep=','),')',sep='');
+    cat(sql)
+    cat("\n")
+    rs=dbSendQuery(con,statement=sql)
+    sql="select currval('modelrun_id_seq')"
+    rs=dbSendQuery(con,statement=sql)
+    ret=fetch(rs,n=-1)
+    return(ret$currval)
+  }
+}
+
 
 
 runandsavemodel=function(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c('d','d')){
    data=calcdist(data,mins*12)
    modelid=storemodel(rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp)
    data=model2(data,  rtrav,wrat,wtrav,mins,rlength,wlength,mtyp,rrat)
+   storeresult(data,modelid)
+   invisible(data)
+ }
+
+runandsavemodel3=function(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c('d','d'),avgdist){
+   data=calcdist(data,mins*12)
+   modelid=storemodel(rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp,avgdist,3)
+   data=model3(data,rtrav,wrat,wtrav,mins,rlength,wlength,mtyp,rrat,avgdist)
    storeresult(data,modelid)
    invisible(data)
  }
@@ -579,9 +595,13 @@ runandsaveall=function(lok,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c('d'
 }
 
 
-runandplotmodel=function(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c('d','d'),doplot=TRUE){
-   data=calcdist(data,mins*12)
-   data=model2(data,rtrav,wrat,wtrav,mins,rlength,wlength,mtyp,rrat)
+runandplotmodel=function(data,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c('d','d'),avgdist,modelversion,doplot=TRUE){
+   data=calcdist(data,mins*12,)
+   if(modelversion==2){
+     data=model2(data,rtrav,wrat,wtrav,mins,rlength,wlength,mtyp,rrat)
+   }else{
+     data=model3(data,rtrav,wrat,wtrav,mins,rlength,wlength,mtyp,rrat,avgdist)
+   }
    if(doplot){
      plotobsmod(data,mins)
    }
@@ -686,6 +706,13 @@ fetchmodanalyse=function(){
   return(o)
 }
 
+fetchlokparams=function(lok){
+  sql=paste("select modelrunid from defaultmodel where lokalitet='",lok,"'",sep='')
+  rs=dbSendQuery(con,statement=sql)
+  data=fetch(rs,n=-1)
+  fetchparams(data[1,1])
+}
+
 fetchparams=function(modelrunid){
   sql=paste("select  id,restspeed,restratio,walkspeed,walkratio,walkspan,restspan,minutes,walktyp,resttyp,addtime from modelrun where id=",modelrunid)
   rs=dbSendQuery(con,statement=sql)
@@ -744,6 +771,50 @@ model2=function(o,rtrav=1,wrat=0,wtrav=2,mins=5,rlength=180,wlength=50,dtyp=c('d
   # Sets model to resting if the speed is less than limit and the displacement/distance ratio is less than or equal to limit, else to grazing
   model=ifelse(((is.na(o[rf]) | o[rf]<=rrat) | (o[rdf]<rtrav) ),'resting','grazing')
   # Sets model to walking if speed is more than limit and the displacement/distance ratio is more than limit, else to grazing. 
+  model=ifelse(( o[rf]> wrat | (o[wdf]>wtrav)) ,'walking',model)
+  model=as.factor(model)
+  o$model=model
+  # Throw away too short concecutive walking or resting
+  o=removeshort(o,rlength,wlength) 
+  return(o)
+}
+
+#
+# Model3: Added in avgdist for resting
+# 
+
+
+model3=function(o,rtrav=1,wrat=0,wtrav=2,mins=5,rlength=180,wlength=50,dtyp=c('d','d'),rrat=1,avgdist=10){
+  # o : data frame holding the 
+  # rtrav: speed discriminator for resting / grazing
+  # wrat: min displacement / distance ratio for walking / grazing
+  # wtrav: speed discriminator for grazing / walking
+  # mins : minutes averaging time
+  # rlength : minimum numbers of points for a valid resting period
+  # wlength : minimum numbers of points for a valid walking period
+  # dtype : which type of distance measurement to use for resting and walking speed (d: displacement, t: walked distance)
+  # rrat: max displacement / distance ratio for resting / grazing
+  # avgdist: Average distance from endpoint during time interval
+  tp=c('d'='dists','t'='trav')
+  typ=tp[dtyp[1]]
+  rdf=paste(typ,mins,"min",sep="") # resting distance field
+  adf=paste('avgd',mins,"min",sep="") # average distance field
+  rf=paste("ratio",mins,"min",sep="") # ratiofield
+  typ=tp[dtyp[2]]
+  wdf=paste(typ,mins,"min",sep="") # walking distance field
+  wtrav=wtrav*mins
+  rtrav=rtrav*mins
+  # model is a vector holding the model results
+  # Sets model to resting if
+  #   the speed is less than limit 
+  #   or the displacement/distance ratio is less than or equal to limit
+  #   or the average distance to endpoint is lower than the limit
+  # else to grazing
+  model=ifelse(((is.na(o[rf]) | o[rf]<=rrat) | (o[rdf]<rtrav) | o[adf]<avgdist ),'resting','grazing')
+  # Sets model to walking if
+  #   speed is more than limit
+  #   or the displacement/distance ratio is more than limit,
+  # else unchanged
   model=ifelse(( o[rf]> wrat | (o[wdf]>wtrav)) ,'walking',model)
   model=as.factor(model)
   o$model=model
