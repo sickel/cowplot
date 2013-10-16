@@ -1,8 +1,8 @@
-source('gpslib.R')
-source('distancedriver.R')
-lok=Sys.getenv('RHISTLOK')
+#"source('gpslib.R')
+#source('distancedriver.R')
+#lok=Sys.getenv('RHISTLOK')
 if(lok=='') lok='Valdres'
-inttime=as.numeric(Sys.getenv('RINTTIME'))
+#inttime=as.numeric(Sys.getenv('RINTTIME'))
 if(is.na(inttime)) inttime=5
 cat("============\n")
 cat(lok,"\n")
@@ -23,33 +23,59 @@ lokobs$travms=lokobs[,paste('trav',inttime,'min',sep='')]/(inttime*60)
 lokobs$ratio=lokobs[,paste('ratio',inttime,'min',sep='')]
 #quantile
 quants=c()
-for (b in c('walking','grazing','resting')){
+for (b in c('walking','grazing','resting ')){
 
 file=paste(lok,b,inttime,'distance.png',sep='_')
 png(file)
-hist(lokobs$travms[lokobs$obstype==b],xlab='m/s',main=paste(lok,b,"- movement",inttime,"mins"),xlim=c(0,1.5),breaks=c(0:nbreak)/nbreak*1.5,cex.lab=size,cex.axis=size,cex.main=size,cex.sub=size,lwd=size,col='gray',mai=c(1,2,1,0.5))
+assign(paste("hist_distance",inttime,b,sep="_"),hist(lokobs$travms[lokobs$obstype==b],xlab='m/s',main=paste(lok,b,"- movement",inttime,"mins"),xlim=c(0,1.5),breaks=c(0:nbreak)/nbreak*1.5,cex.lab=size,cex.axis=size,cex.main=size,cex.sub=size,lwd=size,col='gray',mai=c(1,2,1,0.5)))
 # die()
 dev.off()
 print(file)
 print(quantile(lokobs$travms[lokobs$obstype==b],c(0.05,0.95),na.rm=TRUE))
 
 
+
+
 file=paste(lok,b,inttime,'displacement.png',sep='_')
 png(file)
-hist(lokobs$distms[lokobs$obstype==b],xlab='m/s',main=paste(lok,b,"- displacement",inttime,"mins"),xlim=c(0,1.5),breaks=c(0:nbreak)/nbreak*1.5,cex.lab=size,cex.axis=size,cex.main=size,cex.sub=size,lwd=size,col='gray',mai=c(1,2,1,0.5))
+assign(paste("hist_displacement",inttime,b,sep="_"),hist(lokobs$distms[lokobs$obstype==b],xlab='m/s',main=paste(lok,b,"- displacement",inttime,"mins"),xlim=c(0,1.5),breaks=c(0:nbreak)/nbreak*1.5,cex.lab=size,cex.axis=size,cex.main=size,cex.sub=size,lwd=size,col='gray',mai=c(1,2,1,0.5)))
 dev.off()
 print(file)
 print(quantile(lokobs$distms[lokobs$obstype==b],c(0.05,0.95),na.rm=TRUE))
 
 file=paste(lok,b,inttime,'ratio.png',sep='_')
 png(file)
-hist(lokobs$ratio[lokobs$obstype==b],xlab='',main=paste(lok,b,"- ratio",inttime,"mins"),xlim=c(0,1),breaks=c(0:nbreak)/nbreak,cex.lab=size,cex.axis=size,cex.main=size,cex.sub=size,lwd=size,col='gray',mai=c(1,2,1,0.5))
+assign(paste("hist_ratio",inttime,b,sep="_"),hist(lokobs$ratio[lokobs$obstype==b],xlab='',main=paste(lok,b,"- ratio",inttime,"mins"),xlim=c(0,1),breaks=c(0:nbreak)/nbreak,cex.lab=size,cex.axis=size,cex.main=size,cex.sub=size,lwd=size,col='gray',mai=c(1,2,1,0.5)))
 dev.off()
 print(file)
 print(quantile(lokobs$ratio[lokobs$obstype==b],c(0.05,0.95),na.rm=TRUE))
 
 
-      
+}
+
+w=500
+h=350
+
+for(var in c('displacement','distance','ratio')){
+  unit='m/s'
+  div=20
+  
+  if(var=='ratio'){
+	unit=''
+	div=30
+}
+  file=paste(lok,inttime,var,'.png',sep='_')
+  png(file,width=w,height=h)
+  grz=get(paste('hist',var,inttime,'grazing',sep='_'))$counts
+  rst=get(paste('hist',var,inttime,'resting',sep='_'))$counts
+  ymax=max(c(grz,rst))
+  plot(c(1:30)/div,grz,type='s',ylab='n',xlab=unit,main=paste(lok,var),ylim=c(0,ymax))
+  lines(c(1:30)/div,rst,type="s",col=2)
+  lines(c(1:30)/div,get(paste('hist',var,inttime,'walking',sep='_'))$counts,type="s",col=3)
+  y=max(c(grz,rst))
+  legend(x=0.8*30/div,y=ymax,legend=c('grazing','resting','walking'),lty=1,col=c(1,2,3))
+
+  dev.off()
 }
 
 par(par)
