@@ -1,0 +1,1177 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis projectname="" version="2.0.1-Dufour">
+    <title></title>
+    <mapcanvas>
+        <units>meters</units>
+        <extent>
+            <xmin>124294.70805079385172576</xmin>
+            <ymin>6729516.87081537116318941</ymin>
+            <xmax>128491.14491756929783151</xmax>
+            <ymax>6733502.13794688042253256</ymax>
+        </extent>
+        <projections>1</projections>
+        <destinationsrs>
+            <spatialrefsys>
+                <proj4>+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs</proj4>
+                <srsid>3117</srsid>
+                <srid>32633</srid>
+                <authid>EPSG:32633</authid>
+                <description>WGS 84 / UTM zone 33N</description>
+                <projectionacronym>utm</projectionacronym>
+                <ellipsoidacronym>WGS84</ellipsoidacronym>
+                <geographicflag>false</geographicflag>
+            </spatialrefsys>
+        </destinationsrs>
+    </mapcanvas>
+    <legend updateDrawingOrder="true" activeLayer="geiloclassified_eng20131017182801367">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="geiloclassified_eng" showFeatureCount="0">
+            <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="geiloclassified_eng20131017182801367" visible="1"/>
+            </filegroup>
+        </legendlayer>
+        <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="33_N50raster_1516-2" showFeatureCount="0">
+            <filegroup open="false" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="33_N50raster_1516_220131017182724234" visible="1"/>
+            </filegroup>
+        </legendlayer>
+    </legend>
+    <projectlayers layercount="2">
+        <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+            <id>33_N50raster_1516_220131017182724234</id>
+            <datasource>./33_N50raster_1516-2.tif</datasource>
+            <title></title>
+            <abstract></abstract>
+            <keywordList>
+                <value></value>
+            </keywordList>
+            <layername>33_N50raster_1516-2</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs</proj4>
+                    <srsid>3117</srsid>
+                    <srid>32633</srid>
+                    <authid>EPSG:32633</authid>
+                    <description>WGS 84 / UTM zone 33N</description>
+                    <projectionacronym>utm</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <customproperties/>
+            <provider>gdal</provider>
+            <pipe>
+                <rasterrenderer opacity="1" alphaBand="-1" band="1" type="paletted">
+                    <colorPalette>
+                        <paletteEntry value="0" color="#ffffff"/>
+                        <paletteEntry value="1" color="#000000"/>
+                        <paletteEntry value="2" color="#030303"/>
+                        <paletteEntry value="3" color="#00ffff"/>
+                        <paletteEntry value="4" color="#fffffc"/>
+                        <paletteEntry value="5" color="#c7ffff"/>
+                        <paletteEntry value="6" color="#99f2f2"/>
+                        <paletteEntry value="7" color="#ffffe5"/>
+                        <paletteEntry value="8" color="#ffff8c"/>
+                        <paletteEntry value="9" color="#e0e0e0"/>
+                        <paletteEntry value="10" color="#e5ffc7"/>
+                        <paletteEntry value="11" color="#7fff4d"/>
+                        <paletteEntry value="12" color="#00ff00"/>
+                        <paletteEntry value="13" color="#fffff2"/>
+                        <paletteEntry value="14" color="#d9d9d9"/>
+                        <paletteEntry value="15" color="#ffa68c"/>
+                        <paletteEntry value="16" color="#ffccc7"/>
+                        <paletteEntry value="17" color="#f26666"/>
+                        <paletteEntry value="18" color="#999999"/>
+                        <paletteEntry value="19" color="#c78545"/>
+                        <paletteEntry value="20" color="#45ff45"/>
+                        <paletteEntry value="21" color="#ffc7ff"/>
+                        <paletteEntry value="22" color="#bfbfff"/>
+                        <paletteEntry value="23" color="#b36666"/>
+                        <paletteEntry value="24" color="#4d004d"/>
+                        <paletteEntry value="25" color="#ff0000"/>
+                        <paletteEntry value="26" color="#7f66ff"/>
+                        <paletteEntry value="27" color="#00c7ff"/>
+                        <paletteEntry value="28" color="#7f00ff"/>
+                        <paletteEntry value="29" color="#ff00ff"/>
+                        <paletteEntry value="30" color="#ffff00"/>
+                        <paletteEntry value="31" color="#eb7f00"/>
+                        <paletteEntry value="32" color="#ff6666"/>
+                        <paletteEntry value="33" color="#7f7f7f"/>
+                        <paletteEntry value="34" color="#b3b3b3"/>
+                        <paletteEntry value="35" color="#0054f2"/>
+                        <paletteEntry value="36" color="#dbc238"/>
+                        <paletteEntry value="37" color="#1ae51a"/>
+                        <paletteEntry value="38" color="#ff334d"/>
+                        <paletteEntry value="39" color="#ff007f"/>
+                        <paletteEntry value="40" color="#bfffff"/>
+                        <paletteEntry value="41" color="#e5e5e5"/>
+                        <paletteEntry value="42" color="#ff33b3"/>
+                        <paletteEntry value="43" color="#33ff33"/>
+                        <paletteEntry value="44" color="#fff200"/>
+                        <paletteEntry value="45" color="#ffd900"/>
+                        <paletteEntry value="46" color="#ffe500"/>
+                        <paletteEntry value="47" color="#33ffff"/>
+                        <paletteEntry value="48" color="#c0c0c0"/>
+                        <paletteEntry value="49" color="#ffffff"/>
+                        <paletteEntry value="50" color="#ffffff"/>
+                        <paletteEntry value="51" color="#ffffff"/>
+                        <paletteEntry value="52" color="#ffffff"/>
+                        <paletteEntry value="53" color="#ffffff"/>
+                        <paletteEntry value="54" color="#ffffff"/>
+                        <paletteEntry value="55" color="#ffffff"/>
+                        <paletteEntry value="56" color="#ffffff"/>
+                        <paletteEntry value="57" color="#ffffff"/>
+                        <paletteEntry value="58" color="#ffffff"/>
+                        <paletteEntry value="59" color="#ffffff"/>
+                        <paletteEntry value="60" color="#ffffff"/>
+                        <paletteEntry value="61" color="#ffffff"/>
+                        <paletteEntry value="62" color="#ffffff"/>
+                        <paletteEntry value="63" color="#ffffff"/>
+                        <paletteEntry value="64" color="#ffffff"/>
+                        <paletteEntry value="65" color="#ffffff"/>
+                        <paletteEntry value="66" color="#ffffff"/>
+                        <paletteEntry value="67" color="#ffffff"/>
+                        <paletteEntry value="68" color="#ffffff"/>
+                        <paletteEntry value="69" color="#ffffff"/>
+                        <paletteEntry value="70" color="#ffffff"/>
+                        <paletteEntry value="71" color="#ffffff"/>
+                        <paletteEntry value="72" color="#ffffff"/>
+                        <paletteEntry value="73" color="#ffffff"/>
+                        <paletteEntry value="74" color="#ffffff"/>
+                        <paletteEntry value="75" color="#ffffff"/>
+                        <paletteEntry value="76" color="#ffffff"/>
+                        <paletteEntry value="77" color="#ffffff"/>
+                        <paletteEntry value="78" color="#ffffff"/>
+                        <paletteEntry value="79" color="#ffffff"/>
+                        <paletteEntry value="80" color="#ffffff"/>
+                        <paletteEntry value="81" color="#ffffff"/>
+                        <paletteEntry value="82" color="#ffffff"/>
+                        <paletteEntry value="83" color="#ffffff"/>
+                        <paletteEntry value="84" color="#ffffff"/>
+                        <paletteEntry value="85" color="#ffffff"/>
+                        <paletteEntry value="86" color="#ffffff"/>
+                        <paletteEntry value="87" color="#ffffff"/>
+                        <paletteEntry value="88" color="#ffffff"/>
+                        <paletteEntry value="89" color="#ffffff"/>
+                        <paletteEntry value="90" color="#ffffff"/>
+                        <paletteEntry value="91" color="#ffffff"/>
+                        <paletteEntry value="92" color="#ffffff"/>
+                        <paletteEntry value="93" color="#ffffff"/>
+                        <paletteEntry value="94" color="#ffffff"/>
+                        <paletteEntry value="95" color="#ffffff"/>
+                        <paletteEntry value="96" color="#ffffff"/>
+                        <paletteEntry value="97" color="#ffffff"/>
+                        <paletteEntry value="98" color="#ffffff"/>
+                        <paletteEntry value="99" color="#ffffff"/>
+                        <paletteEntry value="100" color="#ffffff"/>
+                        <paletteEntry value="101" color="#ffffff"/>
+                        <paletteEntry value="102" color="#ffffff"/>
+                        <paletteEntry value="103" color="#ffffff"/>
+                        <paletteEntry value="104" color="#ffffff"/>
+                        <paletteEntry value="105" color="#ffffff"/>
+                        <paletteEntry value="106" color="#ffffff"/>
+                        <paletteEntry value="107" color="#ffffff"/>
+                        <paletteEntry value="108" color="#ffffff"/>
+                        <paletteEntry value="109" color="#ffffff"/>
+                        <paletteEntry value="110" color="#ffffff"/>
+                        <paletteEntry value="111" color="#ffffff"/>
+                        <paletteEntry value="112" color="#ffffff"/>
+                        <paletteEntry value="113" color="#ffffff"/>
+                        <paletteEntry value="114" color="#ffffff"/>
+                        <paletteEntry value="115" color="#ffffff"/>
+                        <paletteEntry value="116" color="#ffffff"/>
+                        <paletteEntry value="117" color="#ffffff"/>
+                        <paletteEntry value="118" color="#ffffff"/>
+                        <paletteEntry value="119" color="#ffffff"/>
+                        <paletteEntry value="120" color="#ffffff"/>
+                        <paletteEntry value="121" color="#ffffff"/>
+                        <paletteEntry value="122" color="#ffffff"/>
+                        <paletteEntry value="123" color="#ffffff"/>
+                        <paletteEntry value="124" color="#ffffff"/>
+                        <paletteEntry value="125" color="#ffffff"/>
+                        <paletteEntry value="126" color="#ffffff"/>
+                        <paletteEntry value="127" color="#ffffff"/>
+                        <paletteEntry value="128" color="#ffffff"/>
+                        <paletteEntry value="129" color="#ffffff"/>
+                        <paletteEntry value="130" color="#ffffff"/>
+                        <paletteEntry value="131" color="#ffffff"/>
+                        <paletteEntry value="132" color="#ffffff"/>
+                        <paletteEntry value="133" color="#ffffff"/>
+                        <paletteEntry value="134" color="#ffffff"/>
+                        <paletteEntry value="135" color="#ffffff"/>
+                        <paletteEntry value="136" color="#ffffff"/>
+                        <paletteEntry value="137" color="#ffffff"/>
+                        <paletteEntry value="138" color="#ffffff"/>
+                        <paletteEntry value="139" color="#ffffff"/>
+                        <paletteEntry value="140" color="#ffffff"/>
+                        <paletteEntry value="141" color="#ffffff"/>
+                        <paletteEntry value="142" color="#ffffff"/>
+                        <paletteEntry value="143" color="#ffffff"/>
+                        <paletteEntry value="144" color="#ffffff"/>
+                        <paletteEntry value="145" color="#ffffff"/>
+                        <paletteEntry value="146" color="#ffffff"/>
+                        <paletteEntry value="147" color="#ffffff"/>
+                        <paletteEntry value="148" color="#ffffff"/>
+                        <paletteEntry value="149" color="#ffffff"/>
+                        <paletteEntry value="150" color="#ffffff"/>
+                        <paletteEntry value="151" color="#ffffff"/>
+                        <paletteEntry value="152" color="#ffffff"/>
+                        <paletteEntry value="153" color="#ffffff"/>
+                        <paletteEntry value="154" color="#ffffff"/>
+                        <paletteEntry value="155" color="#ffffff"/>
+                        <paletteEntry value="156" color="#ffffff"/>
+                        <paletteEntry value="157" color="#ffffff"/>
+                        <paletteEntry value="158" color="#ffffff"/>
+                        <paletteEntry value="159" color="#ffffff"/>
+                        <paletteEntry value="160" color="#ffffff"/>
+                        <paletteEntry value="161" color="#ffffff"/>
+                        <paletteEntry value="162" color="#ffffff"/>
+                        <paletteEntry value="163" color="#ffffff"/>
+                        <paletteEntry value="164" color="#ffffff"/>
+                        <paletteEntry value="165" color="#ffffff"/>
+                        <paletteEntry value="166" color="#ffffff"/>
+                        <paletteEntry value="167" color="#ffffff"/>
+                        <paletteEntry value="168" color="#ffffff"/>
+                        <paletteEntry value="169" color="#ffffff"/>
+                        <paletteEntry value="170" color="#ffffff"/>
+                        <paletteEntry value="171" color="#ffffff"/>
+                        <paletteEntry value="172" color="#ffffff"/>
+                        <paletteEntry value="173" color="#ffffff"/>
+                        <paletteEntry value="174" color="#ffffff"/>
+                        <paletteEntry value="175" color="#ffffff"/>
+                        <paletteEntry value="176" color="#ffffff"/>
+                        <paletteEntry value="177" color="#ffffff"/>
+                        <paletteEntry value="178" color="#ffffff"/>
+                        <paletteEntry value="179" color="#ffffff"/>
+                        <paletteEntry value="180" color="#ffffff"/>
+                        <paletteEntry value="181" color="#ffffff"/>
+                        <paletteEntry value="182" color="#ffffff"/>
+                        <paletteEntry value="183" color="#ffffff"/>
+                        <paletteEntry value="184" color="#ffffff"/>
+                        <paletteEntry value="185" color="#ffffff"/>
+                        <paletteEntry value="186" color="#ffffff"/>
+                        <paletteEntry value="187" color="#ffffff"/>
+                        <paletteEntry value="188" color="#ffffff"/>
+                        <paletteEntry value="189" color="#ffffff"/>
+                        <paletteEntry value="190" color="#ffffff"/>
+                        <paletteEntry value="191" color="#ffffff"/>
+                        <paletteEntry value="192" color="#ffffff"/>
+                        <paletteEntry value="193" color="#ffffff"/>
+                        <paletteEntry value="194" color="#ffffff"/>
+                        <paletteEntry value="195" color="#ffffff"/>
+                        <paletteEntry value="196" color="#ffffff"/>
+                        <paletteEntry value="197" color="#ffffff"/>
+                        <paletteEntry value="198" color="#ffffff"/>
+                        <paletteEntry value="199" color="#ffffff"/>
+                        <paletteEntry value="200" color="#ffffff"/>
+                        <paletteEntry value="201" color="#ffffff"/>
+                        <paletteEntry value="202" color="#ffffff"/>
+                        <paletteEntry value="203" color="#ffffff"/>
+                        <paletteEntry value="204" color="#ffffff"/>
+                        <paletteEntry value="205" color="#ffffff"/>
+                        <paletteEntry value="206" color="#ffffff"/>
+                        <paletteEntry value="207" color="#ffffff"/>
+                        <paletteEntry value="208" color="#ffffff"/>
+                        <paletteEntry value="209" color="#ffffff"/>
+                        <paletteEntry value="210" color="#ffffff"/>
+                        <paletteEntry value="211" color="#ffffff"/>
+                        <paletteEntry value="212" color="#ffffff"/>
+                        <paletteEntry value="213" color="#ffffff"/>
+                        <paletteEntry value="214" color="#ffffff"/>
+                        <paletteEntry value="215" color="#ffffff"/>
+                        <paletteEntry value="216" color="#ffffff"/>
+                        <paletteEntry value="217" color="#ffffff"/>
+                        <paletteEntry value="218" color="#ffffff"/>
+                        <paletteEntry value="219" color="#ffffff"/>
+                        <paletteEntry value="220" color="#ffffff"/>
+                        <paletteEntry value="221" color="#ffffff"/>
+                        <paletteEntry value="222" color="#ffffff"/>
+                        <paletteEntry value="223" color="#ffffff"/>
+                        <paletteEntry value="224" color="#ffffff"/>
+                        <paletteEntry value="225" color="#ffffff"/>
+                        <paletteEntry value="226" color="#ffffff"/>
+                        <paletteEntry value="227" color="#ffffff"/>
+                        <paletteEntry value="228" color="#ffffff"/>
+                        <paletteEntry value="229" color="#ffffff"/>
+                        <paletteEntry value="230" color="#ffffff"/>
+                        <paletteEntry value="231" color="#ffffff"/>
+                        <paletteEntry value="232" color="#ffffff"/>
+                        <paletteEntry value="233" color="#ffffff"/>
+                        <paletteEntry value="234" color="#ffffff"/>
+                        <paletteEntry value="235" color="#ffffff"/>
+                        <paletteEntry value="236" color="#ffffff"/>
+                        <paletteEntry value="237" color="#ffffff"/>
+                        <paletteEntry value="238" color="#ffffff"/>
+                        <paletteEntry value="239" color="#ffffff"/>
+                        <paletteEntry value="240" color="#ffffff"/>
+                        <paletteEntry value="241" color="#ffffff"/>
+                        <paletteEntry value="242" color="#ffffff"/>
+                        <paletteEntry value="243" color="#ffffff"/>
+                        <paletteEntry value="244" color="#ffffff"/>
+                        <paletteEntry value="245" color="#ffffff"/>
+                        <paletteEntry value="246" color="#ffffff"/>
+                        <paletteEntry value="247" color="#ffffff"/>
+                        <paletteEntry value="248" color="#ffffff"/>
+                        <paletteEntry value="249" color="#ffffff"/>
+                        <paletteEntry value="250" color="#ffffff"/>
+                        <paletteEntry value="251" color="#ffffff"/>
+                        <paletteEntry value="252" color="#ffffff"/>
+                        <paletteEntry value="253" color="#ffffff"/>
+                        <paletteEntry value="254" color="#ffffff"/>
+                        <paletteEntry value="255" color="#ffffff"/>
+                    </colorPalette>
+                </rasterrenderer>
+                <brightnesscontrast brightness="0" contrast="0"/>
+                <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>
+                <rasterresampler maxOversampling="2"/>
+            </pipe>
+            <blendMode>0</blendMode>
+        </maplayer>
+        <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
+            <id>geiloclassified_eng20131017182801367</id>
+            <datasource>dbname='beitedata' host=localhost port=5432 user='postgres' password='postgres' sslmode=disable key='gid' table="geiloclassified_eng" (the_geom) sql=</datasource>
+            <title></title>
+            <abstract></abstract>
+            <keywordList>
+                <value></value>
+            </keywordList>
+            <layername>geiloclassified_eng</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs</proj4>
+                    <srsid>3116</srsid>
+                    <srid>32632</srid>
+                    <authid>EPSG:32632</authid>
+                    <description>WGS 84 / UTM zone 32N</description>
+                    <projectionacronym>utm</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <provider encoding="System">postgres</provider>
+            <previewExpression></previewExpression>
+            <vectorjoins/>
+            <renderer-v2 attr="engelsk" symbollevels="0" type="categorizedSymbol">
+                <categories>
+                    <category symbol="0" value="Alpine ridge vegetation, Betula nana - Empetrum nigrum coll st. (R2)" label="Alpine ridge vegetation, Betula nana - Empetrum nigrum coll st. (R2)"/>
+                    <category symbol="1" value="Bilberry woodland, Vaccinium myrtillus-Empetrum nigrum coll. (A4c)" label="Bilberry woodland, Vaccinium myrtillus-Empetrum nigrum coll. (A4c)"/>
+                    <category symbol="2" value="Car parking/Vegetation on trampled ground, alpine st. (I3B)" label="Car parking/Vegetation on trampled ground, alpine st. (I3B)"/>
+                    <category symbol="3" value="Construction area/ bare ground" label="Construction area/ bare ground"/>
+                    <category symbol="4" value="Cottage surrounded by natural vegetation" label="Cottage surrounded by natural vegetation"/>
+                    <category symbol="5" value="Cottage with fenced in surroundings" label="Cottage with fenced in surroundings"/>
+                    <category symbol="6" value="Cottage with lawn available for grazing" label="Cottage with lawn available for grazing"/>
+                    <category symbol="7" value="Crushed bush vegetation" label="Crushed bush vegetation"/>
+                    <category symbol="8" value="Damp grassland with Salix spp. (G3/G4)" label="Damp grassland with Salix spp. (G3/G4)"/>
+                    <category symbol="9" value="Dry Juniperus communis-Betula nana heath (S2a)" label="Dry Juniperus communis-Betula nana heath (S2a)"/>
+                    <category symbol="10" value="Fenced in cultivated grassland" label="Fenced in cultivated grassland"/>
+                    <category symbol="11" value="Intermediate dry Juniperus communis-Betula nana heath (S2a)" label="Intermediate dry Juniperus communis-Betula nana heath (S2a)"/>
+                    <category symbol="12" value="Intermediate grassland (G4/G8), 20-59% bush cover" label="Intermediate grassland (G4/G8), 20-59% bush cover"/>
+                    <category symbol="13" value="Intermediate, nutrient rich &quot;natural&quot; meadow&quot; (G13)" label="Intermediate, nutrient rich &quot;natural&quot; meadow&quot; (G13)"/>
+                    <category symbol="14" value="Juniperus communis-Betula nana heath, rich st. (S2b), 60-100% bush cover" label="Juniperus communis-Betula nana heath, rich st. (S2b), 60-100% bush cover"/>
+                    <category symbol="15" value="Late snow patch vegetation (T1a/T4a)" label="Late snow patch vegetation (T1a/T4a)"/>
+                    <category symbol="16" value="Milk barn area" label="Milk barn area"/>
+                    <category symbol="17" value="Nardus stricta-Alchemilla alpina grassland (G5b)" label="Nardus stricta-Alchemilla alpina grassland (G5b)"/>
+                    <category symbol="18" value="Ombrotrophic hummock bog, Betula nana-Sphagnum fuscum st.(J2b) " label="Ombrotrophic hummock bog, Betula nana-Sphagnum fuscum st.(J2b) "/>
+                    <category symbol="19" value="Open grassland (G3/G4/G8), intermediate, 0-19% bush cover" label="Open grassland (G3/G4/G8), intermediate, 0-19% bush cover"/>
+                    <category symbol="20" value="Pond/Tarn" label="Pond/Tarn"/>
+                    <category symbol="21" value="Poor lawn fen (K1d/K3b)" label="Poor lawn fen (K1d/K3b)"/>
+                    <category symbol="22" value="Revegetated area" label="Revegetated area"/>
+                    <category symbol="23" value="Rich scrub-covered fen (M1b/M2) " label="Rich scrub-covered fen (M1b/M2) "/>
+                    <category symbol="24" value="Road/roadside" label="Road/roadside"/>
+                    <category symbol="25" value="Scree vegetation (F1)" label="Scree vegetation (F1)"/>
+                    <category symbol="26" value="Tall-herb mountain birch forest, low herb st. with scattered tall herbs (C2c), 5-59% tree cover" label="Tall-herb mountain birch forest, low herb st. with scattered tall herbs (C2c), 5-59% tree cover"/>
+                    <category symbol="27" value="Tall-herb mountain birch forest, low herb st. with scattered tall herbs (C2c), 60-100% tree cover" label="Tall-herb mountain birch forest, low herb st. with scattered tall herbs (C2c), 60-100% tree cover"/>
+                    <category symbol="28" value="Tree felling area/cleared powerline area" label="Tree felling area/cleared powerline area"/>
+                </categories>
+                <symbols>
+                    <symbol alpha="1" type="fill" name="0">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="110,104,68,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="1">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="76,61,85,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="10">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="192,255,192,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="255,0,0,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="f_diagonal"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="11">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="165,216,167,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="12">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="0,192,0,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                        <layer pass="0" class="PointPatternFill" locked="0">
+                            <prop k="displacement_x" v="2"/>
+                            <prop k="displacement_x_unit" v="MM"/>
+                            <prop k="displacement_y" v="3"/>
+                            <prop k="displacement_y_unit" v="MM"/>
+                            <prop k="distance_x" v="5"/>
+                            <prop k="distance_x_unit" v="MM"/>
+                            <prop k="distance_y" v="5"/>
+                            <prop k="distance_y_unit" v="MM"/>
+                            <symbol alpha="1" type="marker" name="@12@1">
+                                <layer pass="0" class="SvgMarker" locked="0">
+                                    <prop k="angle" v="0"/>
+                                    <prop k="fill" v="#ffffff"/>
+                                    <prop k="name" v="/symbol/landuse_grass.svg"/>
+                                    <prop k="offset" v="0,0"/>
+                                    <prop k="offset_unit" v="MM"/>
+                                    <prop k="outline" v="#000000"/>
+                                    <prop k="outline-width" v="1"/>
+                                    <prop k="outline_width_unit" v="MM"/>
+                                    <prop k="size" v="7"/>
+                                    <prop k="size_unit" v="MM"/>
+                                </layer>
+                            </symbol>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="13">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="192,192,0,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="14">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="191,165,146,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                        <layer pass="0" class="PointPatternFill" locked="0">
+                            <prop k="displacement_x" v="1"/>
+                            <prop k="displacement_x_unit" v="MM"/>
+                            <prop k="displacement_y" v="0.7"/>
+                            <prop k="displacement_y_unit" v="MM"/>
+                            <prop k="distance_x" v="2"/>
+                            <prop k="distance_x_unit" v="MM"/>
+                            <prop k="distance_y" v="2"/>
+                            <prop k="distance_y_unit" v="MM"/>
+                            <symbol alpha="1" type="marker" name="@14@1">
+                                <layer pass="0" class="SvgMarker" locked="0">
+                                    <prop k="angle" v="0"/>
+                                    <prop k="fill" v="#000000"/>
+                                    <prop k="name" v="/symbol/landuse_swamp.svg"/>
+                                    <prop k="offset" v="0,0"/>
+                                    <prop k="offset_unit" v="MM"/>
+                                    <prop k="outline" v="#000000"/>
+                                    <prop k="outline-width" v="1"/>
+                                    <prop k="outline_width_unit" v="MM"/>
+                                    <prop k="size" v="6"/>
+                                    <prop k="size_unit" v="MM"/>
+                                </layer>
+                            </symbol>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="15">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="255,255,255,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="16">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="241,244,199,255"/>
+                            <prop k="color_border" v="175,179,138,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="17">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="58,13,1,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="18">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="0,128,104,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                        <layer pass="0" class="PointPatternFill" locked="0">
+                            <prop k="displacement_x" v="2"/>
+                            <prop k="displacement_x_unit" v="MM"/>
+                            <prop k="displacement_y" v="3"/>
+                            <prop k="displacement_y_unit" v="MM"/>
+                            <prop k="distance_x" v="7"/>
+                            <prop k="distance_x_unit" v="MM"/>
+                            <prop k="distance_y" v="7"/>
+                            <prop k="distance_y_unit" v="MM"/>
+                            <symbol alpha="1" type="marker" name="@18@1">
+                                <layer pass="0" class="SvgMarker" locked="0">
+                                    <prop k="angle" v="0"/>
+                                    <prop k="fill" v="#ffffff"/>
+                                    <prop k="name" v="/symbol/landuse_scrub.svg"/>
+                                    <prop k="offset" v="0,0"/>
+                                    <prop k="offset_unit" v="MM"/>
+                                    <prop k="outline" v="#000000"/>
+                                    <prop k="outline-width" v="1"/>
+                                    <prop k="outline_width_unit" v="MM"/>
+                                    <prop k="size" v="6"/>
+                                    <prop k="size_unit" v="MM"/>
+                                </layer>
+                            </symbol>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="19">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="0,192,0,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="2">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="220,220,220,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="20">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MapUnit"/>
+                            <prop k="color" v="199,255,255,255"/>
+                            <prop k="color_border" v="0,255,255,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MapUnit"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="5"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="21">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="192,88,0,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="22">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="154,120,145,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="23">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="118,31,50,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="24">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="220,220,220,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="25">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="128,128,128,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                        <layer pass="0" class="PointPatternFill" locked="0">
+                            <prop k="displacement_x" v="1.5"/>
+                            <prop k="displacement_x_unit" v="MM"/>
+                            <prop k="displacement_y" v="2"/>
+                            <prop k="displacement_y_unit" v="MM"/>
+                            <prop k="distance_x" v="2"/>
+                            <prop k="distance_x_unit" v="MM"/>
+                            <prop k="distance_y" v="1"/>
+                            <prop k="distance_y_unit" v="MM"/>
+                            <symbol alpha="1" type="marker" name="@25@1">
+                                <layer pass="0" class="SvgMarker" locked="0">
+                                    <prop k="angle" v="0"/>
+                                    <prop k="fill" v="#ffffff"/>
+                                    <prop k="name" v="/components/component_indoor.svg"/>
+                                    <prop k="offset" v="0,0"/>
+                                    <prop k="offset_unit" v="MM"/>
+                                    <prop k="outline" v="#000000"/>
+                                    <prop k="outline-width" v="1"/>
+                                    <prop k="outline_width_unit" v="MM"/>
+                                    <prop k="size" v="3"/>
+                                    <prop k="size_unit" v="MM"/>
+                                </layer>
+                            </symbol>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="26">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="27,89,25,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                        <layer pass="0" class="PointPatternFill" locked="0">
+                            <prop k="displacement_x" v="1"/>
+                            <prop k="displacement_x_unit" v="MM"/>
+                            <prop k="displacement_y" v="0.5"/>
+                            <prop k="displacement_y_unit" v="MM"/>
+                            <prop k="distance_x" v="3"/>
+                            <prop k="distance_x_unit" v="MM"/>
+                            <prop k="distance_y" v="3"/>
+                            <prop k="distance_y_unit" v="MM"/>
+                            <symbol alpha="1" type="marker" name="@26@1">
+                                <layer pass="0" class="SimpleMarker" locked="0">
+                                    <prop k="angle" v="0"/>
+                                    <prop k="color" v="0,128,0,255"/>
+                                    <prop k="color_border" v="0,0,0,255"/>
+                                    <prop k="name" v="pentagon"/>
+                                    <prop k="offset" v="0,0"/>
+                                    <prop k="offset_unit" v="MM"/>
+                                    <prop k="outline_width" v="0"/>
+                                    <prop k="outline_width_unit" v="MM"/>
+                                    <prop k="scale_method" v="area"/>
+                                    <prop k="size" v="1"/>
+                                    <prop k="size_unit" v="MM"/>
+                                </layer>
+                            </symbol>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="27">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="27,89,25,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                        <layer pass="0" class="PointPatternFill" locked="0">
+                            <prop k="displacement_x" v="1"/>
+                            <prop k="displacement_x_unit" v="MM"/>
+                            <prop k="displacement_y" v="0.5"/>
+                            <prop k="displacement_y_unit" v="MM"/>
+                            <prop k="distance_x" v="1.7"/>
+                            <prop k="distance_x_unit" v="MM"/>
+                            <prop k="distance_y" v="1.7"/>
+                            <prop k="distance_y_unit" v="MM"/>
+                            <symbol alpha="1" type="marker" name="@27@1">
+                                <layer pass="0" class="SimpleMarker" locked="0">
+                                    <prop k="angle" v="0"/>
+                                    <prop k="color" v="0,128,0,255"/>
+                                    <prop k="color_border" v="0,0,0,255"/>
+                                    <prop k="name" v="pentagon"/>
+                                    <prop k="offset" v="0,0"/>
+                                    <prop k="offset_unit" v="MM"/>
+                                    <prop k="outline_width" v="0"/>
+                                    <prop k="outline_width_unit" v="MM"/>
+                                    <prop k="scale_method" v="area"/>
+                                    <prop k="size" v="1"/>
+                                    <prop k="size_unit" v="MM"/>
+                                </layer>
+                            </symbol>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="28">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="217,135,2,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="3">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="220,220,220,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="4">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="0,255,0,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="5">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MapUnit"/>
+                            <prop k="color" v="192,255,192,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MapUnit"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MapUnit"/>
+                            <prop k="color" v="255,0,0,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MapUnit"/>
+                            <prop k="style" v="b_diagonal"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="6">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="192,255,192,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="7">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="74,130,50,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="8">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="186,221,105,255"/>
+                            <prop k="color_border" v="128,152,72,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="0,0,255,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="dense6"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="9">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="192,69,16,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                        <layer pass="0" class="PointPatternFill" locked="0">
+                            <prop k="displacement_x" v="1"/>
+                            <prop k="displacement_x_unit" v="MM"/>
+                            <prop k="displacement_y" v="2"/>
+                            <prop k="displacement_y_unit" v="MM"/>
+                            <prop k="distance_x" v="3"/>
+                            <prop k="distance_x_unit" v="MM"/>
+                            <prop k="distance_y" v="3"/>
+                            <prop k="distance_y_unit" v="MM"/>
+                            <symbol alpha="1" type="marker" name="@9@1">
+                                <layer pass="0" class="SvgMarker" locked="0">
+                                    <prop k="angle" v="0"/>
+                                    <prop k="fill" v="#000000"/>
+                                    <prop k="name" v="/symbol/landuse_swamp.svg"/>
+                                    <prop k="offset" v="0,0"/>
+                                    <prop k="offset_unit" v="MM"/>
+                                    <prop k="outline" v="#000000"/>
+                                    <prop k="outline-width" v="1"/>
+                                    <prop k="outline_width_unit" v="MM"/>
+                                    <prop k="size" v="5"/>
+                                    <prop k="size_unit" v="MM"/>
+                                </layer>
+                            </symbol>
+                        </layer>
+                    </symbol>
+                </symbols>
+                <source-symbol>
+                    <symbol alpha="1" type="fill" name="0">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="157,152,222,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </source-symbol>
+                <colorramp type="random" name="[source]">
+                    <prop k="count" v="30"/>
+                    <prop k="hueMax" v="359"/>
+                    <prop k="hueMin" v="0"/>
+                    <prop k="satMax" v="255"/>
+                    <prop k="satMin" v="50"/>
+                    <prop k="valMax" v="255"/>
+                    <prop k="valMin" v="50"/>
+                </colorramp>
+                <rotation field=""/>
+                <sizescale field="" scalemethod="area"/>
+            </renderer-v2>
+            <customproperties>
+                <property key="labeling" value="pal"/>
+                <property key="labeling/addDirectionSymbol" value="false"/>
+                <property key="labeling/angleOffset" value="0"/>
+                <property key="labeling/blendMode" value="0"/>
+                <property key="labeling/bufferBlendMode" value="0"/>
+                <property key="labeling/bufferColorA" value="255"/>
+                <property key="labeling/bufferColorB" value="255"/>
+                <property key="labeling/bufferColorG" value="255"/>
+                <property key="labeling/bufferColorR" value="255"/>
+                <property key="labeling/bufferDraw" value="false"/>
+                <property key="labeling/bufferJoinStyle" value="64"/>
+                <property key="labeling/bufferNoFill" value="false"/>
+                <property key="labeling/bufferSize" value="1"/>
+                <property key="labeling/bufferSizeInMapUnits" value="false"/>
+                <property key="labeling/bufferTransp" value="0"/>
+                <property key="labeling/centroidWhole" value="false"/>
+                <property key="labeling/decimals" value="3"/>
+                <property key="labeling/displayAll" value="false"/>
+                <property key="labeling/dist" value="0"/>
+                <property key="labeling/distInMapUnits" value="false"/>
+                <property key="labeling/enabled" value="false"/>
+                <property key="labeling/fieldName" value=""/>
+                <property key="labeling/fontBold" value="true"/>
+                <property key="labeling/fontCapitals" value="0"/>
+                <property key="labeling/fontFamily" value="DejaVu Sans"/>
+                <property key="labeling/fontItalic" value="false"/>
+                <property key="labeling/fontLetterSpacing" value="0"/>
+                <property key="labeling/fontLimitPixelSize" value="false"/>
+                <property key="labeling/fontMaxPixelSize" value="10000"/>
+                <property key="labeling/fontMinPixelSize" value="3"/>
+                <property key="labeling/fontSize" value="9"/>
+                <property key="labeling/fontSizeInMapUnits" value="false"/>
+                <property key="labeling/fontStrikeout" value="false"/>
+                <property key="labeling/fontUnderline" value="false"/>
+                <property key="labeling/fontWeight" value="75"/>
+                <property key="labeling/fontWordSpacing" value="0"/>
+                <property key="labeling/formatNumbers" value="false"/>
+                <property key="labeling/isExpression" value="false"/>
+                <property key="labeling/labelOffsetInMapUnits" value="true"/>
+                <property key="labeling/labelPerPart" value="false"/>
+                <property key="labeling/leftDirectionSymbol" value="&lt;"/>
+                <property key="labeling/limitNumLabels" value="false"/>
+                <property key="labeling/maxCurvedCharAngleIn" value="20"/>
+                <property key="labeling/maxCurvedCharAngleOut" value="-20"/>
+                <property key="labeling/maxNumLabels" value="2000"/>
+                <property key="labeling/mergeLines" value="false"/>
+                <property key="labeling/minFeatureSize" value="0"/>
+                <property key="labeling/multilineAlign" value="0"/>
+                <property key="labeling/multilineHeight" value="1"/>
+                <property key="labeling/namedStyle" value="Bold"/>
+                <property key="labeling/obstacle" value="true"/>
+                <property key="labeling/placeDirectionSymbol" value="0"/>
+                <property key="labeling/placement" value="0"/>
+                <property key="labeling/placementFlags" value="0"/>
+                <property key="labeling/plussign" value="false"/>
+                <property key="labeling/preserveRotation" value="true"/>
+                <property key="labeling/previewBkgrdColor" value="#ffffff"/>
+                <property key="labeling/priority" value="5"/>
+                <property key="labeling/quadOffset" value="4"/>
+                <property key="labeling/reverseDirectionSymbol" value="false"/>
+                <property key="labeling/rightDirectionSymbol" value=">"/>
+                <property key="labeling/scaleMax" value="10000000"/>
+                <property key="labeling/scaleMin" value="1"/>
+                <property key="labeling/scaleVisibility" value="false"/>
+                <property key="labeling/shadowBlendMode" value="6"/>
+                <property key="labeling/shadowColorB" value="0"/>
+                <property key="labeling/shadowColorG" value="0"/>
+                <property key="labeling/shadowColorR" value="0"/>
+                <property key="labeling/shadowDraw" value="false"/>
+                <property key="labeling/shadowOffsetAngle" value="135"/>
+                <property key="labeling/shadowOffsetDist" value="1"/>
+                <property key="labeling/shadowOffsetGlobal" value="true"/>
+                <property key="labeling/shadowOffsetUnits" value="1"/>
+                <property key="labeling/shadowRadius" value="1.5"/>
+                <property key="labeling/shadowRadiusAlphaOnly" value="false"/>
+                <property key="labeling/shadowRadiusUnits" value="1"/>
+                <property key="labeling/shadowScale" value="100"/>
+                <property key="labeling/shadowTransparency" value="30"/>
+                <property key="labeling/shadowUnder" value="0"/>
+                <property key="labeling/shapeBlendMode" value="0"/>
+                <property key="labeling/shapeBorderColorA" value="255"/>
+                <property key="labeling/shapeBorderColorB" value="128"/>
+                <property key="labeling/shapeBorderColorG" value="128"/>
+                <property key="labeling/shapeBorderColorR" value="128"/>
+                <property key="labeling/shapeBorderWidth" value="0"/>
+                <property key="labeling/shapeBorderWidthUnits" value="1"/>
+                <property key="labeling/shapeDraw" value="false"/>
+                <property key="labeling/shapeFillColorA" value="255"/>
+                <property key="labeling/shapeFillColorB" value="255"/>
+                <property key="labeling/shapeFillColorG" value="255"/>
+                <property key="labeling/shapeFillColorR" value="255"/>
+                <property key="labeling/shapeJoinStyle" value="64"/>
+                <property key="labeling/shapeOffsetUnits" value="1"/>
+                <property key="labeling/shapeOffsetX" value="0"/>
+                <property key="labeling/shapeOffsetY" value="0"/>
+                <property key="labeling/shapeRadiiUnits" value="1"/>
+                <property key="labeling/shapeRadiiX" value="0"/>
+                <property key="labeling/shapeRadiiY" value="0"/>
+                <property key="labeling/shapeRotation" value="0"/>
+                <property key="labeling/shapeRotationType" value="0"/>
+                <property key="labeling/shapeSVGFile" value=""/>
+                <property key="labeling/shapeSizeType" value="0"/>
+                <property key="labeling/shapeSizeUnits" value="1"/>
+                <property key="labeling/shapeSizeX" value="0"/>
+                <property key="labeling/shapeSizeY" value="0"/>
+                <property key="labeling/shapeTransparency" value="0"/>
+                <property key="labeling/shapeType" value="0"/>
+                <property key="labeling/textColorA" value="255"/>
+                <property key="labeling/textColorB" value="0"/>
+                <property key="labeling/textColorG" value="0"/>
+                <property key="labeling/textColorR" value="0"/>
+                <property key="labeling/textTransp" value="0"/>
+                <property key="labeling/upsidedownLabels" value="0"/>
+                <property key="labeling/wrapChar" value=""/>
+                <property key="labeling/xOffset" value="0"/>
+                <property key="labeling/yOffset" value="0"/>
+            </customproperties>
+            <blendMode>0</blendMode>
+            <featureBlendMode>0</featureBlendMode>
+            <layerTransparency>0</layerTransparency>
+            <displayfield>gid</displayfield>
+            <label>0</label>
+            <labelattributes>
+                <label fieldname="" text="Label"/>
+                <family fieldname="" name="DejaVu Sans"/>
+                <size fieldname="" units="pt" value="12"/>
+                <bold fieldname="" on="0"/>
+                <italic fieldname="" on="0"/>
+                <underline fieldname="" on="0"/>
+                <strikeout fieldname="" on="0"/>
+                <color fieldname="" red="0" blue="0" green="0"/>
+                <x fieldname=""/>
+                <y fieldname=""/>
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+                <angle fieldname="" value="0" auto="0"/>
+                <alignment fieldname="" value="center"/>
+                <buffercolor fieldname="" red="255" blue="255" green="255"/>
+                <buffersize fieldname="" units="pt" value="1"/>
+                <bufferenabled fieldname="" on=""/>
+                <multilineenabled fieldname="" on=""/>
+                <selectedonly on=""/>
+            </labelattributes>
+            <edittypes>
+                <edittype labelontop="0" editable="1" type="0" name="busksjikt"/>
+                <edittype labelontop="0" editable="1" type="0" name="busksjikt1"/>
+                <edittype labelontop="0" editable="1" type="0" name="busksjikt_"/>
+                <edittype labelontop="0" editable="1" type="0" name="category"/>
+                <edittype labelontop="0" editable="1" type="0" name="categorycode"/>
+                <edittype labelontop="0" editable="1" type="0" name="dekning__1"/>
+                <edittype labelontop="0" editable="1" type="0" name="dekning__2"/>
+                <edittype labelontop="0" editable="1" type="0" name="dekning__3"/>
+                <edittype labelontop="0" editable="1" type="0" name="dekning_bu"/>
+                <edittype labelontop="0" editable="1" type="0" name="dekning_tr"/>
+                <edittype labelontop="0" editable="1" type="0" name="engelsk"/>
+                <edittype labelontop="0" editable="1" type="0" name="felt_og__1"/>
+                <edittype labelontop="0" editable="1" type="0" name="felt_og__2"/>
+                <edittype labelontop="0" editable="1" type="0" name="felt_og_bu"/>
+                <edittype labelontop="0" editable="1" type="0" name="fuktighe_1"/>
+                <edittype labelontop="0" editable="1" type="0" name="fuktighe_2"/>
+                <edittype labelontop="0" editable="1" type="0" name="fuktighets"/>
+                <edittype labelontop="0" editable="1" type="0" name="gid"/>
+                <edittype labelontop="0" editable="1" type="0" name="marktype"/>
+                <edittype labelontop="0" editable="1" type="0" name="marktype_1"/>
+                <edittype labelontop="0" editable="1" type="0" name="marktype_d"/>
+                <edittype labelontop="0" editable="1" type="0" name="objectid"/>
+                <edittype labelontop="0" editable="1" type="0" name="shape_area"/>
+                <edittype labelontop="0" editable="1" type="0" name="shape_leng"/>
+                <edittype labelontop="0" editable="1" type="0" name="skogvege_1"/>
+                <edittype labelontop="0" editable="1" type="0" name="skogvege_2"/>
+                <edittype labelontop="0" editable="1" type="0" name="skogvegeta"/>
+            </edittypes>
+            <editform>.</editform>
+            <editforminit></editforminit>
+            <annotationform>.</annotationform>
+            <editorlayout>generatedlayout</editorlayout>
+            <excludeAttributesWMS/>
+            <excludeAttributesWFS/>
+            <attributeactions/>
+        </maplayer>
+    </projectlayers>
+    <properties>
+        <WMSServiceAbstract type="QString"></WMSServiceAbstract>
+        <WMSContactPerson type="QString"></WMSContactPerson>
+        <Identify>
+            <disabledLayers type="QStringList"/>
+        </Identify>
+        <WMSContactPhone type="QString"></WMSContactPhone>
+        <SpatialRefSys>
+            <ProjectCRSProj4String type="QString">+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs +towgs84=0,0,0</ProjectCRSProj4String>
+            <ProjectCrs type="QString">EPSG:32633</ProjectCrs>
+            <ProjectCRSID type="int">3117</ProjectCRSID>
+            <ProjectionsEnabled type="int">1</ProjectionsEnabled>
+        </SpatialRefSys>
+        <Paths>
+            <Absolute type="bool">false</Absolute>
+        </Paths>
+        <Gui>
+            <SelectionColorBluePart type="int">0</SelectionColorBluePart>
+            <CanvasColorGreenPart type="int">255</CanvasColorGreenPart>
+            <CanvasColorRedPart type="int">255</CanvasColorRedPart>
+            <SelectionColorRedPart type="int">255</SelectionColorRedPart>
+            <SelectionColorAlphaPart type="int">255</SelectionColorAlphaPart>
+            <SelectionColorGreenPart type="int">255</SelectionColorGreenPart>
+            <CanvasColorBluePart type="int">255</CanvasColorBluePart>
+        </Gui>
+        <WMSContactMail type="QString"></WMSContactMail>
+        <PositionPrecision>
+            <DecimalPlaces type="int">2</DecimalPlaces>
+            <Automatic type="bool">true</Automatic>
+        </PositionPrecision>
+        <WMSAddWktGeometry type="bool">false</WMSAddWktGeometry>
+        <WMSContactOrganization type="QString"></WMSContactOrganization>
+        <WMSServiceCapabilities type="bool">false</WMSServiceCapabilities>
+        <WMSServiceTitle type="QString"></WMSServiceTitle>
+    </properties>
+</qgis>
