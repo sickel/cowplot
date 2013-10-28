@@ -1,7 +1,16 @@
 #"source('gpslib.R')
 #source('distancedriver.R')
 #lok=Sys.getenv('RHISTLOK')
-if(lok=='') lok='Valdres'
+if(lok=='') lok='Valdres' 
+sql=paste("select * from defaultmodelrun where lokalitet='",lok,"'",sep='')
+rs=dbSendQuery(con,statement=sql)
+modelparams=fetch(rs,n=-1)
+rspeed=modelparams$restspeed/60
+wspeed=modelparams$walkspeed/60
+rratio=modelparams$restratio
+wratio=modelparams$walkratio
+rtyp=modelparams$resttyp
+wtyp=modelparams$walktyp
 #inttime=as.numeric(Sys.getenv('RINTTIME'))
 if(is.na(inttime)) inttime=5
 cat("============\n")
@@ -23,7 +32,7 @@ lokobs$travms=lokobs[,paste('trav',inttime,'min',sep='')]/(inttime*60)
 lokobs$ratio=lokobs[,paste('ratio',inttime,'min',sep='')]
 #quantile
 quants=c()
-for (b in c('walking','grazing','resting ')){
+for (b in c('walking','grazing','resting')){
 
 file=paste(lok,b,inttime,'distance.png',sep='_')
 png(file)
@@ -58,7 +67,7 @@ h=350
 
 for(var in c('displacement','distance','ratio')){
   unit='m/s'
-  div=20
+  div=
   
   if(var=='ratio'){
 	unit=''
@@ -66,14 +75,31 @@ for(var in c('displacement','distance','ratio')){
 }
   file=paste(lok,inttime,var,'.png',sep='_')
   png(file,width=w,height=h)
-  grz=get(paste('hist',var,inttime,'grazing',sep='_'))$counts
-  rst=get(paste('hist',var,inttime,'resting',sep='_'))$counts
+  
+  grz=c(get(paste('hist',var,inttime,'grazing',sep='_'))$counts,0)
+  rst=c(get(paste('hist',var,inttime,'resting',sep='_'))$counts,0)
+  wlk=c(get(paste('hist',var,inttime,'walking',sep='_'))$counts,0)
+  brks=get(paste('hist',var,inttime,'walking',sep='_'))$breaks
   ymax=max(c(grz,rst))
-  plot(c(1:30)/div,grz,type='s',ylab='n',xlab=unit,main=paste(lok,var),ylim=c(0,ymax))
-  lines(c(1:30)/div,rst,type="s",col=2)
-  lines(c(1:30)/div,get(paste('hist',var,inttime,'walking',sep='_'))$counts,type="s",col=3)
-  y=max(c(grz,rst))
-  legend(x=0.8*30/div,y=ymax,legend=c('grazing','resting','walking'),lty=1,col=c(1,2,3))
+  plot(brks,grz,type='s',ylab='n',xlab=unit,main=paste(lok,var),ylim=c(0,ymax))
+  lines(c(0,0),c(0,grz[1]))
+  lines(brks,rst,type="s",col=2)
+  lines(c(0,0),c(0,rst[1]),col=2)
+  lines(brks,wlk,type="s",col=3)
+  lines(c(0,0),c(0,wlk[1]),col=3)
+  yext=ymax*1.1
+  if((var=='displacement' && rtyp=='d') || (var=='distance' && rtyp=='t'))
+    lines(c(rspeed,rspeed),c(-10,yext),col=2)
+  if((var=='displacement' && wtyp=='d') || (var=='distance' && wtyp=='t'))
+    lines(c(wspeed,wspeed),c(-10,yext),col=3)
+  if(var=='ratio'){
+    if(wratio<1) lines(c(wratio,wratio),c(-10,yext),col=3)
+    if(rratio>0) lines(c(rratio,rratio),c(-10,yext),col=2)
+    }   
+
+  yleg=max(c(grz,rst))
+  xleg=max(brks)*0.8
+  legend(x=xleg,y=yleg,legend=c('grazing','resting','walking'),lty=1,col=c(1,2,3))
 
   dev.off()
 }
