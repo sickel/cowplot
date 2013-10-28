@@ -4,10 +4,10 @@
     <mapcanvas>
         <units>meters</units>
         <extent>
-            <xmin>163119.41762175946496427</xmin>
-            <ymin>6769786.75655899383127689</ymin>
-            <xmax>169910.48373116523725912</xmax>
-            <ymax>6776236.08807831257581711</ymax>
+            <xmin>162740.91591886489186436</xmin>
+            <ymin>6772616.99312218185514212</ymin>
+            <xmax>168041.5903002122649923</xmax>
+            <ymax>6777650.93121239077299833</ymax>
         </extent>
         <projections>1</projections>
         <destinationsrs>
@@ -23,19 +23,19 @@
             </spatialrefsys>
         </destinationsrs>
     </mapcanvas>
-    <legend updateDrawingOrder="true" activeLayer="valdresclassified_eng20131017181956050">
+    <legend updateDrawingOrder="true" activeLayer="33_N50raster_1616_120131017062635225">
         <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="valdresclassified_eng" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="valdresclassified_eng20131017181956050" visible="1"/>
             </filegroup>
         </legendlayer>
-        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Valdres_complete_03jun2012_utm32" showFeatureCount="0">
-            <filegroup open="true" hidden="false">
+        <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="Valdres_complete_03jun2012_utm32" showFeatureCount="0">
+            <filegroup open="false" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="Valdres_complete_03jun2012_utm3220131017062521879" visible="0"/>
             </filegroup>
         </legendlayer>
-        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="33_N50raster_1616-1" showFeatureCount="0">
-            <filegroup open="true" hidden="false">
+        <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="33_N50raster_1616-1" showFeatureCount="0">
+            <filegroup open="false" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="33_N50raster_1616_120131017062635225" visible="1"/>
             </filegroup>
         </legendlayer>
@@ -407,7 +407,7 @@
             <excludeAttributesWFS/>
             <attributeactions/>
         </maplayer>
-        <maplayer minimumScale="0" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
+        <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>valdresclassified_eng20131017181956050</id>
             <datasource>dbname='beitedata' host=localhost port=5432 user='postgres' password='postgres' sslmode=disable key='gid' table="valdresclassified_eng" (the_geom) sql=</datasource>
             <title></title>
@@ -648,6 +648,30 @@
                             <prop k="style" v="solid"/>
                             <prop k="style_border" v="solid"/>
                             <prop k="width_border" v="0.26"/>
+                        </layer>
+                        <layer pass="0" class="PointPatternFill" locked="0">
+                            <prop k="displacement_x" v="1"/>
+                            <prop k="displacement_x_unit" v="MM"/>
+                            <prop k="displacement_y" v="2"/>
+                            <prop k="displacement_y_unit" v="MM"/>
+                            <prop k="distance_x" v="4"/>
+                            <prop k="distance_x_unit" v="MM"/>
+                            <prop k="distance_y" v="4"/>
+                            <prop k="distance_y_unit" v="MM"/>
+                            <symbol alpha="1" type="marker" name="@19@1">
+                                <layer pass="0" class="SvgMarker" locked="0">
+                                    <prop k="angle" v="0"/>
+                                    <prop k="fill" v="#000000"/>
+                                    <prop k="name" v="/symbol/landuse_quary.svg"/>
+                                    <prop k="offset" v="0,0"/>
+                                    <prop k="offset_unit" v="MM"/>
+                                    <prop k="outline" v="#000000"/>
+                                    <prop k="outline-width" v="1"/>
+                                    <prop k="outline_width_unit" v="MM"/>
+                                    <prop k="size" v="4"/>
+                                    <prop k="size_unit" v="MM"/>
+                                </layer>
+                            </symbol>
                         </layer>
                     </symbol>
                     <symbol alpha="1" type="fill" name="2">
