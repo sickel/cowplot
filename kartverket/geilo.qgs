@@ -4,9 +4,9 @@
     <mapcanvas>
         <units>meters</units>
         <extent>
-            <xmin>124294.70805079385172576</xmin>
+            <xmin>122955.8187722479342483</xmin>
             <ymin>6729516.87081537116318941</ymin>
-            <xmax>128491.14491756929783151</xmax>
+            <xmax>129830.03419611521530896</xmax>
             <ymax>6733502.13794688042253256</ymax>
         </extent>
         <projections>1</projections>
@@ -24,9 +24,14 @@
         </destinationsrs>
     </mapcanvas>
     <legend updateDrawingOrder="true" activeLayer="geiloclassified_eng20131017182801367">
-        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="geiloclassified_eng" showFeatureCount="0">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="Vegetation classes" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="geiloclassified_eng20131017182801367" visible="1"/>
+            </filegroup>
+        </legendlayer>
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="geiloclassified_eng copy" showFeatureCount="0">
+            <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="geiloclassified_eng_copy20131102132631748" visible="0"/>
             </filegroup>
         </legendlayer>
         <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="33_N50raster_1516-2" showFeatureCount="0">
@@ -35,7 +40,758 @@
             </filegroup>
         </legendlayer>
     </legend>
-    <projectlayers layercount="2">
+    <Composer title="Geilo_00" visible="1">
+        <Composition printResolution="300" paperWidth="350" snapGridOffsetX="0" snapGridResolution="10" snapGridOffsetY="0" alignmentSnap="1" snapping="0" numPages="1" paperHeight="210" alignmentSnapTolerance="2" printAsRaster="0">
+            <ComposerLabel valign="32" labelText="UTM zone 33N&#xa;Background map © kartverket http://kartverket.no" htmlState="0" halign="1" margin="1">
+                <LabelFont description="DejaVu Sans,10,-1,0,50,0,0,0,0,0"/>
+                <FontColor red="0" blue="0" green="0"/>
+                <ComposerItem width="122.412" x="90.6405" transparency="0" y="189.707" rotation="0" height="12.6161" positionMode="0" frame="false" outlineWidth="0.3" zValue="5" lastValidViewScaleFactor="1.95726" uuid="{1fdd392b-7ddf-437e-9d78-c6bf81a4f29f}" id="" background="true" blendMode="0" positionLock="false">
+                    <FrameColor alpha="255" red="0" blue="0" green="0"/>
+                    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+                </ComposerItem>
+            </ComposerLabel>
+            <ComposerLegend symbolWidth="7" title="" boxSpace="4" splitLayer="1" equalColumnWidth="1" map="0" symbolHeight="3" wrapChar=", " fontColor="#000000" columnSpace="2" columnCount="1">
+                <styles>
+                    <style marginBottom="2" name="title" font="DejaVu Sans,16,-1,0,50,0,0,0,0,0"/>
+                    <style marginTop="1" name="group" font="DejaVu Sans,14,-1,0,50,0,0,0,0,0"/>
+                    <style marginTop="1" name="subgroup" font="DejaVu Sans,12,-1,0,50,0,0,0,0,0"/>
+                    <style marginTop="1" name="symbol" font="DejaVu Sans,9,-1,0,50,0,0,0,0,0"/>
+                    <style marginTop="1" marginLeft="2" name="symbolLabel" font="DejaVu Sans,11,-1,0,50,0,0,0,0,0"/>
+                </styles>
+                <Model autoUpdate="1">
+                    <LayerItem layerId="geiloclassified_eng20131017182801367" userText="" style="subgroup" text="Vegetation classes" showFeatureCount="0">
+                        <VectorClassificationItemNg userText="" text="Alpine ridge vegetation, Betula nana - Empetrum nigrum coll st. (R2)">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="110,104,68,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Bilberry woodland, Vaccinium myrtillus-Empetrum nigrum coll. (A4c)">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="76,61,85,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Car parking/Vegetation on trampled ground, alpine st. (I3B)">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="220,220,220,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Construction area/ bare ground">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="220,220,220,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Cottage surrounded by natural vegetation">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="0,255,0,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Cottage with fenced in surroundings">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MapUnit"/>
+                                        <prop k="color" v="192,255,192,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MapUnit"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MapUnit"/>
+                                        <prop k="color" v="255,0,0,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MapUnit"/>
+                                        <prop k="style" v="b_diagonal"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Cottage with lawn available for grazing">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="192,255,192,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Crushed bush vegetation">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="74,130,50,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Damp grassland with Salix spp. (G3/G4)">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="186,221,105,255"/>
+                                        <prop k="color_border" v="128,152,72,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="0,0,255,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="dense6"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Dry Juniperus communis-Betula nana heath (S2a)">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="192,69,16,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                    <layer pass="0" class="PointPatternFill" locked="0">
+                                        <prop k="displacement_x" v="1"/>
+                                        <prop k="displacement_x_unit" v="MM"/>
+                                        <prop k="displacement_y" v="2"/>
+                                        <prop k="displacement_y_unit" v="MM"/>
+                                        <prop k="distance_x" v="3"/>
+                                        <prop k="distance_x_unit" v="MM"/>
+                                        <prop k="distance_y" v="3"/>
+                                        <prop k="distance_y_unit" v="MM"/>
+                                        <symbol alpha="1" type="marker" name="@classificationSymbol@1">
+                                            <layer pass="0" class="SvgMarker" locked="0">
+                                                <prop k="angle" v="0"/>
+                                                <prop k="fill" v="#000000"/>
+                                                <prop k="name" v="/symbol/landuse_swamp.svg"/>
+                                                <prop k="offset" v="0,0"/>
+                                                <prop k="offset_unit" v="MM"/>
+                                                <prop k="outline" v="#000000"/>
+                                                <prop k="outline-width" v="1"/>
+                                                <prop k="outline_width_unit" v="MM"/>
+                                                <prop k="size" v="5"/>
+                                                <prop k="size_unit" v="MM"/>
+                                            </layer>
+                                        </symbol>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Fenced in cultivated grassland">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="192,255,192,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="255,0,0,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="f_diagonal"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Intermediate dry Juniperus communis-Betula nana heath (S2a)">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="165,216,167,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Intermediate grassland (G4/G8), 20-59% bush cover">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="0,192,0,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                    <layer pass="0" class="PointPatternFill" locked="0">
+                                        <prop k="displacement_x" v="2"/>
+                                        <prop k="displacement_x_unit" v="MM"/>
+                                        <prop k="displacement_y" v="3"/>
+                                        <prop k="displacement_y_unit" v="MM"/>
+                                        <prop k="distance_x" v="5"/>
+                                        <prop k="distance_x_unit" v="MM"/>
+                                        <prop k="distance_y" v="5"/>
+                                        <prop k="distance_y_unit" v="MM"/>
+                                        <symbol alpha="1" type="marker" name="@classificationSymbol@1">
+                                            <layer pass="0" class="SvgMarker" locked="0">
+                                                <prop k="angle" v="0"/>
+                                                <prop k="fill" v="#ffffff"/>
+                                                <prop k="name" v="/symbol/landuse_grass.svg"/>
+                                                <prop k="offset" v="0,0"/>
+                                                <prop k="offset_unit" v="MM"/>
+                                                <prop k="outline" v="#000000"/>
+                                                <prop k="outline-width" v="1"/>
+                                                <prop k="outline_width_unit" v="MM"/>
+                                                <prop k="size" v="7"/>
+                                                <prop k="size_unit" v="MM"/>
+                                            </layer>
+                                        </symbol>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Intermediate, nutrient rich &quot;natural&quot; meadow&quot; (G13)">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="192,192,0,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Juniperus communis-Betula nana heath, rich st. (S2b), 60-100% bush cover">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="191,165,146,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                    <layer pass="0" class="PointPatternFill" locked="0">
+                                        <prop k="displacement_x" v="1"/>
+                                        <prop k="displacement_x_unit" v="MM"/>
+                                        <prop k="displacement_y" v="0.7"/>
+                                        <prop k="displacement_y_unit" v="MM"/>
+                                        <prop k="distance_x" v="2"/>
+                                        <prop k="distance_x_unit" v="MM"/>
+                                        <prop k="distance_y" v="2"/>
+                                        <prop k="distance_y_unit" v="MM"/>
+                                        <symbol alpha="1" type="marker" name="@classificationSymbol@1">
+                                            <layer pass="0" class="SvgMarker" locked="0">
+                                                <prop k="angle" v="0"/>
+                                                <prop k="fill" v="#000000"/>
+                                                <prop k="name" v="/symbol/landuse_swamp.svg"/>
+                                                <prop k="offset" v="0,0"/>
+                                                <prop k="offset_unit" v="MM"/>
+                                                <prop k="outline" v="#000000"/>
+                                                <prop k="outline-width" v="1"/>
+                                                <prop k="outline_width_unit" v="MM"/>
+                                                <prop k="size" v="6"/>
+                                                <prop k="size_unit" v="MM"/>
+                                            </layer>
+                                        </symbol>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Late snow patch vegetation (T1a/T4a)">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="255,255,255,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Milk barn area">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="241,244,199,255"/>
+                                        <prop k="color_border" v="175,179,138,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Nardus stricta-Alchemilla alpina grassland (G5b)">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="58,13,1,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Ombrotrophic hummock bog, Betula nana-Sphagnum fuscum st.(J2b) ">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="0,128,104,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                    <layer pass="0" class="PointPatternFill" locked="0">
+                                        <prop k="displacement_x" v="2"/>
+                                        <prop k="displacement_x_unit" v="MM"/>
+                                        <prop k="displacement_y" v="3"/>
+                                        <prop k="displacement_y_unit" v="MM"/>
+                                        <prop k="distance_x" v="7"/>
+                                        <prop k="distance_x_unit" v="MM"/>
+                                        <prop k="distance_y" v="7"/>
+                                        <prop k="distance_y_unit" v="MM"/>
+                                        <symbol alpha="1" type="marker" name="@classificationSymbol@1">
+                                            <layer pass="0" class="SvgMarker" locked="0">
+                                                <prop k="angle" v="0"/>
+                                                <prop k="fill" v="#ffffff"/>
+                                                <prop k="name" v="/symbol/landuse_scrub.svg"/>
+                                                <prop k="offset" v="0,0"/>
+                                                <prop k="offset_unit" v="MM"/>
+                                                <prop k="outline" v="#000000"/>
+                                                <prop k="outline-width" v="1"/>
+                                                <prop k="outline_width_unit" v="MM"/>
+                                                <prop k="size" v="6"/>
+                                                <prop k="size_unit" v="MM"/>
+                                            </layer>
+                                        </symbol>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Open grassland (G3/G4/G8), intermediate, 0-19% bush cover">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="0,192,0,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Pond/Tarn">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MapUnit"/>
+                                        <prop k="color" v="199,255,255,255"/>
+                                        <prop k="color_border" v="0,255,255,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MapUnit"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="5"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Poor lawn fen (K1d/K3b)">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="192,88,0,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="0,0,255,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="horizontal"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Revegetated area">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="154,120,145,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Rich scrub-covered fen (M1b/M2) ">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="118,31,50,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Road/roadside">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="0,0,0,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Scree vegetation (F1)">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="128,128,128,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                    <layer pass="0" class="PointPatternFill" locked="0">
+                                        <prop k="displacement_x" v="1.5"/>
+                                        <prop k="displacement_x_unit" v="MM"/>
+                                        <prop k="displacement_y" v="2"/>
+                                        <prop k="displacement_y_unit" v="MM"/>
+                                        <prop k="distance_x" v="2"/>
+                                        <prop k="distance_x_unit" v="MM"/>
+                                        <prop k="distance_y" v="1"/>
+                                        <prop k="distance_y_unit" v="MM"/>
+                                        <symbol alpha="1" type="marker" name="@classificationSymbol@1">
+                                            <layer pass="0" class="SvgMarker" locked="0">
+                                                <prop k="angle" v="0"/>
+                                                <prop k="fill" v="#ffffff"/>
+                                                <prop k="name" v="/components/component_indoor.svg"/>
+                                                <prop k="offset" v="0,0"/>
+                                                <prop k="offset_unit" v="MM"/>
+                                                <prop k="outline" v="#000000"/>
+                                                <prop k="outline-width" v="1"/>
+                                                <prop k="outline_width_unit" v="MM"/>
+                                                <prop k="size" v="3"/>
+                                                <prop k="size_unit" v="MM"/>
+                                            </layer>
+                                        </symbol>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Tall-herb mountain birch forest, low herb st. with scattered tall herbs (C2c), 5-59% tree cover">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="27,89,25,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                    <layer pass="0" class="PointPatternFill" locked="0">
+                                        <prop k="displacement_x" v="1"/>
+                                        <prop k="displacement_x_unit" v="MM"/>
+                                        <prop k="displacement_y" v="0.5"/>
+                                        <prop k="displacement_y_unit" v="MM"/>
+                                        <prop k="distance_x" v="3"/>
+                                        <prop k="distance_x_unit" v="MM"/>
+                                        <prop k="distance_y" v="3"/>
+                                        <prop k="distance_y_unit" v="MM"/>
+                                        <symbol alpha="1" type="marker" name="@classificationSymbol@1">
+                                            <layer pass="0" class="SimpleMarker" locked="0">
+                                                <prop k="angle" v="0"/>
+                                                <prop k="color" v="0,128,0,255"/>
+                                                <prop k="color_border" v="0,0,0,255"/>
+                                                <prop k="name" v="pentagon"/>
+                                                <prop k="offset" v="0,0"/>
+                                                <prop k="offset_unit" v="MM"/>
+                                                <prop k="outline_width" v="0"/>
+                                                <prop k="outline_width_unit" v="MM"/>
+                                                <prop k="scale_method" v="area"/>
+                                                <prop k="size" v="1"/>
+                                                <prop k="size_unit" v="MM"/>
+                                            </layer>
+                                        </symbol>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Tall-herb mountain birch forest, low herb st. with scattered tall herbs (C2c), 60-100% tree cover">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="27,89,25,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                    <layer pass="0" class="PointPatternFill" locked="0">
+                                        <prop k="displacement_x" v="1"/>
+                                        <prop k="displacement_x_unit" v="MM"/>
+                                        <prop k="displacement_y" v="0.5"/>
+                                        <prop k="displacement_y_unit" v="MM"/>
+                                        <prop k="distance_x" v="1.7"/>
+                                        <prop k="distance_x_unit" v="MM"/>
+                                        <prop k="distance_y" v="1.7"/>
+                                        <prop k="distance_y_unit" v="MM"/>
+                                        <symbol alpha="1" type="marker" name="@classificationSymbol@1">
+                                            <layer pass="0" class="SimpleMarker" locked="0">
+                                                <prop k="angle" v="0"/>
+                                                <prop k="color" v="0,128,0,255"/>
+                                                <prop k="color_border" v="0,0,0,255"/>
+                                                <prop k="name" v="pentagon"/>
+                                                <prop k="offset" v="0,0"/>
+                                                <prop k="offset_unit" v="MM"/>
+                                                <prop k="outline_width" v="0"/>
+                                                <prop k="outline_width_unit" v="MM"/>
+                                                <prop k="scale_method" v="area"/>
+                                                <prop k="size" v="1"/>
+                                                <prop k="size_unit" v="MM"/>
+                                            </layer>
+                                        </symbol>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                        <VectorClassificationItemNg userText="" text="Tree felling area/cleared powerline area">
+                            <symbols>
+                                <symbol alpha="1" type="fill" name="classificationSymbol">
+                                    <layer pass="0" class="SimpleFill" locked="0">
+                                        <prop k="border_width_unit" v="MM"/>
+                                        <prop k="color" v="217,135,2,255"/>
+                                        <prop k="color_border" v="0,0,0,255"/>
+                                        <prop k="offset" v="0,0"/>
+                                        <prop k="offset_unit" v="MM"/>
+                                        <prop k="style" v="solid"/>
+                                        <prop k="style_border" v="solid"/>
+                                        <prop k="width_border" v="0.26"/>
+                                    </layer>
+                                </symbol>
+                            </symbols>
+                        </VectorClassificationItemNg>
+                    </LayerItem>
+                </Model>
+                <ComposerItem width="139.7" x="210.3" transparency="0" y="3.6573" rotation="0" height="192" positionMode="0" frame="false" outlineWidth="0.3" zValue="3" lastValidViewScaleFactor="1.95726" uuid="{b9df3c8c-560d-4d1a-9451-fd57c49ae373}" id="" background="true" blendMode="0" positionLock="false">
+                    <FrameColor alpha="255" red="0" blue="0" green="0"/>
+                    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+                </ComposerItem>
+            </ComposerLegend>
+            <ComposerScaleBar penColor="#000000" style="Single Box" numMapUnitsPerScaleBarUnit="1" alignment="0" brushColor="#000000" numSegments="4" segmentMillimeters="13.1798" fontColor="#000000" font="DejaVu Sans,12,-1,0,50,0,0,0,0,0" numUnitsPerSegment="250" units="1" labelBarSpace="3" outlineWidth="1" numSegmentsLeft="2" height="3" mapId="0" boxContentSpace="1" unitLabel="m">
+                <ComposerItem width="84.7491" x="4.89611" transparency="0" y="183.757" rotation="0" height="11.9" positionMode="0" frame="false" outlineWidth="0.3" zValue="2" lastValidViewScaleFactor="2.35613" uuid="{ca6ed110-914c-479a-8deb-f44da88d3056}" id="" background="true" blendMode="0" positionLock="false">
+                    <FrameColor alpha="255" red="0" blue="0" green="0"/>
+                    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+                </ComposerItem>
+            </ComposerScaleBar>
+            <ComposerMap keepLayerSet="false" overviewFrameMap="-1" id="0" previewMode="Cache" drawCanvasItems="true">
+                <overviewFrame overviewBlendMode="0" overviewFrameMap="-1" overviewInverted="false">
+                    <symbol alpha="0.3" type="fill" name="">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="255,0,0,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="no"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </overviewFrame>
+                <Extent ymin="6.72982e+06" xmin="124478" ymax="6.73308e+06" xmax="128335"/>
+                <LayerSet/>
+                <Grid gridStyle="0" crossLength="3" intervalX="1000" offsetX="0" intervalY="1000" offsetY="0" gridFrameStyle="1" gridFrameWidth="1" gridBlendMode="0" show="1">
+                    <symbol alpha="1" type="line" name="">
+                        <layer pass="0" class="SimpleLine" locked="0">
+                            <prop k="capstyle" v="flat"/>
+                            <prop k="color" v="0,0,0,255"/>
+                            <prop k="customdash" v="5;2"/>
+                            <prop k="customdash_unit" v="MM"/>
+                            <prop k="joinstyle" v="bevel"/>
+                            <prop k="offset" v="0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="penstyle" v="solid"/>
+                            <prop k="use_custom_dash" v="0"/>
+                            <prop k="width" v="0.3"/>
+                            <prop k="width_unit" v="MM"/>
+                        </layer>
+                    </symbol>
+                    <Annotation rightDirection="1" bottomDirection="0" format="0" topPosition="1" precision="0" leftDirection="1" rightPosition="2" bottomPosition="2" frameDistance="1" show="1" font="DejaVu Sans,9,-1,0,50,0,0,0,0,0" leftPosition="1" topDirection="0">
+                        <fontColor red="0" blue="0" green="0"/>
+                    </Annotation>
+                </Grid>
+                <ComposerItem width="203.072" x="4.89611" transparency="0" y="6.0995" rotation="0" height="171.31" positionMode="0" frame="false" outlineWidth="0.3" zValue="1" lastValidViewScaleFactor="1.95726" uuid="{34636051-97a1-4b4c-9b02-752bb9573957}" id="" background="true" blendMode="0" positionLock="false">
+                    <FrameColor alpha="255" red="0" blue="0" green="0"/>
+                    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+                </ComposerItem>
+            </ComposerMap>
+        </Composition>
+    </Composer>
+    <projectlayers layercount="3">
         <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
             <id>33_N50raster_1516_220131017182724234</id>
             <datasource>./33_N50raster_1516-2.tif</datasource>
@@ -326,7 +1082,7 @@
             </pipe>
             <blendMode>0</blendMode>
         </maplayer>
-        <maplayer minimumScale="0" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
+        <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>geiloclassified_eng20131017182801367</id>
             <datasource>dbname='beitedata' host=localhost port=5432 user='postgres' password='postgres' sslmode=disable key='gid' table="geiloclassified_eng" (the_geom) sql=</datasource>
             <title></title>
@@ -334,7 +1090,7 @@
             <keywordList>
                 <value></value>
             </keywordList>
-            <layername>geiloclassified_eng</layername>
+            <layername>Vegetation classes</layername>
             <srs>
                 <spatialrefsys>
                     <proj4>+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs</proj4>
@@ -363,10 +1119,10 @@
                     <category symbol="8" value="Damp grassland with Salix spp. (G3/G4)" label="Damp grassland with Salix spp. (G3/G4)"/>
                     <category symbol="9" value="Dry Juniperus communis-Betula nana heath (S2a)" label="Dry Juniperus communis-Betula nana heath (S2a)"/>
                     <category symbol="10" value="Fenced in cultivated grassland" label="Fenced in cultivated grassland"/>
-                    <category symbol="11" value="Intermediate dry Juniperus communis-Betula nana heath (S2a)" label="Intermediate dry Juniperus communis-Betula nana heath (S2a)"/>
-                    <category symbol="12" value="Intermediate grassland (G4/G8), 20-59% bush cover" label="Intermediate grassland (G4/G8), 20-59% bush cover"/>
-                    <category symbol="13" value="Intermediate, nutrient rich &quot;natural&quot; meadow&quot; (G13)" label="Intermediate, nutrient rich &quot;natural&quot; meadow&quot; (G13)"/>
-                    <category symbol="14" value="Juniperus communis-Betula nana heath, rich st. (S2b), 60-100% bush cover" label="Juniperus communis-Betula nana heath, rich st. (S2b), 60-100% bush cover"/>
+                    <category symbol="11" value="Juniperus communis-Betula nana heath, rich st. (S2b), 60-100% bush cover" label="Grazed bilberry - blue heath heath (S3/G5), 60-100% bush cover"/>
+                    <category symbol="12" value="Intermediate dry Juniperus communis-Betula nana heath (S2a)" label="Intermediate dry Juniperus communis-Betula nana heath (S2a)"/>
+                    <category symbol="13" value="Intermediate grassland (G4/G8), 20-59% bush cover" label="Intermediate grassland (G4/G8), 20-59% bush cover"/>
+                    <category symbol="14" value="Intermediate, nutrient rich &quot;natural&quot; meadow&quot; (G13)" label="Intermediate, nutrient rich &quot;natural&quot; meadow&quot; (G13)"/>
                     <category symbol="15" value="Late snow patch vegetation (T1a/T4a)" label="Late snow patch vegetation (T1a/T4a)"/>
                     <category symbol="16" value="Milk barn area" label="Milk barn area"/>
                     <category symbol="17" value="Nardus stricta-Alchemilla alpina grassland (G5b)" label="Nardus stricta-Alchemilla alpina grassland (G5b)"/>
@@ -432,6 +1188,42 @@
                     <symbol alpha="1" type="fill" name="11">
                         <layer pass="0" class="SimpleFill" locked="0">
                             <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="191,165,146,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                        <layer pass="0" class="PointPatternFill" locked="0">
+                            <prop k="displacement_x" v="1"/>
+                            <prop k="displacement_x_unit" v="MM"/>
+                            <prop k="displacement_y" v="0.7"/>
+                            <prop k="displacement_y_unit" v="MM"/>
+                            <prop k="distance_x" v="2"/>
+                            <prop k="distance_x_unit" v="MM"/>
+                            <prop k="distance_y" v="2"/>
+                            <prop k="distance_y_unit" v="MM"/>
+                            <symbol alpha="1" type="marker" name="@11@1">
+                                <layer pass="0" class="SvgMarker" locked="0">
+                                    <prop k="angle" v="0"/>
+                                    <prop k="fill" v="#000000"/>
+                                    <prop k="name" v="/symbol/landuse_swamp.svg"/>
+                                    <prop k="offset" v="0,0"/>
+                                    <prop k="offset_unit" v="MM"/>
+                                    <prop k="outline" v="#000000"/>
+                                    <prop k="outline-width" v="1"/>
+                                    <prop k="outline_width_unit" v="MM"/>
+                                    <prop k="size" v="6"/>
+                                    <prop k="size_unit" v="MM"/>
+                                </layer>
+                            </symbol>
+                        </layer>
+                    </symbol>
+                    <symbol alpha="1" type="fill" name="12">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
                             <prop k="color" v="165,216,167,255"/>
                             <prop k="color_border" v="0,0,0,255"/>
                             <prop k="offset" v="0,0"/>
@@ -441,7 +1233,7 @@
                             <prop k="width_border" v="0.26"/>
                         </layer>
                     </symbol>
-                    <symbol alpha="1" type="fill" name="12">
+                    <symbol alpha="1" type="fill" name="13">
                         <layer pass="0" class="SimpleFill" locked="0">
                             <prop k="border_width_unit" v="MM"/>
                             <prop k="color" v="0,192,0,255"/>
@@ -461,7 +1253,7 @@
                             <prop k="distance_x_unit" v="MM"/>
                             <prop k="distance_y" v="5"/>
                             <prop k="distance_y_unit" v="MM"/>
-                            <symbol alpha="1" type="marker" name="@12@1">
+                            <symbol alpha="1" type="marker" name="@13@1">
                                 <layer pass="0" class="SvgMarker" locked="0">
                                     <prop k="angle" v="0"/>
                                     <prop k="fill" v="#ffffff"/>
@@ -477,7 +1269,7 @@
                             </symbol>
                         </layer>
                     </symbol>
-                    <symbol alpha="1" type="fill" name="13">
+                    <symbol alpha="1" type="fill" name="14">
                         <layer pass="0" class="SimpleFill" locked="0">
                             <prop k="border_width_unit" v="MM"/>
                             <prop k="color" v="192,192,0,255"/>
@@ -487,42 +1279,6 @@
                             <prop k="style" v="solid"/>
                             <prop k="style_border" v="solid"/>
                             <prop k="width_border" v="0.26"/>
-                        </layer>
-                    </symbol>
-                    <symbol alpha="1" type="fill" name="14">
-                        <layer pass="0" class="SimpleFill" locked="0">
-                            <prop k="border_width_unit" v="MM"/>
-                            <prop k="color" v="191,165,146,255"/>
-                            <prop k="color_border" v="0,0,0,255"/>
-                            <prop k="offset" v="0,0"/>
-                            <prop k="offset_unit" v="MM"/>
-                            <prop k="style" v="solid"/>
-                            <prop k="style_border" v="solid"/>
-                            <prop k="width_border" v="0.26"/>
-                        </layer>
-                        <layer pass="0" class="PointPatternFill" locked="0">
-                            <prop k="displacement_x" v="1"/>
-                            <prop k="displacement_x_unit" v="MM"/>
-                            <prop k="displacement_y" v="0.7"/>
-                            <prop k="displacement_y_unit" v="MM"/>
-                            <prop k="distance_x" v="2"/>
-                            <prop k="distance_x_unit" v="MM"/>
-                            <prop k="distance_y" v="2"/>
-                            <prop k="distance_y_unit" v="MM"/>
-                            <symbol alpha="1" type="marker" name="@14@1">
-                                <layer pass="0" class="SvgMarker" locked="0">
-                                    <prop k="angle" v="0"/>
-                                    <prop k="fill" v="#000000"/>
-                                    <prop k="name" v="/symbol/landuse_swamp.svg"/>
-                                    <prop k="offset" v="0,0"/>
-                                    <prop k="offset_unit" v="MM"/>
-                                    <prop k="outline" v="#000000"/>
-                                    <prop k="outline-width" v="1"/>
-                                    <prop k="outline_width_unit" v="MM"/>
-                                    <prop k="size" v="6"/>
-                                    <prop k="size_unit" v="MM"/>
-                                </layer>
-                            </symbol>
                         </layer>
                     </symbol>
                     <symbol alpha="1" type="fill" name="15">
@@ -644,6 +1400,16 @@
                             <prop k="style_border" v="solid"/>
                             <prop k="width_border" v="0.26"/>
                         </layer>
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="0,0,255,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="horizontal"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
                     </symbol>
                     <symbol alpha="1" type="fill" name="22">
                         <layer pass="0" class="SimpleFill" locked="0">
@@ -672,7 +1438,7 @@
                     <symbol alpha="1" type="fill" name="24">
                         <layer pass="0" class="SimpleFill" locked="0">
                             <prop k="border_width_unit" v="MM"/>
-                            <prop k="color" v="220,220,220,255"/>
+                            <prop k="color" v="0,0,0,255"/>
                             <prop k="color_border" v="0,0,0,255"/>
                             <prop k="offset" v="0,0"/>
                             <prop k="offset_unit" v="MM"/>
@@ -1078,7 +1844,229 @@
             </customproperties>
             <blendMode>0</blendMode>
             <featureBlendMode>0</featureBlendMode>
-            <layerTransparency>27</layerTransparency>
+            <layerTransparency>0</layerTransparency>
+            <displayfield>gid</displayfield>
+            <label>0</label>
+            <labelattributes>
+                <label fieldname="" text="Label"/>
+                <family fieldname="" name="DejaVu Sans"/>
+                <size fieldname="" units="pt" value="12"/>
+                <bold fieldname="" on="0"/>
+                <italic fieldname="" on="0"/>
+                <underline fieldname="" on="0"/>
+                <strikeout fieldname="" on="0"/>
+                <color fieldname="" red="0" blue="0" green="0"/>
+                <x fieldname=""/>
+                <y fieldname=""/>
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+                <angle fieldname="" value="0" auto="0"/>
+                <alignment fieldname="" value="center"/>
+                <buffercolor fieldname="" red="255" blue="255" green="255"/>
+                <buffersize fieldname="" units="pt" value="1"/>
+                <bufferenabled fieldname="" on=""/>
+                <multilineenabled fieldname="" on=""/>
+                <selectedonly on=""/>
+            </labelattributes>
+            <edittypes>
+                <edittype labelontop="0" editable="1" type="0" name="busksjikt"/>
+                <edittype labelontop="0" editable="1" type="0" name="busksjikt1"/>
+                <edittype labelontop="0" editable="1" type="0" name="busksjikt_"/>
+                <edittype labelontop="0" editable="1" type="0" name="category"/>
+                <edittype labelontop="0" editable="1" type="0" name="categorycode"/>
+                <edittype labelontop="0" editable="1" type="0" name="dekning__1"/>
+                <edittype labelontop="0" editable="1" type="0" name="dekning__2"/>
+                <edittype labelontop="0" editable="1" type="0" name="dekning__3"/>
+                <edittype labelontop="0" editable="1" type="0" name="dekning_bu"/>
+                <edittype labelontop="0" editable="1" type="0" name="dekning_tr"/>
+                <edittype labelontop="0" editable="1" type="0" name="engelsk"/>
+                <edittype labelontop="0" editable="1" type="0" name="felt_og__1"/>
+                <edittype labelontop="0" editable="1" type="0" name="felt_og__2"/>
+                <edittype labelontop="0" editable="1" type="0" name="felt_og_bu"/>
+                <edittype labelontop="0" editable="1" type="0" name="fuktighe_1"/>
+                <edittype labelontop="0" editable="1" type="0" name="fuktighe_2"/>
+                <edittype labelontop="0" editable="1" type="0" name="fuktighets"/>
+                <edittype labelontop="0" editable="1" type="0" name="gid"/>
+                <edittype labelontop="0" editable="1" type="0" name="marktype"/>
+                <edittype labelontop="0" editable="1" type="0" name="marktype_1"/>
+                <edittype labelontop="0" editable="1" type="0" name="marktype_d"/>
+                <edittype labelontop="0" editable="1" type="0" name="objectid"/>
+                <edittype labelontop="0" editable="1" type="0" name="shape_area"/>
+                <edittype labelontop="0" editable="1" type="0" name="shape_leng"/>
+                <edittype labelontop="0" editable="1" type="0" name="skogvege_1"/>
+                <edittype labelontop="0" editable="1" type="0" name="skogvege_2"/>
+                <edittype labelontop="0" editable="1" type="0" name="skogvegeta"/>
+            </edittypes>
+            <editform>.</editform>
+            <editforminit></editforminit>
+            <annotationform>.</annotationform>
+            <editorlayout>generatedlayout</editorlayout>
+            <excludeAttributesWMS/>
+            <excludeAttributesWFS/>
+            <attributeactions/>
+        </maplayer>
+        <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
+            <id>geiloclassified_eng_copy20131102132631748</id>
+            <datasource>dbname='beitedata' host=localhost port=5432 user='postgres' password='postgres' sslmode=disable key='gid' table="geiloclassified_eng" (the_geom) sql=</datasource>
+            <title></title>
+            <abstract></abstract>
+            <keywordList>
+                <value></value>
+            </keywordList>
+            <layername>geiloclassified_eng copy</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs</proj4>
+                    <srsid>3116</srsid>
+                    <srid>32632</srid>
+                    <authid>EPSG:32632</authid>
+                    <description>WGS 84 / UTM zone 32N</description>
+                    <projectionacronym>utm</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <provider encoding="System">postgres</provider>
+            <previewExpression></previewExpression>
+            <vectorjoins/>
+            <renderer-v2 symbollevels="0" type="singleSymbol">
+                <symbols>
+                    <symbol alpha="1" type="fill" name="0">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="border_width_unit" v="MM"/>
+                            <prop k="color" v="64,22,178,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="offset_unit" v="MM"/>
+                            <prop k="style" v="no"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </symbols>
+                <rotation field=""/>
+                <sizescale field="" scalemethod="area"/>
+            </renderer-v2>
+            <customproperties>
+                <property key="labeling" value="pal"/>
+                <property key="labeling/addDirectionSymbol" value="false"/>
+                <property key="labeling/angleOffset" value="0"/>
+                <property key="labeling/blendMode" value="0"/>
+                <property key="labeling/bufferBlendMode" value="0"/>
+                <property key="labeling/bufferColorA" value="255"/>
+                <property key="labeling/bufferColorB" value="255"/>
+                <property key="labeling/bufferColorG" value="255"/>
+                <property key="labeling/bufferColorR" value="255"/>
+                <property key="labeling/bufferDraw" value="false"/>
+                <property key="labeling/bufferJoinStyle" value="64"/>
+                <property key="labeling/bufferNoFill" value="false"/>
+                <property key="labeling/bufferSize" value="1"/>
+                <property key="labeling/bufferSizeInMapUnits" value="false"/>
+                <property key="labeling/bufferTransp" value="0"/>
+                <property key="labeling/centroidWhole" value="false"/>
+                <property key="labeling/decimals" value="3"/>
+                <property key="labeling/displayAll" value="false"/>
+                <property key="labeling/dist" value="0"/>
+                <property key="labeling/distInMapUnits" value="false"/>
+                <property key="labeling/enabled" value="false"/>
+                <property key="labeling/fieldName" value=""/>
+                <property key="labeling/fontBold" value="true"/>
+                <property key="labeling/fontCapitals" value="0"/>
+                <property key="labeling/fontFamily" value="DejaVu Sans"/>
+                <property key="labeling/fontItalic" value="false"/>
+                <property key="labeling/fontLetterSpacing" value="0"/>
+                <property key="labeling/fontLimitPixelSize" value="false"/>
+                <property key="labeling/fontMaxPixelSize" value="10000"/>
+                <property key="labeling/fontMinPixelSize" value="3"/>
+                <property key="labeling/fontSize" value="9"/>
+                <property key="labeling/fontSizeInMapUnits" value="false"/>
+                <property key="labeling/fontStrikeout" value="false"/>
+                <property key="labeling/fontUnderline" value="false"/>
+                <property key="labeling/fontWeight" value="75"/>
+                <property key="labeling/fontWordSpacing" value="0"/>
+                <property key="labeling/formatNumbers" value="false"/>
+                <property key="labeling/isExpression" value="false"/>
+                <property key="labeling/labelOffsetInMapUnits" value="true"/>
+                <property key="labeling/labelPerPart" value="false"/>
+                <property key="labeling/leftDirectionSymbol" value="&lt;"/>
+                <property key="labeling/limitNumLabels" value="false"/>
+                <property key="labeling/maxCurvedCharAngleIn" value="20"/>
+                <property key="labeling/maxCurvedCharAngleOut" value="-20"/>
+                <property key="labeling/maxNumLabels" value="2000"/>
+                <property key="labeling/mergeLines" value="false"/>
+                <property key="labeling/minFeatureSize" value="0"/>
+                <property key="labeling/multilineAlign" value="0"/>
+                <property key="labeling/multilineHeight" value="1"/>
+                <property key="labeling/namedStyle" value="Bold"/>
+                <property key="labeling/obstacle" value="true"/>
+                <property key="labeling/placeDirectionSymbol" value="0"/>
+                <property key="labeling/placement" value="0"/>
+                <property key="labeling/placementFlags" value="0"/>
+                <property key="labeling/plussign" value="false"/>
+                <property key="labeling/preserveRotation" value="true"/>
+                <property key="labeling/previewBkgrdColor" value="#ffffff"/>
+                <property key="labeling/priority" value="5"/>
+                <property key="labeling/quadOffset" value="4"/>
+                <property key="labeling/reverseDirectionSymbol" value="false"/>
+                <property key="labeling/rightDirectionSymbol" value=">"/>
+                <property key="labeling/scaleMax" value="10000000"/>
+                <property key="labeling/scaleMin" value="1"/>
+                <property key="labeling/scaleVisibility" value="false"/>
+                <property key="labeling/shadowBlendMode" value="6"/>
+                <property key="labeling/shadowColorB" value="0"/>
+                <property key="labeling/shadowColorG" value="0"/>
+                <property key="labeling/shadowColorR" value="0"/>
+                <property key="labeling/shadowDraw" value="false"/>
+                <property key="labeling/shadowOffsetAngle" value="135"/>
+                <property key="labeling/shadowOffsetDist" value="1"/>
+                <property key="labeling/shadowOffsetGlobal" value="true"/>
+                <property key="labeling/shadowOffsetUnits" value="1"/>
+                <property key="labeling/shadowRadius" value="1.5"/>
+                <property key="labeling/shadowRadiusAlphaOnly" value="false"/>
+                <property key="labeling/shadowRadiusUnits" value="1"/>
+                <property key="labeling/shadowScale" value="100"/>
+                <property key="labeling/shadowTransparency" value="30"/>
+                <property key="labeling/shadowUnder" value="0"/>
+                <property key="labeling/shapeBlendMode" value="0"/>
+                <property key="labeling/shapeBorderColorA" value="255"/>
+                <property key="labeling/shapeBorderColorB" value="128"/>
+                <property key="labeling/shapeBorderColorG" value="128"/>
+                <property key="labeling/shapeBorderColorR" value="128"/>
+                <property key="labeling/shapeBorderWidth" value="0"/>
+                <property key="labeling/shapeBorderWidthUnits" value="1"/>
+                <property key="labeling/shapeDraw" value="false"/>
+                <property key="labeling/shapeFillColorA" value="255"/>
+                <property key="labeling/shapeFillColorB" value="255"/>
+                <property key="labeling/shapeFillColorG" value="255"/>
+                <property key="labeling/shapeFillColorR" value="255"/>
+                <property key="labeling/shapeJoinStyle" value="64"/>
+                <property key="labeling/shapeOffsetUnits" value="1"/>
+                <property key="labeling/shapeOffsetX" value="0"/>
+                <property key="labeling/shapeOffsetY" value="0"/>
+                <property key="labeling/shapeRadiiUnits" value="1"/>
+                <property key="labeling/shapeRadiiX" value="0"/>
+                <property key="labeling/shapeRadiiY" value="0"/>
+                <property key="labeling/shapeRotation" value="0"/>
+                <property key="labeling/shapeRotationType" value="0"/>
+                <property key="labeling/shapeSVGFile" value=""/>
+                <property key="labeling/shapeSizeType" value="0"/>
+                <property key="labeling/shapeSizeUnits" value="1"/>
+                <property key="labeling/shapeSizeX" value="0"/>
+                <property key="labeling/shapeSizeY" value="0"/>
+                <property key="labeling/shapeTransparency" value="0"/>
+                <property key="labeling/shapeType" value="0"/>
+                <property key="labeling/textColorA" value="255"/>
+                <property key="labeling/textColorB" value="0"/>
+                <property key="labeling/textColorG" value="0"/>
+                <property key="labeling/textColorR" value="0"/>
+                <property key="labeling/textTransp" value="0"/>
+                <property key="labeling/upsidedownLabels" value="0"/>
+                <property key="labeling/wrapChar" value=""/>
+                <property key="labeling/xOffset" value="0"/>
+                <property key="labeling/yOffset" value="0"/>
+            </customproperties>
+            <blendMode>0</blendMode>
+            <featureBlendMode>0</featureBlendMode>
+            <layerTransparency>0</layerTransparency>
             <displayfield>gid</displayfield>
             <label>0</label>
             <labelattributes>
