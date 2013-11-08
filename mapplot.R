@@ -183,8 +183,10 @@ plotalltracks=function(lok){
 
 
 fetchrast=function(lok){
-  if(lok=='Valdres') return(readGDAL('valdres_googlemaps.png'))
-  else return(readGDAL('geilo_osm.png'))
+  if (lok=='Valdres') return(readGDAL('Valdres_N50UTM32.png'))
+  else return(readGDAL('Geilo_N50UTM32.png'))
+  # if(lok=='Valdres') return(readGDAL('valdres_googlemaps.png'))
+  # else return(readGDAL('geilo_osm.png'))
 }
 
 

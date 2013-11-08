@@ -3,6 +3,10 @@
 #lok=Sys.getenv('RHISTLOK')
 if(lok=='') lok='Valdres' 
 lokname=ifelse(lok=='Geilo','Hallingdal',lok)
+if(lok=='Geilo'){
+  letters=c('b','d','f')
+}else{
+  letters=c('a','c','e')}
 sql=paste("select * from defaultmodelrun where lokalitet='",lok,"'",sep='')
 rs=dbSendQuery(con,statement=sql)
 modelparams=fetch(rs,n=-1)
@@ -19,12 +23,13 @@ cat(lok,"\n")
 cat(inttime,"\n")
 cat("============\n")
 par=par()
-size=1.4
+size=1	
 nbreak=30
-par(cex.lab=size)
-par(cex.axis=size)
-par(cex.main=size)
-par(cex.sub=size)
+cex.lab=size
+cex.axis=size
+cex.main=size
+cex.sub=size
+
 par(mai=c(1.02,2.0,0.82,0.42))
 if(!(exists('obsdist'))) obsdist=observationdistances(inttime)
 lokobs=obsdist[obsdist$lokalitet==lok,]
@@ -63,14 +68,15 @@ for (b in c('walking','grazing','resting')){
 
 w=500
 h=350
-
+size=1.5
+l=1
 for(var in c('displacement','movement','ratio')){
   unit='m/s'
   
   if(var=='ratio'){
 	unit=''
 	div=30
-}
+  }
   file=paste(lokname,inttime,var,'.png',sep='_')
   png(file,width=w,height=h)
   
@@ -79,7 +85,7 @@ for(var in c('displacement','movement','ratio')){
   wlk=c(get(paste('hist',var,inttime,'walking',sep='_'))$counts,0)
   brks=get(paste('hist',var,inttime,'walking',sep='_'))$breaks
   ymax=max(c(grz,rst))
-  plot(brks,grz,type='s',ylab='n',xlab=unit,main=paste(lokname,var),ylim=c(0,ymax))
+  plot(brks,grz,type='s',ylab='n',xlab=unit,main=paste(lokname,var),ylim=c(0,ymax), cex.lab=size, cex.axis=size, cex.main=size, cex.sub=size)
   lines(c(0,0),c(0,grz[1]))
   lines(brks,rst,type="s",col=2)
   lines(c(0,0),c(0,rst[1]),col=2)
@@ -96,9 +102,10 @@ for(var in c('displacement','movement','ratio')){
     }   
 
   yleg=max(c(grz,rst))
-  xleg=max(brks)*0.8
-  legend(x=xleg,y=yleg,legend=c('grazing','resting','walking'),lty=1,col=c(1,2,3))
-
+  xleg=max(brks)*1.12/size
+  legend(x=xleg,y=yleg,legend=c('grazing','resting','walking'),lty=1,col=c(1,2,3),cex=size*0.8,bty='n')
+  mtext(paste(letters[l],")",sep=''),line=2,at=c(-0.15*max(brks)),cex=1.5)
+  l=l+1
   dev.off()
 }
 
