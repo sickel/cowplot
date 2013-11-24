@@ -4,10 +4,10 @@
     <mapcanvas>
         <units>meters</units>
         <extent>
-            <xmin>124141.78353065781993791</xmin>
-            <ymin>6729953.64450765307992697</ymin>
-            <xmax>128644.06943770532961935</xmax>
-            <ymax>6733065.364254598505795</ymax>
+            <xmin>124141.78353065774717834</xmin>
+            <ymin>6729235.10047859884798527</ymin>
+            <xmax>128644.06943770540237892</xmax>
+            <ymax>6733783.9082836527377367</ymax>
         </extent>
         <projections>1</projections>
         <destinationsrs>
@@ -23,10 +23,10 @@
             </spatialrefsys>
         </destinationsrs>
     </mapcanvas>
-    <legend updateDrawingOrder="true" activeLayer="July_2009_copy20131106210555912">
-        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="July 2007" showFeatureCount="0">
+    <legend updateDrawingOrder="true" activeLayer="geiloclassified_eng_copy20131102132631748">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="July 2007" showFeatureCount="0">
             <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="geilo_modelpoints20131105210448430" visible="1"/>
+                <legendlayerfile isInOverview="0" layerid="geilo_modelpoints20131105210448430" visible="0"/>
             </filegroup>
         </legendlayer>
         <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Aug 2007 " showFeatureCount="0">
@@ -39,9 +39,9 @@
                 <legendlayerfile isInOverview="0" layerid="Aug_2007__copy20131106205221208" visible="0"/>
             </filegroup>
         </legendlayer>
-        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="July 2008" showFeatureCount="0">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="July 2008" showFeatureCount="0">
             <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="Aug_2007__copy20131106204451361" visible="1"/>
+                <legendlayerfile isInOverview="0" layerid="Aug_2007__copy20131106204451361" visible="0"/>
             </filegroup>
         </legendlayer>
         <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="July 2009" showFeatureCount="0">
@@ -1246,31 +1246,31 @@
     <Composer title="Dayplot" visible="0">
         <Composition printResolution="300" paperWidth="297" snapGridOffsetX="0" snapGridResolution="10" snapGridOffsetY="0" alignmentSnap="1" snapping="0" numPages="1" paperHeight="210" alignmentSnapTolerance="2" printAsRaster="0">
             <ComposerShape shapeType="0">
-                <ComposerItem width="4" x="26.6769" transparency="0" y="179.245" rotation="0" height="4" positionMode="0" frame="false" outlineWidth="0.3" zValue="3" lastValidViewScaleFactor="2.24832" uuid="{b4b81f47-4fe1-4da7-8c84-79a74aa5602d}" id="" background="true" blendMode="0" positionLock="false">
+                <ComposerItem width="4" x="26.6769" transparency="0" y="179.245" rotation="0" height="4" positionMode="0" frame="false" outlineWidth="0.3" zValue="3" lastValidViewScaleFactor="2.30537" uuid="{b4b81f47-4fe1-4da7-8c84-79a74aa5602d}" id="" background="true" blendMode="0" positionLock="false">
                     <FrameColor alpha="255" red="0" blue="0" green="0"/>
                     <BackgroundColor alpha="255" red="87" blue="104" green="148"/>
                 </ComposerItem>
             </ComposerShape>
             <ComposerShape shapeType="0">
-                <ComposerItem width="4" x="26.6769" transparency="0" y="172.098" rotation="0" height="4" positionMode="0" frame="false" outlineWidth="0.3" zValue="3" lastValidViewScaleFactor="2.24832" uuid="{e71ae161-5c4d-482a-9af0-006da914320e}" id="" background="true" blendMode="0" positionLock="false">
+                <ComposerItem width="4" x="26.6769" transparency="0" y="172.098" rotation="0" height="4" positionMode="0" frame="false" outlineWidth="0.3" zValue="3" lastValidViewScaleFactor="2.30537" uuid="{e71ae161-5c4d-482a-9af0-006da914320e}" id="" background="true" blendMode="0" positionLock="false">
                     <FrameColor alpha="255" red="0" blue="0" green="0"/>
                     <BackgroundColor alpha="255" red="0" blue="204" green="196"/>
                 </ComposerItem>
             </ComposerShape>
             <ComposerShape shapeType="0">
-                <ComposerItem width="4" x="26.6769" transparency="0" y="163.857" rotation="0" height="4" positionMode="0" frame="false" outlineWidth="0.3" zValue="3" lastValidViewScaleFactor="9.22148" uuid="{37f39771-975a-4d50-8bc3-b590f57b1afe}" id="" background="true" blendMode="0" positionLock="false">
+                <ComposerItem width="4" x="26.6769" transparency="0" y="163.857" rotation="0" height="4" positionMode="0" frame="false" outlineWidth="0.3" zValue="3" lastValidViewScaleFactor="2.30537" uuid="{37f39771-975a-4d50-8bc3-b590f57b1afe}" id="" background="true" blendMode="0" positionLock="false">
                     <FrameColor alpha="255" red="0" blue="0" green="0"/>
                     <BackgroundColor alpha="255" red="255" blue="0" green="128"/>
                 </ComposerItem>
             </ComposerShape>
             <ComposerShape shapeType="0">
-                <ComposerItem width="4" x="26.6769" transparency="0" y="150.193" rotation="0" height="4" positionMode="0" frame="false" outlineWidth="0.3" zValue="3" lastValidViewScaleFactor="9.22148" uuid="{8a5dd954-f993-4798-b49b-a257d7e3487e}" id="" background="true" blendMode="0" positionLock="false">
+                <ComposerItem width="4" x="26.6769" transparency="0" y="150.193" rotation="0" height="4" positionMode="0" frame="false" outlineWidth="0.3" zValue="3" lastValidViewScaleFactor="2.30537" uuid="{8a5dd954-f993-4798-b49b-a257d7e3487e}" id="" background="true" blendMode="0" positionLock="false">
                     <FrameColor alpha="255" red="0" blue="0" green="0"/>
                     <BackgroundColor alpha="255" red="192" blue="192" green="0"/>
                 </ComposerItem>
             </ComposerShape>
             <ComposerShape shapeType="0">
-                <ComposerItem width="4" x="26.6769" transparency="0" y="157.5" rotation="0" height="4" positionMode="0" frame="false" outlineWidth="0.3" zValue="3" lastValidViewScaleFactor="9.22148" uuid="{72024152-1dbc-4566-a06b-413ec990e0e6}" id="" background="true" blendMode="0" positionLock="false">
+                <ComposerItem width="4" x="26.6769" transparency="0" y="157.5" rotation="0" height="4" positionMode="0" frame="false" outlineWidth="0.3" zValue="3" lastValidViewScaleFactor="2.30537" uuid="{72024152-1dbc-4566-a06b-413ec990e0e6}" id="" background="true" blendMode="0" positionLock="false">
                     <FrameColor alpha="255" red="0" blue="0" green="0"/>
                     <BackgroundColor alpha="255" red="191" blue="0" green="245"/>
                 </ComposerItem>
@@ -1351,7 +1351,7 @@
                         </VectorClassificationItemNg>
                     </LayerItem>
                 </Model>
-                <ComposerItem width="44.6" x="24.2911" transparency="0" y="134.469" rotation="0" height="44.3" positionMode="0" frame="true" outlineWidth="0" zValue="2" lastValidViewScaleFactor="2.24832" uuid="{9de548d6-076c-424b-af1c-bc36422ee3e8}" id="" background="true" blendMode="0" positionLock="false">
+                <ComposerItem width="44.6" x="24.2911" transparency="0" y="134.469" rotation="0" height="44.3" positionMode="0" frame="true" outlineWidth="0" zValue="2" lastValidViewScaleFactor="2.30537" uuid="{9de548d6-076c-424b-af1c-bc36422ee3e8}" id="" background="true" blendMode="0" positionLock="false">
                     <FrameColor alpha="255" red="0" blue="0" green="0"/>
                     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
                 </ComposerItem>
@@ -3391,9 +3391,9 @@
                 <edittype labelontop="0" editable="1" type="0" name="point_y"/>
                 <edittype labelontop="0" editable="1" type="0" name="result"/>
             </edittypes>
-            <editform></editform>
+            <editform>.</editform>
             <editforminit></editforminit>
-            <annotationform></annotationform>
+            <annotationform>.</annotationform>
             <editorlayout>generatedlayout</editorlayout>
             <excludeAttributesWMS/>
             <excludeAttributesWFS/>
