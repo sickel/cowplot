@@ -1,14 +1,12 @@
 #!/usr/bin/python
-file='Utvalg beitelokaliteter_Hallingdal_lat.xlsx'
-sheetname='Hallingdalv1b'
-colbase=3
-firstrow=3
-output='Ranktable_Hallingdal.html'
-file='Utvalg_beiteflekker_Buodden_lat.xlsx'
+import sys
+file=sys.argv[1]
+output=file.replace('.xlsx','.html')
 sheetname='Ark1'
-colbase=2
-firstrow=4
-output='Ranktable_Buodden.html'
+colbase=1
+firstrow=3
+#if file=='Halingdal\ beitelok.xlsx' or file=='Valdres beitelok.xlsx':
+#  firstrow=3
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
 from xlrd import open_workbook
@@ -19,31 +17,44 @@ nrows=sheet.nrows-1
 colIndex=-1
 ppranks={}
 vegtypes=[]
+sortspec=[]
 for cell in sheet.row(0): # 
    colIndex=colIndex+1
-   if cell.value != "" and colIndex<(ncols-3):
-      #print colIndex
+   if cell.value != ""and cell.value!="%" and colIndex<(ncols):
+      print colIndex
+      templist={}
       print cell.value
       vegtype=cell.value
       vegtypes.append(vegtype)
-      ncol=colIndex+colbase
-      pcol=colIndex+colbase+1
+      ncol=0
+      pcol=colIndex+colbase
       #print sheet.cell_value(3,ncol)
       print "=========="
-      rank=0
       oldprec=0
       for r in range(firstrow,nrows):
 	 prec=sheet.cell_value(r,pcol)
 	 if prec>0:
 	    spec=sheet.cell_value(r,ncol)
 	    ppranks[vegtype,spec,'prec']=prec
-	    if oldprec!=prec:
-	      rank=rank+1
-	    ppranks[vegtype,spec,'rank']=rank
-	    oldprec=prec
+	    templist[spec]=prec
+      tempsortspec=sorted(templist, key=templist.get, reverse=True)
+      rank=0
+      oldprec=0
+      for spec in tempsortspec:
+	prec=ppranks[vegtype,spec,'prec']
+	if oldprec!=prec:
+	  rank=rank+1
+	ppranks[vegtype,spec,'rank']=rank
+	oldprec=prec
+      #pp.pprint(ppranks)
+      for spec in tempsortspec:
+	 if (not(spec in sortspec)):
+	   sortspec.append(spec)
+#     exit()
+# print sortspec
+#exit()
 book.unload_sheet(sheetname) 
 # Finished reading in data.
-
 
 minrank={}
 ranksum={}
@@ -52,35 +63,33 @@ for key,item in ppranks.iteritems():
   if key[2]=='rank':
     if key[1] in minrank:
       minrank[key[1]]=min(minrank[key[1]],item)
-      ranksum[key[1]]+=item
-      ranknum[key[1]]+=1
     else:
       minrank[key[1]]=item
-      ranksum[key[1]]=item
-      ranknum[key[1]]=1
-
+    
 rankavg={}
 highranks={}
 highrankspec={}
 # Wants only to keep those that are rank >= 10 in at least one location
 for key,item in ppranks.iteritems():
-  if minrank[key[1]]<=10:
-    highranks[key]=item
+#  print(key)
+#  print key[1]
+  if minrank[key[1]]>10:
+    #highranks[key]=item
+    if key[1] in sortspec:
+      sortspec.remove(key[1])
     #avgrank[key[1]]=ranksum[key[1]]/ranknum[key[1]]
     
-for key,item in ranksum.iteritems():
-  if minrank[key]<=10:
-    highrankspec[key]=item/ranknum[key] # Calculates the avrage rank for each species
 
 #pp.pprint(highranks)
 #pp.pprint(highrankspec)
-sortspec=sorted(highrankspec, key=highrankspec.get)
+#sortspec=sorted(highrankspec, key=highrankspec.get)
+#sortspec=highrankspec
 #print(sortspec)
 #print(highrankspec)
 f=open(output,'w')
 
-
-f.write("<table><thead><tr><th></th>")
+f.write('<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /></head><body>')
+f.write("<table border=\"1\"><thead><tr><th></th>")
 for v in vegtypes:
   f.write(u"<th>"+v+u"</th>")
 f.write("</tr></thead><tbody>")
@@ -96,6 +105,6 @@ for s in sortspec:
       f.write(u"<td> </td>")
   f.write(u"</tr>")
 f.write(u"</tbody></table>")
-
+f.write('</body></html>')
 
 
