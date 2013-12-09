@@ -66,7 +66,6 @@ pch=c(pchv,pchv,pchv,pchg,pchg,pchg))
 plot(cdf_valdres$ps,cdf_valdres$grazing,ylim=c(0,100),ylab='Percentage of grazing points',xlab='Minimum probability of correct classification',col=colg,pch=pchv, cex.lab=size, cex.axis=size, cex.main=size, cex.sub=size)
 points(cdf_valdres$ps,cdf_valdres$resting,pch=pchv,col=colr)
 points(cdf_valdres$ps,cdf_valdres$walking,pch=pchv,col=colw)
-|
 
 pchv=1
 pchg=2
@@ -91,3 +90,34 @@ pch=c(pchv,pchv,pchv,pchg,pchg,pchg))
 cdf_valdres=cumuldata('valdres','grazing')
 cdf_valdres$grazing=cdf_valdres$perc
 }
+
+
+
+
+plotexample=function(x){
+  plot(x,axes=FALSE,xlab='',ylab='')
+  lines(c(1,11),c(x[1],x[11]),col='blue',lty='dotdash')
+  lines(x)
+  text(c(1:11)+0.2,x,c(1:11))
+  legend(7.5,2,c('movement','distance'),lty=c('solid','dotdash'),col=c('black','blue'))
+}
+
+arealist=function(lok){
+  sql=paste("select shape_area from ",lok,"classified where shape_area>1", sep="")
+  rs=dbSendQuery(con,statement=sql)
+  ret=fetch(rs,n=-1)
+  return(ret$shape_area)
+}
+
+
+plotareapercentille =function(v,g){
+  plot(quantile(v,ps),log="y",type='l',ylim=c(10,1000010),ylab="Area m2",xlab="Percentille",axes=FALSE)
+  lines(quantile(geiloarea,ps),col="red",lty="dotdash")
+  legend(700,100,c("Valdres","Hallingdal"),lty=c('solid','dotdash'),col=c('black','red'))
+  axis(1,at=c(0:10)*100,labels=c(0:10)*10)
+  axis(2,at=c(10,100,1000,10000,100000,1000000),labels=c(10,100,1000,10000,100000,1000000))
+}
+
+
+
+
