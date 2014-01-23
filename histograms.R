@@ -78,7 +78,7 @@ for(var in c('displacement','movement','ratio')){
 	div=30
   }
   file=paste(lokname,inttime,var,'.png',sep='_')
-  png(file,width=w,height=h)
+  # png(file,width=w,height=h)
   
   grz=c(get(paste('hist',var,inttime,'grazing',sep='_'))$counts,0)
   rst=c(get(paste('hist',var,inttime,'resting',sep='_'))$counts,0)
@@ -106,7 +106,7 @@ for(var in c('displacement','movement','ratio')){
   legend(x=xleg,y=yleg,legend=c('grazing','resting','walking'),lty=1,col=c(1,2,3),cex=size*0.8,bty='n')
   mtext(paste(letters[l],")",sep=''),line=2,at=c(-0.15*max(brks)),cex=1.5)
   l=l+1
-  dev.off()
+  # dev.off()
 }
 
 par(par)
