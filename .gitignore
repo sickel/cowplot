@@ -17,3 +17,9 @@ nohup.out
 *.csv
 *.dat33_N50*
 kartverket/33*
+userpassword.R
+*.xlsx
+kartverket/*
+.*
+analyse/*
+analyse

@@ -4,11 +4,34 @@
 # data=adjustobservations(data,5) - trenges ikke mer, justerer i calcdist
 
 
+# obs=dbReadTable(con,'observationparameter_valid')
+# obs$time=as.numeric(as.POSIXct(strptime(obs$time,"%H:%M:%S"))-as.numeric(as.POSIXct(Sys.Date()))
+# fit=rpart(obstype~distance+movement+ratio+angle+time,data=obs,method="class",control=rpart.control(cp=0,maxdepth=4,minsplit=5))
+# fancyRpartPlot(fit)
+# rffit=randomForest(as.factor(obstype)~ratio+angle+distance+movement+time,data=obs,importance=TRUE,ntree=1500)
+# importance(rffit)
+# varImpPlot(rffit)
+
+
+
+getobs=function(){
+  obs=dbReadTable(con,'observationparameter_valid')
+  obs$time=as.numeric(as.POSIXct(strptime(obs$time,"%H:%M:%S"))-as.numeric(as.POSIXct(Sys.Date())))
+  return(obs)
+}
+
+
+setactivesteps=function(mins){
+  sql=paste("update activemodel set integrationsteps=",mins*12)
+  rs=dbSendQuery(con,statement=sql)
+  mins<<-mins
+}
 
 
 # Calculates the distance from the location <delta> logsteps ago
 # Input: data frame with raw metric data (e.g. utm coordinates) in x and y
 #
+
 
 distance=function(data,delta){
   dists=c()
@@ -37,6 +60,7 @@ alldists=function(nth=12){
 }
 
 
+
 #
 # Plots histogram of distances
 # data=
@@ -56,6 +80,23 @@ disthist=function(data=alldists(),location="All areas",year='all years'){
   hist(dist,breaks=20,main=main,xlab="Meters pr day",xlim=c(2000,10000))
   #dev.off()
 }
+
+# Stores the calculated parameters in the database
+#
+
+storeparameters = function(row,steps,lok){
+  sqlbase="insert into modelparam (gpspointid,distance,movement,ratio,angle,integrationsteps,location) values("
+  dcol=paste("dists",steps/12,"min",sep='')
+  tcol=paste("trav",steps/12,"min",sep='')
+  rcol=paste("ratio",steps/12,"min",sep='')
+  acol=paste("cos",steps/12,"min",sep='')
+  values=paste(row['id'],row[dcol],row[tcol],row[rcol],row[acol],steps,lok,sep=",") 
+  sql=paste(sqlbase,values,")",sep='')
+  sql=gsub("NA","null",sql)
+  rs=dbSendQuery(con,statement=sql)
+}
+
+
 
 #
 # calculate the distance travelled for one day at a (default) one minute
@@ -316,6 +357,25 @@ adjusttiming=function(dataset,delta){
   return(dataset)
 }
 
+
+cosangle=function(data,delta){
+  d=delta/2
+  x1=head(data$x,-delta)
+  x0=head(tail(data$x,-d),-d)
+  x2=tail(data$x,-delta)
+  y1=head(data$y,-delta)
+  y0=head(tail(data$y,-d),-d)
+  y2=tail(data$y,-delta)
+  l=sqrt((x1-x0)^2+(y1-y0)^2)*sqrt((x0-x2)^2+(y2-y0)^2)
+  dp=(x1-x0)*(x0-x2)+(y1-y0)*(y0-y2)
+  dp=dp/l
+  dp[is.nan(dp)]=0
+  dp=c(rep(NA,d),dp,rep(NA,d))
+  
+  return(dp)
+
+}
+
 #
 # Calculates travelled distance and movement over the last <delta> timesteps.
 # 
@@ -330,16 +390,22 @@ calcdist=function(data,delta,date='',cowid=''){
   dists=adjusttiming(dists,delta)
   trav=travel(data$dists5s,delta)
   trav=adjusttiming(trav,delta)
+  cang=cosangle(data,delta)
   # Returns values in meters per minute.
   dcol=paste("dists",delta/12,"min",sep='')
   tcol=paste("trav",delta/12,"min",sep='')
+  acol=paste("cos",delta/12,"min",sep='')
   data[,dcol]=dists
   data[,tcol]=trav
+  data[,acol]=cang
+  ratio=dists/trav
   # ratio between travel distance and displacement 
   rcol=paste("ratio",delta/12,"min",sep='')
-  data[,rcol]=data[,dcol]/data[,tcol]
-  # NaN values are 0: (no movement at all)
-  data[is.nan(data[,rcol]),rcol]=0
+  if(is.nan(ratio)){
+    # NaN values are 0: (no movement at all)
+    ratio=0
+  }
+  data[,rcol]=ratio
   return(data)
 }
 
@@ -548,6 +614,7 @@ runandsaveall=function(lok,rtrav,wrat,wtrav,mins,rlength,wlength,rrat,mtyp=c('d'
     data=fetchdata(days$cowid[i],format(as.Date(days$date[i],origin="1970-01-01")))
     if(length(data$id)>0){
       data=calcdist(data,mins*12)
+      apply(data,1,storeparameters,mins*12,lok)
       data=model2(data,  rtrav,wrat,wtrav,mins,rlength,wlength,mtyp,rrat)
       storeresult(data,modelid)
     }
