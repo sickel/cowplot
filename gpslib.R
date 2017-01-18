@@ -298,8 +298,9 @@ precip=function(precip,date){
 #
 # Fetches a dataset for a given cow and date
 #
-fetchdata=function(cowid,date){
-  sql=paste('select id,datetime,date,trim(lokalitet) as lokalitet, cowid, x,y, case when extract(second from datetime)<5 and extract(minute from datetime) = 0 then extract(hour from datetime) end as marker from gps_coord where cowid=',cowid," and date='",date,"' order by datetime",sep='')
+fetchdata=function(animalid,date){
+  sql=paste('select id,datetime,date, animalid, x,y, case when extract(second from datetime)<5 and extract(minute from datetime) = 0 then extract(hour from datetime) end as marker 
+  from gps_coord where animalid=\'',animalid,"' and date='",date,"' order by datetime",sep='')
   rs=dbSendQuery(con,statement=sql)
   data=fetch(rs,n=-1)
   return(data)	

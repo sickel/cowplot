@@ -9,10 +9,10 @@ source('userpassword.R')
 connect2db=function(user,password)
 {
   drv=dbDriver("PostgreSQL")
-  con=dbConnect(drv,user,password,"tsjitiri","beitedata")
+  con=dbConnect(drv,user,password,"localhost","beiteadferd2016")
   return(con)
 }
-con=connect2db()
+con=connect2db(user,password)
 rm(user)
 rm(password)
 
